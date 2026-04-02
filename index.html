@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>候補者比較管理システム</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', 'Hiragino Sans', sans-serif; background: #f0f4f8; min-height: 100vh; }
+
+  /* ===== LOGIN ===== */
+  #login-screen {
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  }
+  .login-box {
+    background: #fff; border-radius: 16px; padding: 48px 40px;
+    width: 100%; max-width: 400px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  }
+  .login-box h1 {
+    text-align: center; font-size: 1.4rem; color: #1e3a8a;
+    margin-bottom: 8px;
+  }
+  .login-box p.subtitle {
+    text-align: center; color: #6b7280; font-size: 0.85rem; margin-bottom: 32px;
+  }
+  .form-group { margin-bottom: 20px; }
+  .form-group label { display: block; font-size: 0.85rem; color: #374151; margin-bottom: 6px; font-weight: 600; }
+  .form-group input {
+    width: 100%; padding: 10px 14px; border: 1.5px solid #d1d5db;
+    border-radius: 8px; font-size: 0.95rem; transition: border-color 0.2s;
+  }
+  .form-group input:focus { outline: none; border-color: #3b82f6; }
+  .login-btn {
+    width: 100%; padding: 12px; background: linear-gradient(90deg, #1e3a8a, #3b82f6);
+    color: #fff; border: none; border-radius: 8px; font-size: 1rem;
+    font-weight: 600; cursor: pointer; transition: opacity 0.2s;
+  }
+  .login-btn:hover { opacity: 0.9; }
+  .login-error {
+    background: #fee2e2; color: #dc2626; border-radius: 8px;
+    padding: 10px 14px; font-size: 0.85rem; margin-bottom: 16px; display: none;
+  }
+
+  /* ===== APP ===== */
+  #app { display: none; }
+
+  /* Header */
+  .header {
+    background: linear-gradient(90deg, #1e3a8a 0%, #2563eb 100%);
+    color: #fff; padding: 20px 24px;
+  }
+  .header-top { display: flex; justify-content: space-between; align-items: center; }
+  .header h1 { font-size: 1.3rem; font-weight: 700; }
+  .logout-btn {
+    background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.4);
+    color: #fff; padding: 6px 16px; border-radius: 20px; cursor: pointer;
+    font-size: 0.82rem; transition: background 0.2s;
+  }
+  .logout-btn:hover { background: rgba(255,255,255,0.25); }
+  .header-meta {
+    margin-top: 10px; display: flex; flex-wrap: wrap; gap: 12px;
+    font-size: 0.82rem; opacity: 0.9;
+  }
+  .header-meta span { background: rgba(255,255,255,0.12); padding: 3px 10px; border-radius: 12px; }
+
+  /* Stats */
+  .stats-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+    padding: 20px 24px;
+  }
+  @media (max-width: 700px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+  .stat-card {
+    background: #fff; border-radius: 12px; padding: 18px 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    text-align: center;
+  }
+  .stat-card .num { font-size: 2rem; font-weight: 700; color: #1e3a8a; }
+  .stat-card .label { font-size: 0.8rem; color: #6b7280; margin-top: 4px; }
+
+  /* Controls */
+  .controls {
+    display: flex; flex-wrap: wrap; gap: 12px;
+    padding: 0 24px 16px;
+    align-items: center;
+  }
+  .controls input[type=text] {
+    padding: 8px 14px; border: 1.5px solid #d1d5db; border-radius: 8px;
+    font-size: 0.9rem; width: 220px;
+  }
+  .controls input[type=text]:focus { outline: none; border-color: #3b82f6; }
+  .filter-group { display: flex; gap: 6px; }
+  .filter-btn {
+    padding: 7px 14px; border: 1.5px solid #d1d5db; border-radius: 20px;
+    background: #fff; cursor: pointer; font-size: 0.82rem; transition: all 0.2s;
+  }
+  .filter-btn.active { background: #1e3a8a; color: #fff; border-color: #1e3a8a; }
+  .sort-select {
+    padding: 8px 12px; border: 1.5px solid #d1d5db; border-radius: 8px;
+    font-size: 0.85rem; background: #fff; cursor: pointer;
+  }
+
+  /* Table */
+  .table-wrap { padding: 0 24px 32px; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+  th {
+    background: #1e3a8a; color: #fff; padding: 12px 14px;
+    font-size: 0.82rem; font-weight: 600; text-align: left; white-space: nowrap;
+  }
+  td { padding: 12px 14px; font-size: 0.88rem; color: #374151; border-bottom: 1px solid #f3f4f6; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #f8faff; }
+
+  .grade-badge {
+    display: inline-block; padding: 3px 10px; border-radius: 12px;
+    font-size: 0.78rem; font-weight: 700;
+  }
+  .grade-A { background: #dcfce7; color: #16a34a; }
+  .grade-A- { background: #dbeafe; color: #1d4ed8; }
+  .grade-B { background: #fef9c3; color: #ca8a04; }
+
+  .skill-btn {
+    padding: 5px 12px; background: #eff6ff; color: #1d4ed8;
+    border: 1px solid #bfdbfe; border-radius: 6px; cursor: pointer;
+    font-size: 0.8rem; transition: background 0.2s;
+  }
+  .skill-btn:hover { background: #dbeafe; }
+
+  /* Cards (mobile) */
+  .cards-wrap { display: none; padding: 0 16px 32px; }
+  @media (max-width: 768px) {
+    .table-wrap { display: none; }
+    .cards-wrap { display: block; }
+  }
+  .card {
+    background: #fff; border-radius: 12px; padding: 18px;
+    margin-bottom: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  }
+  .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .card-name { font-weight: 700; font-size: 1rem; color: #1e3a8a; }
+  .card-row { display: flex; justify-content: space-between; font-size: 0.85rem; color: #6b7280; margin-bottom: 6px; }
+  .card-row span:last-child { color: #374151; font-weight: 500; }
+  .card-memo { font-size: 0.82rem; color: #6b7280; background: #f9fafb; padding: 8px; border-radius: 6px; margin-top: 8px; }
+
+  /* Modal */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.5); z-index: 1000;
+    align-items: center; justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: #fff; border-radius: 16px; width: 90%; max-width: 900px;
+    height: 80vh; display: flex; flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+  .modal-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 20px; border-bottom: 1px solid #e5e7eb;
+  }
+  .modal-header h3 { font-size: 1rem; color: #1e3a8a; }
+  .modal-close {
+    background: none; border: none; font-size: 1.4rem; cursor: pointer;
+    color: #6b7280; line-height: 1;
+  }
+  .modal-body { flex: 1; padding: 0; overflow: hidden; }
+  .modal-body iframe { width: 100%; height: 100%; border: none; border-radius: 0 0 16px 16px; }
+  .no-sheet { display: flex; align-items: center; justify-content: center; height: 100%; color: #9ca3af; font-size: 0.95rem; }
+
+  .empty-row td { text-align: center; color: #9ca3af; padding: 32px; }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <h1>候補者比較管理システム</h1>
+    <p class="subtitle">ログインしてください</p>
+    <div class="login-error" id="login-error">IDまたはパスワードが正しくありません。</div>
+    <div class="form-group">
+      <label>ID</label>
+      <input type="text" id="login-id" placeholder="ユーザーID" autocomplete="username">
+    </div>
+    <div class="form-group">
+      <label>パスワード</label>
+      <input type="password" id="login-pass" placeholder="パスワード" autocomplete="current-password">
+    </div>
+    <button class="login-btn" onclick="doLogin()">ログイン</button>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div class="header">
+    <div class="header-top">
+      <h1>候補者比較管理システム</h1>
+      <button class="logout-btn" onclick="doLogout()">ログアウト</button>
+    </div>
+    <div class="header-meta">
+      <span>PHP/Laravel11</span>
+      <span>中野新橋駅</span>
+      <span>週1リモート</span>
+      <span>2026年4月〜（3ヶ月）</span>
+      <span>目標単価：70〜75万円以上</span>
+    </div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card"><div class="num" id="stat-total">0</div><div class="label">候補者合計</div></div>
+    <div class="stat-card"><div class="num" id="stat-a">0</div><div class="label">グレードA</div></div>
+    <div class="stat-card"><div class="num" id="stat-am">0</div><div class="label">グレードA-</div></div>
+    <div class="stat-card"><div class="num" id="stat-budget">0</div><div class="label">予算内（〜75万）</div></div>
+  </div>
+
+  <div class="controls">
+    <input type="text" id="search-input" placeholder="名前・会社・スキルで検索..." oninput="renderTable()">
+    <div class="filter-group" id="grade-filters">
+      <button class="filter-btn active" data-grade="all" onclick="setGradeFilter('all')">すべて</button>
+      <button class="filter-btn" data-grade="A" onclick="setGradeFilter('A')">A</button>
+      <button class="filter-btn" data-grade="A-" onclick="setGradeFilter('A-')">A-</button>
+      <button class="filter-btn" data-grade="B" onclick="setGradeFilter('B')">B</button>
+    </div>
+    <select class="sort-select" id="sort-select" onchange="renderTable()">
+      <option value="default">並び順：デフォルト</option>
+      <option value="match_desc">相性：高い順</option>
+      <option value="price_asc">単価：安い順</option>
+      <option value="price_desc">単価：高い順</option>
+      <option value="name_asc">名前：昇順</option>
+    </select>
+  </div>
+
+  <!-- Desktop Table -->
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>名前</th>
+          <th>会社</th>
+          <th>単価（万円）</th>
+          <th>稼働開始</th>
+          <th>稼働形態</th>
+          <th>グレード</th>
+          <th>相性スコア</th>
+          <th>推薦理由</th>
+          <th>懸念点</th>
+          <th>スキルシート</th>
+        </tr>
+      </thead>
+      <tbody id="table-body"></tbody>
+    </table>
+  </div>
+
+  <!-- Mobile Cards -->
+  <div class="cards-wrap" id="cards-body"></div>
+</div>
+
+<!-- Skill Sheet Modal -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modal-title">スキルシート</h3>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+// ===== Auth =====
+const VALID_ID = 'webedge';
+const VALID_PASS = 'webedge99';
+
+function doLogin() {
+  const id = document.getElementById('login-id').value.trim();
+  const pass = document.getElementById('login-pass').value;
+  const errEl = document.getElementById('login-error');
+  if (id === VALID_ID && pass === VALID_PASS) {
+    errEl.style.display = 'none';
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    renderTable();
+  } else {
+    errEl.style.display = 'block';
+  }
+}
+
+function doLogout() {
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('login-id').value = '';
+  document.getElementById('login-pass').value = '';
+}
+
+// Enter key login
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && document.getElementById('login-screen').style.display !== 'none') doLogin();
+});
+
+// ===== Data =====
+const candidates = [
+  {
+    id: 1,
+    name: '田中 太郎',
+    company: '株式会社テックソリューション',
+    price: 72,
+    startDate: '2026年4月1日',
+    workStyle: '週1リモート可',
+    grade: 'A',
+    matchScore: 95,
+    reason: 'Laravel11の実務経験5年以上。ECサイト開発の豊富な実績あり。コミュニケーション能力が高く即戦力として期待できる。',
+    concern: '希望単価がやや高め。長期継続に向けて要交渉。',
+    skillSheetUrl: ''
+  },
+  {
+    id: 2,
+    name: '鈴木 花子',
+    company: 'フリーランス',
+    price: 68,
+    startDate: '2026年4月中旬',
+    workStyle: '週1リモート可',
+    grade: 'A-',
+    matchScore: 82,
+    reason: 'PHPフルスタック開発が得意。Laravel歴3年。アニメ系ECサイトの開発経験あり。',
+    concern: '複数案件掛け持ちのため稼働率の確認が必要。',
+    skillSheetUrl: ''
+  },
+  {
+    id: 3,
+    name: '佐藤 健一',
+    company: '合同会社デジタルクラフト',
+    price: 70,
+    startDate: '2026年4月1日',
+    workStyle: 'フル出社対応可',
+    grade: 'A-',
+    matchScore: 78,
+    reason: 'Laravel/PHP歴4年。バックエンド専門。API設計・DB最適化が強み。',
+    concern: 'フロントエンドは別メンバーとの連携が必要。',
+    skillSheetUrl: ''
+  },
+  {
+    id: 4,
+    name: '山田 次郎',
+    company: '株式会社コードファクトリー',
+    price: 80,
+    startDate: '2026年5月〜',
+    workStyle: '週2リモート希望',
+    grade: 'A-',
+    matchScore: 70,
+    reason: 'Laravel上級者。大規模EC開発の経験豊富。設計力が高い。',
+    concern: '単価が予算超過。稼働開始が5月以降のため要調整。',
+    skillSheetUrl: ''
+  }
+];
+
+// ===== State =====
+let gradeFilter = 'all';
+
+function setGradeFilter(grade) {
+  gradeFilter = grade;
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.grade === grade);
+  });
+  renderTable();
+}
+
+function getFiltered() {
+  const q = document.getElementById('search-input').value.toLowerCase();
+  const sort = document.getElementById('sort-select').value;
+
+  let list = candidates.filter(c => {
+    const matchGrade = gradeFilter === 'all' || c.grade === gradeFilter;
+    const matchSearch = !q || c.name.toLowerCase().includes(q)
+      || c.company.toLowerCase().includes(q)
+      || c.reason.toLowerCase().includes(q);
+    return matchGrade && matchSearch;
+  });
+
+  if (sort === 'match_desc') list.sort((a,b) => b.matchScore - a.matchScore);
+  else if (sort === 'price_asc') list.sort((a,b) => a.price - b.price);
+  else if (sort === 'price_desc') list.sort((a,b) => b.price - a.price);
+  else if (sort === 'name_asc') list.sort((a,b) => a.name.localeCompare(b.name));
+
+  return list;
+}
+
+function gradeBadge(g) {
+  return `<span class="grade-badge grade-${g.replace('-','')}">${g}</span>`;
+}
+
+function renderTable() {
+  const list = getFiltered();
+
+  // Stats (always from all data)
+  document.getElementById('stat-total').textContent = candidates.length;
+  document.getElementById('stat-a').textContent = candidates.filter(c => c.grade === 'A').length;
+  document.getElementById('stat-am').textContent = candidates.filter(c => c.grade === 'A-').length;
+  document.getElementById('stat-budget').textContent = candidates.filter(c => c.price <= 75).length;
+
+  // Table
+  const tbody = document.getElementById('table-body');
+  if (list.length === 0) {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="10">該当する候補者がいません</td></tr>';
+  } else {
+    tbody.innerHTML = list.map(c => `
+      <tr>
+        <td><strong>${c.name}</strong></td>
+        <td>${c.company}</td>
+        <td>${c.price}万円</td>
+        <td>${c.startDate}</td>
+        <td>${c.workStyle}</td>
+        <td>${gradeBadge(c.grade)}</td>
+        <td>${c.matchScore}点</td>
+        <td style="max-width:200px;font-size:0.82rem;">${c.reason}</td>
+        <td style="max-width:160px;font-size:0.82rem;color:#dc2626;">${c.concern}</td>
+        <td>${c.skillSheetUrl ? `<button class="skill-btn" onclick="openModal('${c.name}のスキルシート','${c.skillSheetUrl}')">表示</button>` : '<span style="color:#d1d5db;font-size:0.8rem;">未登録</span>'}</td>
+      </tr>
+    `).join('');
+  }
+
+  // Cards
+  const cards = document.getElementById('cards-body');
+  cards.innerHTML = list.map(c => `
+    <div class="card">
+      <div class="card-header">
+        <span class="card-name">${c.name}</span>
+        ${gradeBadge(c.grade)}
+      </div>
+      <div class="card-row"><span>会社</span><span>${c.company}</span></div>
+      <div class="card-row"><span>単価</span><span>${c.price}万円</span></div>
+      <div class="card-row"><span>稼働開始</span><span>${c.startDate}</span></div>
+      <div class="card-row"><span>稼働形態</span><span>${c.workStyle}</span></div>
+      <div class="card-row"><span>相性スコア</span><span>${c.matchScore}点</span></div>
+      <div class="card-memo">📋 ${c.reason}</div>
+      ${c.concern ? `<div class="card-memo" style="color:#dc2626;background:#fff5f5;">⚠️ ${c.concern}</div>` : ''}
+      ${c.skillSheetUrl ? `<button class="skill-btn" style="margin-top:10px;width:100%;" onclick="openModal('${c.name}のスキルシート','${c.skillSheetUrl}')">スキルシートを見る</button>` : ''}
+    </div>
+  `).join('') || '<p style="text-align:center;color:#9ca3af;padding:32px;">該当する候補者がいません</p>';
+}
+
+// ===== Modal =====
+function openModal(title, url) {
+  document.getElementById('modal-title').textContent = title;
+  const body = document.getElementById('modal-body');
+  if (url) {
+    body.innerHTML = `<iframe src="${url}" allowfullscreen></iframe>`;
+  } else {
+    body.innerHTML = '<div class="no-sheet">スキルシートが登録されていません</div>';
+  }
+  document.getElementById('modal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+  document.getElementById('modal-body').innerHTML = '';
+}
+
+document.getElementById('modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('modal')) closeModal();
+});
+</script>
+</body>
+</html>
