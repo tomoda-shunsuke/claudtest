@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>案件情報管理システム</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', 'Hiragino Sans', sans-serif; background: #f0f4f8; min-height: 100vh; }
+
+  /* ===== LOGIN ===== */
+  #login-screen {
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
+  }
+  .login-box {
+    background: #fff; border-radius: 16px; padding: 48px 40px;
+    width: 100%; max-width: 400px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  }
+  .login-box h1 { text-align: center; font-size: 1.4rem; color: #0f766e; margin-bottom: 8px; }
+  .login-box p.subtitle { text-align: center; color: #6b7280; font-size: 0.85rem; margin-bottom: 32px; }
+  .form-group { margin-bottom: 20px; }
+  .form-group label { display: block; font-size: 0.85rem; color: #374151; margin-bottom: 6px; font-weight: 600; }
+  .form-group input {
+    width: 100%; padding: 10px 14px; border: 1.5px solid #d1d5db;
+    border-radius: 8px; font-size: 0.95rem; transition: border-color 0.2s;
+  }
+  .form-group input:focus { outline: none; border-color: #14b8a6; }
+  .login-btn {
+    width: 100%; padding: 12px; background: linear-gradient(90deg, #0f766e, #14b8a6);
+    color: #fff; border: none; border-radius: 8px; font-size: 1rem;
+    font-weight: 600; cursor: pointer; transition: opacity 0.2s;
+  }
+  .login-btn:hover { opacity: 0.9; }
+  .login-error {
+    background: #fee2e2; color: #dc2626; border-radius: 8px;
+    padding: 10px 14px; font-size: 0.85rem; margin-bottom: 16px; display: none;
+  }
+
+  /* ===== APP ===== */
+  #app { display: none; }
+  .header {
+    background: linear-gradient(90deg, #0f766e 0%, #0d9488 100%);
+    color: #fff; padding: 20px 24px;
+  }
+  .header-top { display: flex; justify-content: space-between; align-items: center; }
+  .header h1 { font-size: 1.3rem; font-weight: 700; }
+  .logout-btn {
+    background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.4);
+    color: #fff; padding: 6px 16px; border-radius: 20px; cursor: pointer;
+    font-size: 0.82rem; transition: background 0.2s;
+  }
+  .logout-btn:hover { background: rgba(255,255,255,0.25); }
+  .header-meta {
+    margin-top: 10px; display: flex; flex-wrap: wrap; gap: 12px;
+    font-size: 0.82rem; opacity: 0.9;
+  }
+  .header-meta span { background: rgba(255,255,255,0.12); padding: 3px 10px; border-radius: 12px; }
+
+  /* Stats */
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; padding: 20px 24px; }
+  @media (max-width: 700px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+  .stat-card { background: #fff; border-radius: 12px; padding: 18px 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); text-align: center; }
+  .stat-card .num { font-size: 2rem; font-weight: 700; color: #0f766e; }
+  .stat-card .label { font-size: 0.8rem; color: #6b7280; margin-top: 4px; }
+
+  /* Controls */
+  .controls { display: flex; flex-wrap: wrap; gap: 12px; padding: 0 24px 16px; align-items: center; }
+  .controls input[type=text] { padding: 8px 14px; border: 1.5px solid #d1d5db; border-radius: 8px; font-size: 0.9rem; width: 240px; }
+  .controls input[type=text]:focus { outline: none; border-color: #14b8a6; }
+  .filter-group { display: flex; gap: 6px; flex-wrap: wrap; }
+  .filter-btn { padding: 7px 14px; border: 1.5px solid #d1d5db; border-radius: 20px; background: #fff; cursor: pointer; font-size: 0.82rem; transition: all 0.2s; }
+  .filter-btn.active { background: #0f766e; color: #fff; border-color: #0f766e; }
+  .sort-select { padding: 8px 12px; border: 1.5px solid #d1d5db; border-radius: 8px; font-size: 0.85rem; background: #fff; cursor: pointer; }
+
+  /* Table */
+  .table-wrap { padding: 0 24px 32px; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+  th { background: #0f766e; color: #fff; padding: 12px 14px; font-size: 0.82rem; font-weight: 600; text-align: left; white-space: nowrap; }
+  td { padding: 12px 14px; font-size: 0.88rem; color: #374151; border-bottom: 1px solid #f3f4f6; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #f0fdfa; }
+  .case-name { font-weight: 700; color: #0f766e; cursor: pointer; }
+  .case-name:hover { text-decoration: underline; }
+
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 0.74rem; font-weight: 700; white-space: nowrap; }
+  .cat-data { background: #dbeafe; color: #1d4ed8; }
+  .cat-web { background: #dcfce7; color: #16a34a; }
+  .cat-design { background: #fce7f3; color: #be185d; }
+  .cat-nw { background: #ede9fe; color: #6d28d9; }
+  .cat-ops { background: #fef9c3; color: #ca8a04; }
+  .status-active { background: #dcfce7; color: #15803d; }
+  .status-open { background: #fee2e2; color: #dc2626; }
+  .tag { display: inline-block; background: #f1f5f9; color: #475569; border-radius: 6px; padding: 2px 8px; font-size: 0.74rem; margin: 2px 2px 0 0; }
+
+  /* Cards (mobile) */
+  .cards-wrap { display: none; padding: 0 16px 32px; }
+  @media (max-width: 768px) {
+    .table-wrap { display: none; }
+    .cards-wrap { display: block; }
+  }
+  .card { background: #fff; border-radius: 12px; padding: 18px; margin-bottom: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+  .card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+  .card-name { font-weight: 700; font-size: 1rem; color: #0f766e; cursor: pointer; }
+  .card-row { display: flex; justify-content: space-between; font-size: 0.85rem; color: #6b7280; margin-bottom: 6px; gap: 12px; }
+  .card-row span:last-child { color: #374151; font-weight: 500; text-align: right; }
+
+  /* Modal */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; }
+  .modal-overlay.open { display: flex; }
+  .modal { background: #fff; border-radius: 16px; width: 90%; max-width: 760px; max-height: 85vh; display: flex; flex-direction: column; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+  .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid #e5e7eb; }
+  .modal-header h3 { font-size: 1rem; color: #0f766e; padding-right: 12px; }
+  .modal-close { background: none; border: none; font-size: 1.4rem; cursor: pointer; color: #6b7280; line-height: 1; }
+  .modal-body { flex: 1; padding: 20px; overflow-y: auto; }
+  .modal-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  .modal-detail { white-space: pre-wrap; font-size: 0.86rem; line-height: 1.7; color: #374151; background: #f9fafb; padding: 16px; border-radius: 8px; }
+
+  .empty-row td { text-align: center; color: #9ca3af; padding: 32px; }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <h1>案件情報管理システム</h1>
+    <p class="subtitle">ログインしてください</p>
+    <div class="login-error" id="login-error">IDまたはパスワードが正しくありません。</div>
+    <div class="form-group">
+      <label>ID</label>
+      <input type="text" id="login-id" placeholder="ユーザーID" autocomplete="username">
+    </div>
+    <div class="form-group">
+      <label>パスワード</label>
+      <input type="password" id="login-pass" placeholder="パスワード" autocomplete="current-password">
+    </div>
+    <button class="login-btn" onclick="doLogin()">ログイン</button>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div class="header">
+    <div class="header-top">
+      <h1>案件情報管理システム</h1>
+      <button class="logout-btn" onclick="doLogout()">ログアウト</button>
+    </div>
+    <div class="header-meta">
+      <span>2026_営業_案件情報</span>
+      <span id="meta-count">全 0 件</span>
+      <span>出典：Figma ボード</span>
+    </div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card"><div class="num" id="stat-total">0</div><div class="label">案件合計</div></div>
+    <div class="stat-card"><div class="num" id="stat-open">0</div><div class="label">募集中</div></div>
+    <div class="stat-card"><div class="num" id="stat-active">0</div><div class="label">参画中あり</div></div>
+    <div class="stat-card"><div class="num" id="stat-head">0</div><div class="label">募集人数(目安)</div></div>
+  </div>
+
+  <div class="controls">
+    <input type="text" id="search-input" placeholder="案件名・技術・場所で検索..." oninput="renderTable()">
+    <div class="filter-group" id="cat-filters">
+      <button class="filter-btn active" data-cat="all" onclick="setCatFilter('all')">すべて</button>
+      <button class="filter-btn" data-cat="data" onclick="setCatFilter('data')">データ基盤・BI</button>
+      <button class="filter-btn" data-cat="web" onclick="setCatFilter('web')">Web・業務系</button>
+      <button class="filter-btn" data-cat="design" onclick="setCatFilter('design')">デザイン・制作</button>
+      <button class="filter-btn" data-cat="nw" onclick="setCatFilter('nw')">NW・通信</button>
+      <button class="filter-btn" data-cat="ops" onclick="setCatFilter('ops')">運用保守</button>
+    </div>
+    <select class="sort-select" id="sort-select" onchange="renderTable()">
+      <option value="default">並び順：デフォルト</option>
+      <option value="price_desc">単価：高い順</option>
+      <option value="price_asc">単価：安い順</option>
+      <option value="name_asc">案件名：昇順</option>
+    </select>
+  </div>
+
+  <!-- Desktop Table -->
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>案件名</th>
+          <th>分野</th>
+          <th>主な技術</th>
+          <th>場所 / リモート</th>
+          <th>単価</th>
+          <th>募集</th>
+          <th>時期</th>
+          <th>状況</th>
+        </tr>
+      </thead>
+      <tbody id="table-body"></tbody>
+    </table>
+  </div>
+
+  <!-- Mobile Cards -->
+  <div class="cards-wrap" id="cards-body"></div>
+</div>
+
+<!-- Detail Modal -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modal-title">案件詳細</h3>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+// ===== Auth =====
+const VALID_ID = 'webedge';
+const VALID_PASS = 'webedge99';
+
+function doLogin() {
+  const id = document.getElementById('login-id').value.trim();
+  const pass = document.getElementById('login-pass').value;
+  const errEl = document.getElementById('login-error');
+  if (id === VALID_ID && pass === VALID_PASS) {
+    errEl.style.display = 'none';
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    renderTable();
+  } else {
+    errEl.style.display = 'block';
+  }
+}
+function doLogout() {
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('login-id').value = '';
+  document.getElementById('login-pass').value = '';
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && document.getElementById('login-screen').style.display !== 'none') doLogin();
+});
+
+// ===== Data (Figma ボード 2026_営業_案件情報 より) =====
+const CAT_LABEL = { data:'データ基盤・BI', web:'Web・業務系', design:'デザイン・制作', nw:'NW・通信', ops:'運用保守' };
+const cases = [
+  { id:1, name:'マンション管理運営システム 追加開発', cat:'web', skills:['intramart','JavaScript','HTML','SQL'], location:'池袋(初期のみ)/リモート中心', price:'スキル見合', head:'1名', period:'2026/1〜長期', status:'active', statusText:'稼働中(岡野さん 80万/月)',
+    detail:'既存システムの追加開発における上流工程〜設計中心のポジション。intramartスクリプト言語を使用（参画後キャッチアップ可）。現行ソース解析／基本設計・詳細設計／モック作成／結合試験。製造・単体試験はオフショア実施。\n■必須：Webシステム開発3年以上、要件理解〜設計、JavaScript/HTML/SQL実務\n■尚可：intramart経験\n■条件：精算150-190h／面談1回(WEB)／支払40日／外国籍不可・個人事業主不可・〜40歳目安' },
+  { id:2, name:'航空関連システム刷新（IF開発・内製化支援）', cat:'web', skills:['ASTERIA','API/IF開発','PMO'], location:'殿町/新整備場/川崎(週2-3)', price:'スキル見合', head:'4名', period:'12月〜長期', status:'open', statusText:'募集中',
+    detail:'航空関連のIF開発、内製化支援。対向先システム・他チームとの仕様調整、IF開発の標準化・管理プロセス策定、ASTERIA技術支援。\n■必須：内製化支援関連（エンドユーザ仕様説明／開発規約策定／仕様調整／ASTERIA経験 等のいずれか2-3項目）\n■商流：エンド⇒SI⇒弊社⇒貴社（複数名参画中）／再委託可／外国籍不可\n■面談2回／支払45日' },
+  { id:3, name:'データ利活用基盤構築 開発ガイド／データモデリング支援', cat:'data', skills:['Azure','Databricks','SQL'], location:'池袋(週3)+リモート(週2)', price:'〜70万', head:'1名', period:'2026/1or2月〜長期', status:'open', statusText:'募集中',
+    detail:'Azure Databricks の開発ガイドライン作成、データモデリング設計（テーブル定義書）、開発標準化ドキュメント作成、GitHub環境調整。\n■必須：データ基盤(Azure/Databricks いずれか)経験、SQLモデリング、ドキュメント作成、リポジトリ管理\n■尚可：Databricks実務、データアーキテクト経験\n■精算140-180／面談1回(WEB)+顔合わせ／支払35日／外国籍不可・個人事業主不可・40歳頃まで' },
+  { id:4, name:'Informatica & Linux サーバー運用保守（BTS-24085）', cat:'ops', skills:['Informatica','Linux','Shell'], location:'都内/リモート', price:'70万', head:'1名', period:'2025/3〜11(長期想定)', status:'open', statusText:'募集中',
+    detail:'Informatica製品（PowerCenter／DataIntegrationHub／IICS Secure Agent／MDM）及び実行基盤の運用保守。問合せ対応、仕様調査、障害対応、システム変更対応。\n■必須：Linux運用保守、Informatica製品いずれかの使用経験、障害/変更対応経験\n■尚可：Oracle/SQLServer DB管理、Windows Server、Shell\n■準委任／再委託可／打合せ2回／外国籍不可' },
+  { id:5, name:'Snowflake基盤構築（DIV-22029）', cat:'data', skills:['Snowflake','AWS','基盤設計'], location:'豊洲/基本リモート(出勤あり)', price:'70〜100万', head:'1名', period:'2022/12〜継続', status:'open', statusText:'募集中',
+    detail:'Snowflakeの基盤設計・構築。\n■必須：基本/詳細設計、カラムナ型DB(Snowflake/Redshift)もしくは大規模DB設計・構築、AWS(S3/EC2/IAM/SG/VPC)、お客様説明、WBS作成\n■リリース作業時は要出勤のためフルリモート不可／精算160±20／再委託不可／打合せ2回（コムチュア）' },
+  { id:6, name:'基幹システム刷新（VB.net → C# Web）開発支援', cat:'web', skills:['C#','VB.net','Blazor'], location:'田町(月1-2)/リモート中心', price:'〜80万', head:'1名', period:'2026/1〜10(延長想定)', status:'open', statusText:'募集中',
+    detail:'詳細設計書作成〜結合テスト。現行VB.netの設計書/ソース解析、C#によるサブシステム開発（Excel出力多）、Blazor Serverモックをもとに実装。\n■必須：C#5年以上(Web)、VB.net3年以上(読解)、詳細設計〜テスト、コミュニケーション\n■尚可：VB→C#マイグレ、ActiveReports/ExcelCreator、Blazor/Radzen\n■精算140-180／面談1回／支払35日／外国籍不可・個人事業主不可・〜50歳（エージェント・スミス）' },
+  { id:7, name:'Global店舗管理システム 運用支援', cat:'ops', skills:['ServiceNow','SQL','BI'], location:'有明本部/週5リモート(3交代)', price:'—', head:'1名', period:'2025/10〜', status:'active', statusText:'稼働中(webedge3名/橋本さん産休交代)',
+    detail:'ServiceNowで起票されるシステム不具合の問い合わせ対応、店舗在庫管理、商品管理、デジタルサイネージ(AppleTV)管理、SQLでのデータ操作。\n■3交代制（7:00/10:00/14:00開始, 各8h）土日祝も交代で月1回程度\n■必須：SQLでのDB操作、システム運用/問合せ対応、BIツール、Excel(VLOOKUP/ピボット)\n■尚可：ServiceNow、英語の簡単な読み書き' },
+  { id:8, name:'鹿島建設向け Tableau／BI基盤 構築・改善支援', cat:'data', skills:['Tableau','SQL','データモデリング'], location:'虎ノ門(週2-3)/リモート併用', price:'〜85万', head:'1名', period:'即日〜長期', status:'open', statusText:'募集中',
+    detail:'社内データの可視化・分析高度化のためのBI基盤構築・改善。Tableauダッシュボード設計/開発/改修、データモデル整理、複数データソース統合、SQL抽出/加工。\n■必須：Tableau設計/開発(目安3年)、SQL、データモデリング、ダッシュボード設計\n■尚可：ETL、Power BI/Power Platform、SharePoint連携、大規模BI\n■精算140-180／面談1回(WEB)／BI専任ポジション' },
+  { id:9, name:'MDMプロジェクト開発支援', cat:'web', skills:['Java','Spring','Ruby/Rails','MySQL'], location:'西新宿(週1)/リモート週4', price:'スキル見合', head:'1名', period:'3月〜長期', status:'active', statusText:'稼働中(4名参画)',
+    detail:'スマホ/タブレット/PCの管理サービス(MDM)開発支援。Java/Springでスマホ通信・DB CRUD・WebAPI、Ruby/Railsがフロント。スクラム開発。\n■環境：Java/JDK8, Ruby2.4, Spring/Hibernate/Quartz/Rails/sidekiq, MySQL(RDS)\n■必須：Java/SpringのWebAPI開発5年以上、Mac/ターミナル\n■尚可：TCP等NW開発、Ruby\n■面談2回(WEB)／精算140-180／支払35日／外国籍不可・30歳以上希望／既に4名参画' },
+  { id:10, name:'新卒看護師就職活動情報サイト リプレイス（フロント/デザイン）', cat:'web', skills:['Material-UI(MUI)','Figma','Next.js/React'], location:'芝公園/フルリモート', price:'—', head:'1名', period:'交渉中', status:'active', statusText:'稼働中(布下さん12月〜)',
+    detail:'看護学生向け就職情報サイトのリプレイス。Figmaワイヤー＋MUI画面デザイン作成、Reactコンポーネント/フロント開発。\n■必須：MUI、Figma、Next.jsもしくはReact\n■尚可：Ruby on Rails\n■課題：Figma上のデザイン(MUI)と開発(React上のMUI)の繋ぎ込みがボトルネック。Figma上でMUIコンポーネント設計をしたい\n■フルリモート/フレックス可／〜45歳／外国籍不可／MacBook Pro支給' },
+  { id:11, name:'アニメグッズECシステム リプレース', cat:'web', skills:['EC-CUBE→Laravel11','Vue.js','MySQL','AWS'], location:'中野新橋(フル出社)', price:'—', head:'1名(フロントコーダー)', period:'2025/1〜3(更新)', status:'active', statusText:'稼働中(弊社3名)',
+    detail:'現行EC-CUBE3(Symfony)ベースのECをフルスクラッチでLaravel11へリプレース。\n■環境(新)：PHP/Laravel11, blade/Twig, MySQL, Vue.js/jQuery, Docker, GitHub, Ubuntu, AWS(EC2)\n■必須：業務フローヒアリングからの設計・構築、Symfony/Laravelの知見、JS(DOM操作)、既存コード読解、コードレビュー\n■尚可：E2Eテスト\n■外国籍不可／エンド→弊社／メンバー5名(弊社3名)' },
+  { id:12, name:'大手ECサイト UI/UXデザイナー', cat:'design', skills:['Photoshop','Illustrator','Figma','HTML/CSS/jQuery'], location:'赤羽橋(常駐)', price:'75万', head:'—', period:'随時〜長期', status:'open', statusText:'募集中',
+    detail:'大手ECのフロント周りの新規ページ作成・運用。キャンペーン/特集デザイン、バナー、Web広告画像、メルマガ/LINEバナー、LP作成、簡単なコーディング、校正。\n■必須：Photoshop/Illustrator実務5年以上、UI/UX1-2年以上、HTML/CSS/JS(jQuery)\n■尚可：LP作成\n■商流：貴社まで(支援費不可)／30〜50代前半／常駐／平均160h／外国籍不可' },
+  { id:13, name:'宿泊予約サービス DTPオペレーター業務', cat:'design', skills:['Illustrator','Photoshop','InDesign'], location:'赤羽橋(リモート不可)', price:'55-60万', head:'—', period:'4月〜長期', status:'open', statusText:'募集中',
+    detail:'宿泊情報誌の制作。既存フォーマットに写真・テキストを挿入するDTP制作。\n■必須：Illustrator/Photoshop実務、一人称で作業可\n■尚可：InDesign、DTPデザイン実務\n■10月以降は銀座一丁目駅の可能性／単月更新／平均160h／商流：貴社まで(支援費不可)／外国籍不可' },
+  { id:14, name:'マーケティング部門 制作進行管理ディレクター', cat:'design', skills:['IA設計','ワイヤーフレーム','データ分析'], location:'東京駅(通常リモート)', price:'—', head:'—', period:'長期', status:'open', statusText:'募集中',
+    detail:'メルマガ・LPの制作ディレクション、IA設計・改善、ワイヤー作成、スケジュール管理、運用・品質改善、効果の振り返り・分析。\n■必須：IA設計・改善検討スキル\n■歓迎：データ分析、コンテンツマーケ企画、記事/メルマガ企画・ライティング、デザイン制作\n■国籍：ビジネスレベルの日本語があればOK／10:00-19:00／精算140-180／面談1-2回' },
+  { id:15, name:'国内旅行関連 社内システム 新規開発', cat:'web', skills:['PHP','Laravel','Symfony'], location:'神谷町(基本常駐)', price:'スキル見合', head:'3名', period:'随時〜長期', status:'active', statusText:'稼働中(弊社5名)',
+    detail:'旅行会社のフロントシステム保守＋社内システム新規開発（データ活用・AI活用推進、ナレッジ共有強化）。\n★リーダー1名：PHP5年以上、FW(Laravel/Symfony)3年以上、設計工程／尚可：テックリード・リーダー経験\n★メンバー2名：PHP3年以上、FW使用経験／尚可：設計工程\n■精算150-190／面談2回(顧客対面+弊社)／2026/3末に西新宿移転／支払35日／御社所属まで・個人事業主不可・30歳以上・外国籍NG／弊社5名参画中' },
+  { id:16, name:'証券会社 AMLシステム WEBアプリ開発', cat:'web', skills:['C#','VB.net','SQL'], location:'三越前/リモート併用', price:'スキル見合', head:'1名', period:'確認中', status:'active', statusText:'稼働中(リーダー:日立)',
+    detail:'某証券会社のAML(アンチマネーロンダリング)システムのWEBアプリ開発。\n■必須：C#、VB.NET、SQL\n■任意：AML経験\n■派遣／精算160±20／再委託不可／打合せ1回／三越前リモート併用／設計開発は在宅可、データ調査・テスト時は出社／外国籍不可' },
+  { id:17, name:'UNITE cloud類似 流通・小売向けクラウドアプリ開発', cat:'web', skills:['C#','XAML','.NET','Azure/AWS'], location:'フルリモート(初期出社あり)', price:'—', head:'1-2名', period:'6or7月〜長期', status:'active', statusText:'稼働中(3名+2名増員)',
+    detail:'流通・小売業向け業務支援クラウドアプリの新規開発・機能追加・保守。C#とXAMLで業務アプリのフロント〜バックエンド設計・実装、クラウド前提のアーキ設計。\n■環境：C#/.NET(WPF/UWP/MAUI), XAML, Azure or AWS, Azure SQL/RDS, VS/Git/CI-CD\n■必須：C#3年以上、XAML UI開発、.NET業務アプリ、(尚可)クラウド開発、業務系理解\n■3ヶ月更新／現状3名体制＋2名増員(1名は元請調整中)' },
+  { id:18, name:'通信キャリア向けデータ基盤PJ 運用高度化対応', cat:'nw', skills:['Datadog','AWS','PM','見積'], location:'品川(週2-3)/基本リモート', price:'スキル見合', head:'1名', period:'2025/4〜長期', status:'active', statusText:'稼働中',
+    detail:'通信キャリア向けデータ基盤の監視ツールをクラウドへ移行する要件定義、試験サポート統括、Datadog移行・利活用、見積、顧客折衝、全体スケジュール管理。\n■必須：自立遂行能力、コミュ/PM能力、MS Office熟練、見積業務\n■尚可：インフラ(NW/サーバ)、AWS資格、Datadog設計運用、ServiceNowインシデント管理\n■精算140-180／面談1回+顔合わせ／商流：DOCOMO＞NTTD＞元請＞webedge' },
+  { id:19, name:'NEC殿向け 開発支援（モバイル通信ネットワーク）', cat:'nw', skills:['Cisco Nexus/ACI','BIG-IP','A10','BGP'], location:'赤坂見附/テレワーク', price:'—', head:'—', period:'長期', status:'open', statusText:'募集中',
+    detail:'モバイル通信基盤に対する詳細設計・構築・試験・調整。SG書/作業概要書/手順書作成、検証、商用リリース作業、顧客/ベンダー調整。Cisco ACIでspine-leaf構成。\n■必須(いずれか)：L2/L3SW設計構築3年+CCNA / 1年+CCNP、ルータ/スイッチ理解、BGP等ダイナミックルーティング\n■尚可：エスカレーション経験、Cisco ACI、BIG-IP/A10\n■残業想定20-40h／09:30-18:00' },
+  { id:20, name:'NOKIA 5GC 検証・構築業務', cat:'nw', skills:['5GC(CHF/PCF/VoLTE)','Wireshark','Zabbix','英語'], location:'リモート中心', price:'—', head:'—', period:'長期', status:'open', statusText:'募集中',
+    detail:'NOKIA 5GC(NF:CHF/PCF/VoLTE)の検証業務及び構築業務。作業スケジュール調整、試験環境構築、手順検討、実機検証、商用作業、障害調査・報告、英語での問合せ/切り分け。\n■必須：大手通信キャリアでのNW機器/仮想サーバ/モバイルNW(Core/RAN/伝送)いずれかの業務経験＋英語での問合せ\n■尚可：5GC/4G、フローワン、BSS、VoLTE検証経験（英会話：体制の3割が必須）' },
+  { id:21, name:'ソフトバンク UniTalk ユーザー拠点展開', cat:'nw', skills:['Teams Phone','音声','PM支援'], location:'竹芝(予定)', price:'—', head:'—', period:'2025/6〜長期', status:'open', statusText:'募集中',
+    detail:'UniTalk(Teamsから外線通話を可能にするクラウドボイスサービス)のユーザー拠点展開。PM業務の支援、設計資料作成、顧客拠点展開の進捗管理。\n■必須：Microsoft/Teams Phone設計構築の業務経験、Teams関連スキル、音声知識、コミュニケーション能力\n■尚可：ソフトバンクの音声サービス関連経験\n■残業想定10-20h／09:00-17:30' },
+  { id:22, name:'日清食品向け Snowflake活用 データ分析基盤構築・運用', cat:'data', skills:['Snowflake','Python/Snowpark','ETL','Power BI','生成AI'], location:'新宿(週2-3リモート)', price:'スキル見合', head:'1-2名', period:'即日〜長期', status:'open', statusText:'募集中',
+    detail:'全社統合データ基盤の設計・実装・運用。SAP/販売/マーケ/SCMのデータをETL(HULFT Square/Talend)で連携、Snowparkで機械学習支援、Power BI可視化、生成AI(GPT-4+Snowflake)PoC、利用部門支援。\n■必須：Snowflake構築運用3年以上、SQL、Python(Snowpark)、ETL設計、業務折衝/要件定義\n■尚可：Power BI、生成AI連携PoC、Streamlit/Qlik\n■精算140-180／面談1回(WEB)+顔合わせ／支払40日／個人事業主不可・外国籍不可・40代まで' },
+  { id:23, name:'金融系基幹周辺刷新 情報系システム構築', cat:'data', skills:['Redshift','AWS Glue','QuickSight','S3','Oracle'], location:'田町(三田)', price:'—', head:'5名', period:'2026/7〜中長期', status:'open', statusText:'募集中',
+    detail:'顧客情報の参照・統計・分析を行う情報系システム(BIツール)のEOLに伴うマイグレーション。現行：オンプレ(Oracle/ETL/OracleBIEE)→次期：クラウド(S3/Redshift/Glue/QuickSight/CloudWatch)。\n■作業：テーブル/ビュー等データ設計、バッチ処理設計開発、ETL加工処理、運用監視/障害監視設計構築\n■募集5名(①〜③設計開発3名＋④運用2名)\n■必須：基本設計3年程度 or 運用設計3年程度／尚可：クラウド開発、DWH/BI、AWS運用設計\n■2026年内:基本設計→2027/1〜:詳細設計・開発／田町(三田)／外国籍不可' },
+];
+
+// ===== State =====
+let catFilter = 'all';
+function setCatFilter(cat) {
+  catFilter = cat;
+  document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.cat === cat));
+  renderTable();
+}
+
+function parsePrice(p) {
+  const m = String(p).match(/(\d+)/g);
+  return m ? Math.max(...m.map(Number)) : 0;
+}
+function parseHead(h) {
+  const m = String(h).match(/(\d+)/);
+  return m ? Number(m[1]) : 0;
+}
+
+function getFiltered() {
+  const q = document.getElementById('search-input').value.toLowerCase();
+  const sort = document.getElementById('sort-select').value;
+  let list = cases.filter(c => {
+    const matchCat = catFilter === 'all' || c.cat === catFilter;
+    const hay = (c.name + ' ' + c.skills.join(' ') + ' ' + c.location + ' ' + c.detail).toLowerCase();
+    const matchSearch = !q || hay.includes(q);
+    return matchCat && matchSearch;
+  });
+  if (sort === 'price_desc') list.sort((a,b) => parsePrice(b.price) - parsePrice(a.price));
+  else if (sort === 'price_asc') list.sort((a,b) => parsePrice(a.price) - parsePrice(b.price));
+  else if (sort === 'name_asc') list.sort((a,b) => a.name.localeCompare(b.name, 'ja'));
+  return list;
+}
+
+function catBadge(c) { return `<span class="badge cat-${c}">${CAT_LABEL[c]}</span>`; }
+function statusBadge(c) { return `<span class="badge status-${c.status}">${c.statusText}</span>`; }
+function skillTags(arr) { return arr.map(s => `<span class="tag">${s}</span>`).join(''); }
+
+function renderTable() {
+  const list = getFiltered();
+  document.getElementById('stat-total').textContent = cases.length;
+  document.getElementById('stat-open').textContent = cases.filter(c => c.status === 'open').length;
+  document.getElementById('stat-active').textContent = cases.filter(c => c.status === 'active').length;
+  document.getElementById('stat-head').textContent = cases.reduce((s,c) => s + parseHead(c.head), 0);
+  document.getElementById('meta-count').textContent = '全 ' + cases.length + ' 件';
+
+  const tbody = document.getElementById('table-body');
+  if (list.length === 0) {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="8">該当する案件がありません</td></tr>';
+  } else {
+    tbody.innerHTML = list.map(c => `
+      <tr>
+        <td><span class="case-name" onclick="openModal(${c.id})">${c.name}</span></td>
+        <td>${catBadge(c.cat)}</td>
+        <td style="max-width:200px;">${skillTags(c.skills)}</td>
+        <td style="max-width:160px;font-size:0.82rem;">${c.location}</td>
+        <td style="white-space:nowrap;">${c.price}</td>
+        <td style="white-space:nowrap;">${c.head}</td>
+        <td style="white-space:nowrap;font-size:0.82rem;">${c.period}</td>
+        <td>${statusBadge(c)}</td>
+      </tr>
+    `).join('');
+  }
+
+  const cards = document.getElementById('cards-body');
+  cards.innerHTML = list.map(c => `
+    <div class="card">
+      <div class="card-header">
+        <span class="card-name" onclick="openModal(${c.id})">${c.name}</span>
+        ${catBadge(c.cat)}
+      </div>
+      <div class="card-row"><span>技術</span><span>${c.skills.join(' / ')}</span></div>
+      <div class="card-row"><span>場所</span><span>${c.location}</span></div>
+      <div class="card-row"><span>単価</span><span>${c.price}</span></div>
+      <div class="card-row"><span>募集</span><span>${c.head}</span></div>
+      <div class="card-row"><span>時期</span><span>${c.period}</span></div>
+      <div class="card-row"><span>状況</span><span>${statusBadge(c)}</span></div>
+    </div>
+  `).join('') || '<p style="text-align:center;color:#9ca3af;padding:32px;">該当する案件がありません</p>';
+}
+
+// ===== Modal =====
+function openModal(id) {
+  const c = cases.find(x => x.id === id);
+  if (!c) return;
+  document.getElementById('modal-title').textContent = c.name;
+  document.getElementById('modal-body').innerHTML = `
+    <div class="modal-meta">
+      ${catBadge(c.cat)} ${statusBadge(c)}
+      <span class="tag">単価：${c.price}</span>
+      <span class="tag">募集：${c.head}</span>
+      <span class="tag">時期：${c.period}</span>
+      <span class="tag">場所：${c.location}</span>
+    </div>
+    <div style="margin-bottom:14px;">${skillTags(c.skills)}</div>
+    <div class="modal-detail">${c.detail}</div>
+  `;
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+  document.getElementById('modal-body').innerHTML = '';
+}
+document.getElementById('modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('modal')) closeModal();
+});
+</script>
+</body>
+</html>
