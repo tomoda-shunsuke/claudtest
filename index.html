@@ -3,463 +3,2068 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>候補者比較管理システム</title>
+<title>実績（マスキング版プレビュー）| 株式会社ウェブエッジ</title>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Segoe UI', 'Hiragino Sans', sans-serif; background: #f0f4f8; min-height: 100vh; }
+  :root {
+    --brand: #0CF8C0;
+    --brand-dark: #05C99B;
+    --text: #1a1a1a;
+    --text-sub: #5a5a5a;
+    --text-mute: #909090;
+    --line: #e0e0e0;
+    --bg: #ffffff;
+    --bg-soft: #f5f7f9;
+    --dark-gray: #4a4a4a;
+    --mask: #fff2a8;
+    --mask-border: #d4b830;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Hiragino Sans', 'メイリオ', 'Yu Gothic', 'Noto Sans JP', sans-serif;
+    color: var(--text);
+    line-height: 1.75;
+    background: var(--bg);
+    font-size: 14px;
+  }
 
-  /* ===== LOGIN ===== */
-  #login-screen {
-    display: flex; align-items: center; justify-content: center;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  /* プレビューバナー */
+  .preview-banner {
+    background: #fff3cd;
+    border-bottom: 2px solid #f0c040;
+    padding: 12px 20px;
+    text-align: center;
+    font-size: 12px;
+    color: #7a5b00;
+    position: sticky;
+    top: 0;
+    z-index: 100;
   }
-  .login-box {
-    background: #fff; border-radius: 16px; padding: 48px 40px;
-    width: 100%; max-width: 400px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  .preview-banner strong { color: #5a4300; }
+
+  /* サイトヘッダー */
+  header.site-header {
+    padding: 18px 40px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
   }
-  .login-box h1 {
-    text-align: center; font-size: 1.4rem; color: #1e3a8a;
+  .logo {
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: -0.02em;
+  }
+  .logo::before {
+    content: "";
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    background: var(--brand);
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: -5px;
+  }
+  .logo span.brand-name { color: var(--text); }
+  .site-nav {
+    display: flex;
+    gap: 22px;
+    font-size: 13px;
+    color: var(--text-sub);
+  }
+  .site-nav a { color: inherit; text-decoration: none; }
+  .cta-btn {
+    background: #ff9500;
+    color: white;
+    padding: 8px 18px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  /* Worksヘッダー（水彩画風） */
+  .works-title {
+    padding: 60px 20px 40px;
+    text-align: center;
+    background: linear-gradient(135deg, #f6f9fa 0%, #eaf7f5 40%, #f7f2e8 100%);
+    position: relative;
+  }
+  .works-title h1 {
+    font-family: 'Brush Script MT', 'Marker Felt', cursive;
+    font-size: 72px;
+    margin: 0;
+    color: #b8a892;
+    letter-spacing: 0.05em;
+    font-weight: 400;
+  }
+  .works-title .subtitle {
+    font-size: 15px;
+    letter-spacing: 0.6em;
+    color: var(--text);
+    margin-top: -10px;
+    font-weight: 600;
+  }
+
+  /* ナビタブ */
+  .nav-tabs-wrapper {
+    background: var(--bg-soft);
+    border-bottom: 1px solid var(--line);
+    padding: 14px 40px;
+    position: sticky;
+    top: 45px;
+    z-index: 50;
+  }
+  .nav-tabs-label {
+    font-size: 11px;
+    color: var(--text-mute);
     margin-bottom: 8px;
+    letter-spacing: 0.1em;
+    font-weight: 700;
   }
-  .login-box p.subtitle {
-    text-align: center; color: #6b7280; font-size: 0.85rem; margin-bottom: 32px;
+  .nav-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
   }
-  .form-group { margin-bottom: 20px; }
-  .form-group label { display: block; font-size: 0.85rem; color: #374151; margin-bottom: 6px; font-weight: 600; }
-  .form-group input {
-    width: 100%; padding: 10px 14px; border: 1.5px solid #d1d5db;
-    border-radius: 8px; font-size: 0.95rem; transition: border-color 0.2s;
+  .nav-tab {
+    background: white;
+    border: 1px solid var(--line);
+    color: var(--text-sub);
+    padding: 7px 13px;
+    border-radius: 999px;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s;
+    font-weight: 500;
   }
-  .form-group input:focus { outline: none; border-color: #3b82f6; }
-  .login-btn {
-    width: 100%; padding: 12px; background: linear-gradient(90deg, #1e3a8a, #3b82f6);
-    color: #fff; border: none; border-radius: 8px; font-size: 1rem;
-    font-weight: 600; cursor: pointer; transition: opacity 0.2s;
-  }
-  .login-btn:hover { opacity: 0.9; }
-  .login-error {
-    background: #fee2e2; color: #dc2626; border-radius: 8px;
-    padding: 10px 14px; font-size: 0.85rem; margin-bottom: 16px; display: none;
+  .nav-tab:hover { border-color: var(--brand-dark); color: var(--text); }
+  .nav-tab.active {
+    background: var(--text);
+    color: white;
+    border-color: var(--text);
   }
 
-  /* ===== APP ===== */
-  #app { display: none; }
+  /* メインコンテナ */
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+  }
 
-  /* Header */
-  .header {
-    background: linear-gradient(90deg, #1e3a8a 0%, #2563eb 100%);
-    color: #fff; padding: 20px 24px;
+  /* 事例ページ */
+  .case-page {
+    display: none;
+    padding-top: 24px;
   }
-  .header-top { display: flex; justify-content: space-between; align-items: center; }
-  .header h1 { font-size: 1.3rem; font-weight: 700; }
-  .logout-btn {
-    background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.4);
-    color: #fff; padding: 6px 16px; border-radius: 20px; cursor: pointer;
-    font-size: 0.82rem; transition: background 0.2s;
-  }
-  .logout-btn:hover { background: rgba(255,255,255,0.25); }
-  .header-meta {
-    margin-top: 10px; display: flex; flex-wrap: wrap; gap: 12px;
-    font-size: 0.82rem; opacity: 0.9;
-  }
-  .header-meta span { background: rgba(255,255,255,0.12); padding: 3px 10px; border-radius: 12px; }
+  .case-page.active { display: block; }
 
-  /* Stats */
-  .stats-grid {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
-    padding: 20px 24px;
+  .breadcrumb {
+    font-size: 12px;
+    color: var(--text-sub);
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 30px;
   }
-  @media (max-width: 700px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
-  .stat-card {
-    background: #fff; border-radius: 12px; padding: 18px 16px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  .breadcrumb a {
+    color: var(--text-sub);
+    text-decoration: none;
+    margin-right: 4px;
+  }
+
+  /* メインビジュアル（クライアントロゴ帯付き） */
+  .main-visual {
+    margin-bottom: 0;
+    position: relative;
+  }
+  .main-visual-band {
+    height: 40px;
+    background: var(--brand);
+    position: relative;
+  }
+  .main-visual-band::after {
+    content: "";
+    position: absolute;
+    right: -1px;
+    top: 0;
+    width: 60px;
+    height: 100%;
+    background: repeating-linear-gradient(45deg, transparent, transparent 8px, rgba(255,255,255,0.3) 8px, rgba(255,255,255,0.3) 12px);
+  }
+  .main-visual-body {
+    background: white;
+    padding: 60px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 240px;
+    border-left: 1px dashed var(--line);
+    border-right: 1px dashed var(--line);
+    background-image:
+      linear-gradient(to bottom right, transparent 49%, rgba(0,0,0,0.02) 50%, transparent 51%),
+      linear-gradient(to bottom left, transparent 49%, rgba(0,0,0,0.02) 50%, transparent 51%);
+  }
+  .client-logo-mask {
+    text-align: center;
+    padding: 30px 40px;
+    border: 3px dashed #ccc;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.9);
+    max-width: 500px;
+  }
+  .logo-label {
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    color: var(--text-mute);
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+  .logo-name {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: 0.02em;
+    line-height: 1.4;
+  }
+
+  /* 案件情報カード */
+  .case-info-card {
+    background: white;
+    border: 1px solid var(--line);
+    padding: 24px 26px;
+    margin-top: -30px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  }
+  .case-category {
+    display: inline-block;
+    background: var(--dark-gray);
+    color: white;
+    padding: 5px 14px;
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .case-title {
+    font-size: 17px;
+    font-weight: 700;
+    margin: 0 0 14px 0;
+    line-height: 1.6;
+  }
+  .case-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 18px;
+  }
+  .case-tag {
+    display: inline-block;
+    border: 1px solid #ccc;
+    color: var(--text-sub);
+    padding: 3px 10px;
+    font-size: 11px;
+    border-radius: 2px;
+  }
+  .case-problems {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .problems-label {
+    flex-shrink: 0;
+    width: 100px;
+    background: var(--dark-gray);
+    color: white;
+    text-align: center;
+    padding: 30px 8px;
+    font-size: 12px;
+    font-weight: 700;
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .problems-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 12px;
+    line-height: 1.85;
+    color: var(--text);
+  }
+  .problems-list li {
+    padding-left: 14px;
+    position: relative;
+    margin-bottom: 4px;
+  }
+  .problems-list li::before {
+    content: "・";
+    position: absolute;
+    left: 0;
+  }
+
+  /* セクション見出し */
+  .section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 60px 0 40px;
+    position: relative;
+    padding-bottom: 12px;
+  }
+  .section-heading::before,
+  .section-heading::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--text);
+  }
+  .heading-text {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+  }
+  .heading-icon {
+    font-size: 20px;
+    filter: grayscale(1);
+  }
+
+  /* 概要本文 */
+  .overview-body {
+    font-size: 13.5px;
+    line-height: 2;
+    color: var(--text);
+    padding: 0 4px;
+  }
+  .overview-body p { margin: 0 0 14px 0; }
+  .overview-body em {
+    font-size: 12px;
+    color: var(--text-sub);
+    font-style: normal;
+  }
+
+  /* 概要テーブル */
+  .summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 30px 0;
+    font-size: 13px;
+  }
+  .summary-table th,
+  .summary-table td {
+    padding: 14px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  .summary-table th {
+    width: 160px;
+    color: var(--text);
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+  }
+  .summary-table td { color: var(--text-sub); line-height: 1.75; }
+
+  /* 特徴グリッド */
+  .features-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 20px;
+    padding: 0 4px;
+  }
+  .feature-card {
+    display: flex;
+    flex-direction: column;
+  }
+  .feature-title {
+    background: var(--dark-gray);
+    color: white;
+    padding: 14px 16px;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: center;
+    margin: 0;
+    line-height: 1.5;
+  }
+  .feature-body {
+    font-size: 12.5px;
+    line-height: 1.85;
+    color: var(--text);
+    padding: 14px 4px 24px;
+    margin: 0;
+  }
+
+  /* サービスチップ */
+  .services-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 0 4px;
+    margin-top: 20px;
+  }
+  .service-chip {
+    background: var(--dark-gray);
+    color: white;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  /* マスキング済み箇所 */
+  .masked {
+    background: var(--mask);
+    border-bottom: 1px dotted var(--mask-border);
+    padding: 0 2px;
+    position: relative;
+    cursor: default;
+  }
+
+  /* インデックス（マスキング一覧） */
+  .masking-index {
+    background: var(--bg-soft);
+    padding: 24px 26px;
+    border-radius: 6px;
+    margin: 20px 0 40px;
+    border-left: 4px solid var(--brand);
+  }
+  .masking-index h3 {
+    font-size: 15px;
+    margin: 0 0 14px 0;
+  }
+  .masking-index table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+  .masking-index th,
+  .masking-index td {
+    padding: 8px 10px;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+  }
+  .masking-index th {
+    background: var(--dark-gray);
+    color: white;
+    font-weight: 600;
+    font-size: 11px;
+  }
+  .masking-index tr:nth-child(even) td { background: white; }
+
+  /* フッター */
+  footer.site-footer {
+    background: var(--dark-gray);
+    color: #ccc;
+    padding: 30px;
+    text-align: center;
+    font-size: 11px;
+    margin-top: 60px;
+  }
+
+  /* インデックスページ */
+  .index-page {
+    display: block;
+    padding: 30px 0;
+  }
+  .index-page.hidden { display: none; }
+
+  .index-intro {
+    padding: 20px 0;
+    color: var(--text);
+    font-size: 14px;
+  }
+
+  @media (max-width: 780px) {
+    header.site-header { padding: 14px 16px; }
+    .site-nav { display: none; }
+    .nav-tabs-wrapper { padding: 12px 16px; }
+    main { padding: 0 12px 40px; }
+    .works-title h1 { font-size: 54px; }
+    .features-grid { grid-template-columns: 1fr; }
+    .case-problems { flex-direction: column; }
+    .problems-label { width: 100%; padding: 10px; }
+    .case-title { font-size: 15px; }
+    .heading-text { font-size: 17px; }
+  }
+
+  /* SVGロゴ */
+  .client-logo-mask {
+    padding: 20px 30px !important;
+  }
+  .logo-svg-wrap {
     text-align: center;
   }
-  .stat-card .num { font-size: 2rem; font-weight: 700; color: #1e3a8a; }
-  .stat-card .label { font-size: 0.8rem; color: #6b7280; margin-top: 4px; }
-
-  /* Controls */
-  .controls {
-    display: flex; flex-wrap: wrap; gap: 12px;
-    padding: 0 24px 16px;
-    align-items: center;
+  .logo-svg-wrap svg {
+    display: block;
+    margin: 0 auto 14px;
   }
-  .controls input[type=text] {
-    padding: 8px 14px; border: 1.5px solid #d1d5db; border-radius: 8px;
-    font-size: 0.9rem; width: 220px;
+  .logo-text-sub {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    color: var(--text-mute);
+    margin-bottom: 6px;
+    font-weight: 700;
   }
-  .controls input[type=text]:focus { outline: none; border-color: #3b82f6; }
-  .filter-group { display: flex; gap: 6px; }
-  .filter-btn {
-    padding: 7px 14px; border: 1.5px solid #d1d5db; border-radius: 20px;
-    background: #fff; cursor: pointer; font-size: 0.82rem; transition: all 0.2s;
-  }
-  .filter-btn.active { background: #1e3a8a; color: #fff; border-color: #1e3a8a; }
-  .sort-select {
-    padding: 8px 12px; border: 1.5px solid #d1d5db; border-radius: 8px;
-    font-size: 0.85rem; background: #fff; cursor: pointer;
+  .logo-text-main {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: 0.02em;
+    line-height: 1.4;
   }
 
-  /* Table */
-  .table-wrap { padding: 0 24px 32px; overflow-x: auto; }
-  table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
-  th {
-    background: #1e3a8a; color: #fff; padding: 12px 14px;
-    font-size: 0.82rem; font-weight: 600; text-align: left; white-space: nowrap;
-  }
-  td { padding: 12px 14px; font-size: 0.88rem; color: #374151; border-bottom: 1px solid #f3f4f6; }
-  tr:last-child td { border-bottom: none; }
-  tr:hover td { background: #f8faff; }
-
-  .grade-badge {
-    display: inline-block; padding: 3px 10px; border-radius: 12px;
-    font-size: 0.78rem; font-weight: 700;
-  }
-  .grade-A { background: #dcfce7; color: #16a34a; }
-  .grade-A- { background: #dbeafe; color: #1d4ed8; }
-  .grade-B { background: #fef9c3; color: #ca8a04; }
-
-  .skill-btn {
-    padding: 5px 12px; background: #eff6ff; color: #1d4ed8;
-    border: 1px solid #bfdbfe; border-radius: 6px; cursor: pointer;
-    font-size: 0.8rem; transition: background 0.2s;
-  }
-  .skill-btn:hover { background: #dbeafe; }
-
-  /* Cards (mobile) */
-  .cards-wrap { display: none; padding: 0 16px 32px; }
-  @media (max-width: 768px) {
-    .table-wrap { display: none; }
-    .cards-wrap { display: block; }
-  }
-  .card {
-    background: #fff; border-radius: 12px; padding: 18px;
-    margin-bottom: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-  }
-  .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-  .card-name { font-weight: 700; font-size: 1rem; color: #1e3a8a; }
-  .card-row { display: flex; justify-content: space-between; font-size: 0.85rem; color: #6b7280; margin-bottom: 6px; }
-  .card-row span:last-child { color: #374151; font-weight: 500; }
-  .card-memo { font-size: 0.82rem; color: #6b7280; background: #f9fafb; padding: 8px; border-radius: 6px; margin-top: 8px; }
-
-  /* Modal */
-  .modal-overlay {
-    display: none; position: fixed; inset: 0;
-    background: rgba(0,0,0,0.5); z-index: 1000;
-    align-items: center; justify-content: center;
-  }
-  .modal-overlay.open { display: flex; }
-  .modal {
-    background: #fff; border-radius: 16px; width: 90%; max-width: 900px;
-    height: 80vh; display: flex; flex-direction: column;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-  }
-  .modal-header {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 16px 20px; border-bottom: 1px solid #e5e7eb;
-  }
-  .modal-header h3 { font-size: 1rem; color: #1e3a8a; }
-  .modal-close {
-    background: none; border: none; font-size: 1.4rem; cursor: pointer;
-    color: #6b7280; line-height: 1;
-  }
-  .modal-body { flex: 1; padding: 0; overflow: hidden; }
-  .modal-body iframe { width: 100%; height: 100%; border: none; border-radius: 0 0 16px 16px; }
-  .no-sheet { display: flex; align-items: center; justify-content: center; height: 100%; color: #9ca3af; font-size: 0.95rem; }
-
-  .empty-row td { text-align: center; color: #9ca3af; padding: 32px; }
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
-<div id="login-screen">
-  <div class="login-box">
-    <h1>候補者比較管理システム</h1>
-    <p class="subtitle">ログインしてください</p>
-    <div class="login-error" id="login-error">IDまたはパスワードが正しくありません。</div>
-    <div class="form-group">
-      <label>ID</label>
-      <input type="text" id="login-id" placeholder="ユーザーID" autocomplete="username">
-    </div>
-    <div class="form-group">
-      <label>パスワード</label>
-      <input type="password" id="login-pass" placeholder="パスワード" autocomplete="current-password">
-    </div>
-    <button class="login-btn" onclick="doLogin()">ログイン</button>
+<div class="preview-banner">
+  📝 <strong>マスキング版プレビュー</strong>：2次請け以下の顧客名をマスキング済み。黄色ハイライトは処理箇所（ホバーで元情報を表示）。上のタブで事例切替。
+</div>
+
+<header class="site-header">
+  <div class="logo"><span class="brand-name">web.edge</span></div>
+  <nav class="site-nav">
+    <a href="#">サービス</a>
+    <a href="#">実績</a>
+    <a href="#">強み</a>
+    <a href="#">伴走型DX</a>
+    <a href="#">DX内製化支援</a>
+    <a href="#">会社情報</a>
+    <a href="#">お知らせ</a>
+    <a href="#">採用情報</a>
+    <a href="#" class="cta-btn">お問い合わせ</a>
+  </nav>
+</header>
+
+<div class="works-title">
+  <h1>Works</h1>
+  <div class="subtitle">実 績</div>
+</div>
+
+<div class="nav-tabs-wrapper">
+  <div class="nav-tabs-label">▼ 事例を切り替え（11社マスキング版）</div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" data-target="index-page">📋 インデックス</button>
+    <button class="nav-tab" data-target="case-01">① 大手電機メーカー</button>
+<button class="nav-tab" data-target="case-02">② 大手医療機器メーカー</button>
+<button class="nav-tab" data-target="case-03">③ 大手通信キャリア</button>
+<button class="nav-tab" data-target="case-05">⑤ 大手計測・分析機器メーカー</button>
+<button class="nav-tab" data-target="case-06">⑥ 大手ISP・ネットワーク事業者</button>
+<button class="nav-tab" data-target="case-09">⑨ 大手メガバンク</button>
+<button class="nav-tab" data-target="case-10">⑩ 大手損害保険会社</button>
+<button class="nav-tab" data-target="case-11">⑪ 大手アパレル小売グループ</button>
+<button class="nav-tab" data-target="case-12">⑫ 大手FinTech</button>
+<button class="nav-tab" data-target="case-13">⑬ 流通系銀行</button>
+<button class="nav-tab" data-target="case-14">⑭ 行政機関（税務領域）</button>
+<button class="nav-tab" data-target="case-15">⑮ 大手化学メーカー</button>
   </div>
 </div>
 
-<!-- APP -->
-<div id="app">
-  <div class="header">
-    <div class="header-top">
-      <h1>候補者比較管理システム</h1>
-      <button class="logout-btn" onclick="doLogout()">ログアウト</button>
+<main>
+
+  <!-- インデックスページ -->
+  <section class="index-page" id="index-page">
+    <div class="index-intro">
+      <p>マーケチームが作成した事例記事について、2次請け以下の顧客企業11社を秘密保持の観点でマスキング処理したプレビュー版です。上のタブから各事例をご確認ください。</p>
+      <p>各ページ内の<span class="masked">黄色ハイライト箇所</span>がマスキング処理を施した部分です。</p>
     </div>
-    <div class="header-meta">
-      <span>PHP/Laravel11</span>
-      <span>中野新橋駅</span>
-      <span>週1リモート</span>
-      <span>2026年4月〜（3ヶ月）</span>
-      <span>目標単価：70〜75万円以上</span>
+
+  </section>
+
+  
+<section class="case-page" id="case-01">
+
+  <!-- パンくず -->
+  <div class="breadcrumb">
+    <a href="#">TOP</a> ＞ <a href="#">Works</a> ＞ ① 大手電機メーカー
+  </div>
+
+  <!-- メインビジュアル -->
+  <div class="main-visual" style="--brand: #000000;">
+    <div class="main-visual-band"></div>
+    <div class="main-visual-body">
+      <div class="client-logo-mask">
+        <div class="logo-svg-wrap" style="color: #1a1a1a;">
+      <svg viewBox="0 0 100 80" width="140" height="112" xmlns="http://www.w3.org/2000/svg">
+        
+            <rect x="20" y="18" width="60" height="42" rx="3" fill="none" stroke="currentColor" stroke-width="3"/>
+            <rect x="26" y="24" width="48" height="30" fill="currentColor" opacity="0.15"/>
+            <line x1="40" y1="66" x2="60" y2="66" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            <line x1="50" y1="60" x2="50" y2="66" stroke="currentColor" stroke-width="3"/>
+            <circle cx="35" cy="39" r="2" fill="currentColor"/>
+            <circle cx="65" cy="39" r="2" fill="currentColor"/>
+            <line x1="42" y1="39" x2="58" y2="39" stroke="currentColor" stroke-width="1.5"/>
+        
+      </svg>
+      <div class="logo-text">
+        <div class="logo-text-sub">ELECTRONICS</div>
+        <div class="logo-text-main">大手電機メーカー</div>
+      </div>
+    </div>
+      </div>
+    </div>
+    <div class="main-visual-band"></div>
+  </div>
+
+  <!-- 案件情報カード -->
+  <div class="case-info-card">
+    <div class="case-category">モバイルアプリ開発</div>
+    <h1 class="case-title">
+      <span class="masked">大手電機メーカー様</span><br>
+      長期信頼関係から実現した<span class="masked">家電連携アプリ</span>の継続開発
+    </h1>
+    <div class="case-tags">
+      <span class="case-tag">Android</span>
+<span class="case-tag">iOS</span>
+<span class="case-tag">Flutter</span>
+<span class="case-tag">Dart</span>
+<span class="case-tag">ホームシアター</span>
+<span class="case-tag">家電連携アプリ</span>
+    </div>
+    <div class="case-problems">
+      <div class="problems-label">解決した課題</div>
+      <ul class="problems-list">
+        <li>クライアント社内のアプリ開発チームが縮小傾向にあるなか、品質を維持しながらアプリの継続的な機能追加・改修体制を確保する必要があった</li>
+<li>少人数体制でユーザーから信頼を得るための、高い技術レベルと勤勉さを兼ね備えた開発リソースが求められていた</li>
+<li>アプリの利用人数拡大に応じた柔軟な体制スケールが課題となっていた</li>
+      </ul>
     </div>
   </div>
 
-  <div class="stats-grid">
-    <div class="stat-card"><div class="num" id="stat-total">0</div><div class="label">候補者合計</div></div>
-    <div class="stat-card"><div class="num" id="stat-a">0</div><div class="label">グレードA</div></div>
-    <div class="stat-card"><div class="num" id="stat-am">0</div><div class="label">グレードA-</div></div>
-    <div class="stat-card"><div class="num" id="stat-budget">0</div><div class="label">予算内（〜75万）</div></div>
+  <!-- 概要セクション -->
+  <div class="section-heading">
+    <span class="heading-text">概要</span>
+    <span class="heading-icon">🏔</span>
   </div>
 
-  <div class="controls">
-    <input type="text" id="search-input" placeholder="名前・会社・スキルで検索..." oninput="renderTable()">
-    <div class="filter-group" id="grade-filters">
-      <button class="filter-btn active" data-grade="all" onclick="setGradeFilter('all')">すべて</button>
-      <button class="filter-btn" data-grade="A" onclick="setGradeFilter('A')">A</button>
-      <button class="filter-btn" data-grade="A-" onclick="setGradeFilter('A-')">A-</button>
-      <button class="filter-btn" data-grade="B" onclick="setGradeFilter('B')">B</button>
+  <div class="overview-body">
+    <p><span class="masked">クライアント様</span>が提供する<span class="masked">主力コンシューマー製品</span>と連携するモバイルアプリの開発・保守を、長期にわたり継続的に支援しています。</p>
+<p><span class="masked">クライアント様</span>のアプリ開発部門は近年スリム化が進む一方で、ユーザーから求められる品質基準は依然として高く、少人数で高品質を維持できる外部パートナーが必要とされていました。</p>
+<p>ウェブエッジは、<span class="masked">20年近くにわたりクライアント様にモバイルソリューションを提供してきた元請企業</span>との強固な信頼関係を背景に、Android/iOS両プラットフォームの開発に対応できる技術力で参画。技術レベルの高さと勤勉さで顧客から継続的な信頼を獲得し、対象アプリの安定稼働と利用者拡大に寄与しています。</p>
+  </div>
+
+  <table class="summary-table">
+    <tr><th>技術スタック</th><td>Dart / Flutter / Android Native / iOS Native</td></tr>
+<tr><th>担当工程</th><td>要件定義サポート、設計、実装、テスト、リリース後の保守・改修対応まで、一気通貫で担当しています。</td></tr>
+  </table>
+
+  <!-- プロジェクトの特徴 -->
+  <div class="section-heading">
+    <span class="heading-text">プロジェクトの特徴</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card">
+              <h4 class="feature-title">少人数体制でも高品質を担保する技術力</h4>
+              <p class="feature-body">クライアント社内のアプリチームが縮小傾向にあるなか、技術知見の深さで品質を維持。要件確認から実装まで丁寧に対応することで、ユーザーから信頼されるアプリを少人数体制でも継続的に提供できる開発フローを構築しました。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">長期パートナーシップが生む信頼関係</h4>
+              <p class="feature-body">元請企業はクライアント様との取引が20年近くにわたり、モバイルソリューションを継続的に提供しています。その信頼関係の延長線上でウェブエッジが参画し、技術レベルの高さと勤勉さで信頼を勝ち取っています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">Flutterによる<br>クロスプラットフォーム開発</h4>
+              <p class="feature-body">Dart/Flutterを用いることで、Android・iOSの両プラットフォームに対して一つのコードベースで対応。仕様変更にも柔軟に対応でき、保守性とスピードを両立した開発を実現しています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">利用者数拡大を見据えた<br>スケーラブルな体制</h4>
+              <p class="feature-body">アプリの利用人数増加に応じて体制を機動的に変化させる準備を整備。今後の需要拡大局面でも、要件定義から開発まで一気通貫で対応可能な体制を維持しています。</p>
+            </div>
+  </div>
+
+  <!-- 提供サービス -->
+  <div class="section-heading">
+    <span class="heading-text">提供サービス</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="services-chips">
+    <span class="service-chip">モバイルアプリ開発</span>
+<span class="service-chip">クロスプラットフォーム開発（Flutter）</span>
+<span class="service-chip">要件定義〜開発〜保守の一気通貫支援</span>
+<span class="service-chip">長期パートナーシップ型エンジニア派遣</span>
+  </div>
+
+</section>
+
+
+<section class="case-page" id="case-02">
+
+  <!-- パンくず -->
+  <div class="breadcrumb">
+    <a href="#">TOP</a> ＞ <a href="#">Works</a> ＞ ② 大手医療機器メーカー
+  </div>
+
+  <!-- メインビジュアル -->
+  <div class="main-visual" style="--brand: #003087;">
+    <div class="main-visual-band"></div>
+    <div class="main-visual-body">
+      <div class="client-logo-mask">
+        <div class="logo-svg-wrap" style="color: #003087;">
+      <svg viewBox="0 0 100 80" width="140" height="112" xmlns="http://www.w3.org/2000/svg">
+        
+            <circle cx="50" cy="42" r="26" fill="none" stroke="currentColor" stroke-width="3"/>
+            <circle cx="50" cy="42" r="16" fill="currentColor" opacity="0.1"/>
+            <rect x="46" y="30" width="8" height="24" fill="currentColor"/>
+            <rect x="38" y="38" width="24" height="8" fill="currentColor"/>
+        
+      </svg>
+      <div class="logo-text">
+        <div class="logo-text-sub">MEDICAL DEVICE</div>
+        <div class="logo-text-main">大手医療機器メーカー</div>
+      </div>
     </div>
-    <select class="sort-select" id="sort-select" onchange="renderTable()">
-      <option value="default">並び順：デフォルト</option>
-      <option value="match_desc">相性：高い順</option>
-      <option value="price_asc">単価：安い順</option>
-      <option value="price_desc">単価：高い順</option>
-      <option value="name_asc">名前：昇順</option>
-    </select>
-  </div>
-
-  <!-- Desktop Table -->
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr>
-          <th>名前</th>
-          <th>会社</th>
-          <th>単価（万円）</th>
-          <th>稼働開始</th>
-          <th>稼働形態</th>
-          <th>グレード</th>
-          <th>相性スコア</th>
-          <th>推薦理由</th>
-          <th>懸念点</th>
-          <th>スキルシート</th>
-        </tr>
-      </thead>
-      <tbody id="table-body"></tbody>
-    </table>
-  </div>
-
-  <!-- Mobile Cards -->
-  <div class="cards-wrap" id="cards-body"></div>
-</div>
-
-<!-- Skill Sheet Modal -->
-<div class="modal-overlay" id="modal">
-  <div class="modal">
-    <div class="modal-header">
-      <h3 id="modal-title">スキルシート</h3>
-      <button class="modal-close" onclick="closeModal()">×</button>
+      </div>
     </div>
-    <div class="modal-body" id="modal-body"></div>
+    <div class="main-visual-band"></div>
   </div>
-</div>
+
+  <!-- 案件情報カード -->
+  <div class="case-info-card">
+    <div class="case-category">医療システム開発</div>
+    <h1 class="case-title">
+      <span class="masked">大手医療機器メーカー様（医療機器分野）</span><br>
+      <span class="masked">世界シェア上位の内視鏡</span>を支える、医療システム品質向上プロジェクト
+    </h1>
+    <div class="case-tags">
+      <span class="case-tag">医療機器</span>
+<span class="case-tag">内視鏡</span>
+<span class="case-tag">業務システム</span>
+<span class="case-tag">C#</span>
+<span class="case-tag">Java</span>
+<span class="case-tag">.NET</span>
+<span class="case-tag">Oracle</span>
+<span class="case-tag">品質保証</span>
+    </div>
+    <div class="case-problems">
+      <div class="problems-label">解決した課題</div>
+      <ul class="problems-list">
+        <li><span class="masked">医療機器分野で世界シェア上位のクライアント様</span>の基幹システムには、医療機器という性質上、極めて高い品質と安定性が求められていた</li>
+<li>サーバ側（Java）とクライアント側（C#）の両方を扱える技術力を持つパートナーが不足していた</li>
+<li>要望や仕様について高頻度で確認を行い、認識の齟齬を防ぐ伴走型の開発体制が必要だった</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 概要セクション -->
+  <div class="section-heading">
+    <span class="heading-text">概要</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="overview-body">
+    <p><span class="masked">クライアント様</span>の<span class="masked">内視鏡管理システム</span>のコア部分追加開発を支援。</p>
+<p><span class="masked">医療機器分野で世界シェア上位のクライアント様</span>の基幹システムは、医療機器という性質上クリティカルなエラーが許されず、品質に対する強い意識を持つパートナーが求められていました。</p>
+<p>ウェブエッジは、サーバ側（Java）とクライアント側（C#）の両方を扱える技術力を強みに、エラー原因の迅速な切り分けと素早いレスポンスを実現。要望や仕様について高頻度で確認を行うことで認識の齟齬を防ぎ、顧客の要望通りに遅滞なく対応することで、医療現場の安定稼働に貢献しています。</p>
+  </div>
+
+  <table class="summary-table">
+    <tr><th>技術スタック</th><td>C# / VB.NET（クライアント側） / Java（サーバ側） / Oracle / SQL Server / PostgreSQL</td></tr>
+<tr><th>担当工程</th><td>詳細設計改修、製造、単体テスト、結合テスト、パッケージ試験、システムテストまで対応</td></tr>
+<tr><th>関連プロダクト</th><td><span class="masked">内視鏡管理システム</span>。クライアント様の内視鏡領域における中核ソリューション</td></tr>
+  </table>
+
+  <!-- プロジェクトの特徴 -->
+  <div class="section-heading">
+    <span class="heading-text">プロジェクトの特徴</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card">
+              <h4 class="feature-title">医療機器のクリティカル品質を支える<br>開発体制</h4>
+              <p class="feature-body">医療現場で使用される内視鏡管理システムは、わずかなエラーも許されません。詳細設計改修からパッケージ試験、システムテストまで一貫して高品質を担保し、連続するメジャーアップデートを支えています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">サーバ・クライアント両側を扱える<br>技術力</h4>
+              <p class="feature-body">サーバ側のJavaとクライアント側のC#（.NET）の双方に精通したエンジニアを配置することで、結合テストでの障害発生時にもエラー原因の迅速な切り分けが可能。素早いレスポンスでプロジェクトの遅延リスクを最小化しています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">認識齟齬を防ぐ<br>高頻度コミュニケーション</h4>
+              <p class="feature-body">要望や仕様について高頻度で確認を行い、認識の齟齬を防止。顧客の要望通りに遅滞なく対応することで信頼関係を構築。コア機能の開発テストにも継続的に関与しています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">患者データの精度を高める<br>機能追加</h4>
+              <p class="feature-body">患者データ条件検索の機能追加など、医療現場のオペレーション効率を直接改善する開発に従事。詳細設計や単体テスト項目の作成まで担当し、製造工程の品質を担保しています。</p>
+            </div>
+  </div>
+
+  <!-- 提供サービス -->
+  <div class="section-heading">
+    <span class="heading-text">提供サービス</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="services-chips">
+    <span class="service-chip">医療系業務システム開発</span>
+<span class="service-chip">詳細設計・実装・テスト工程の品質保証</span>
+<span class="service-chip">クライアント/サーバ両側のフルスタック対応</span>
+<span class="service-chip">パッケージリリース支援</span>
+  </div>
+
+</section>
+
+
+<section class="case-page" id="case-03">
+
+  <!-- パンくず -->
+  <div class="breadcrumb">
+    <a href="#">TOP</a> ＞ <a href="#">Works</a> ＞ ③ 大手通信キャリア
+  </div>
+
+  <!-- メインビジュアル -->
+  <div class="main-visual" style="--brand: #CC0033;">
+    <div class="main-visual-band"></div>
+    <div class="main-visual-body">
+      <div class="client-logo-mask">
+        <div class="logo-svg-wrap" style="color: #CC0033;">
+      <svg viewBox="0 0 100 80" width="140" height="112" xmlns="http://www.w3.org/2000/svg">
+        
+            <circle cx="50" cy="52" r="4" fill="currentColor"/>
+            <path d="M 35 44 Q 50 30 65 44" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            <path d="M 27 38 Q 50 16 73 38" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+            <path d="M 20 32 Q 50 4 80 32" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity="0.3"/>
+        
+      </svg>
+      <div class="logo-text">
+        <div class="logo-text-sub">TELECOM CARRIER</div>
+        <div class="logo-text-main">大手通信キャリア</div>
+      </div>
+    </div>
+      </div>
+    </div>
+    <div class="main-visual-band"></div>
+  </div>
+
+  <!-- 案件情報カード -->
+  <div class="case-info-card">
+    <div class="case-category">Web/フロントエンドリプレイス</div>
+    <h1 class="case-title">
+      <span class="masked">大手通信キャリア様</span><br>
+      <span class="masked">自社会員向けWebサイト</span>×店頭タブレットのUI/UX統合 <span class="masked">光通信サービス</span>のフロントエンドリプレイス
+    </h1>
+    <div class="case-tags">
+      <span class="case-tag">通信キャリア</span>
+<span class="case-tag">Vue.js</span>
+<span class="case-tag">Next.js</span>
+<span class="case-tag">フロントエンド</span>
+<span class="case-tag">UI/UX統一</span>
+<span class="case-tag">リプレイス</span>
+    </div>
+    <div class="case-problems">
+      <div class="problems-label">解決した課題</div>
+      <ul class="problems-list">
+        <li><span class="masked">クライアント様</span>の光事業向けサービス<span class="masked">（光通信サービス）</span>において、Web（<span class="masked">会員サイト</span>）と店頭タブレット向け画面でUI/動線が分断していた</li>
+<li>3社競合の安定領域である通信業界において、ユーザー接点の体験統一が競争力の鍵となっていた</li>
+<li>既存のFlutter/Vueベースの画面を、保守性を保ちながらモダンなフロント技術にリプレイスする必要があった</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 概要セクション -->
+  <div class="section-heading">
+    <span class="heading-text">概要</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="overview-body">
+    <p><span class="masked">大手通信キャリア様</span>の光事業向けサービス<span class="masked">（光通信サービス）</span>のフロントエンドリプレイスを支援。</p>
+<p>従来、<span class="masked">自社会員向けWebサイト</span>と店頭タブレット向け画面はそれぞれ独立して構築されており、ユーザー体験（UI/動線）が一致していないことが課題でした。</p>
+<p>ウェブエッジは、Vue.jsを中心としたモダンなフロントエンド技術スタックでリプレイスを担当。既存の<span class="masked">会員サイトのモバイル版</span>リポジトリを参考に、Web版と店頭タブレット版の両画面のUI/動線を統一し、契約導線における顧客体験の一貫性を実現しています。</p>
+<p>通信キャリア領域は3社競合の安定市場であり、顧客接点の体験統一は今後の競争優位を支える重要なテーマです。</p>
+  </div>
+
+  <table class="summary-table">
+    <tr><th>技術スタック</th><td>Vue.js / Flutter / TypeScript / Microsoft Loop / SharePoint / GitHub</td></tr>
+<tr><th>対応画面</th><td><span class="masked">会員向けWebサイト</span> / 店頭タブレット向け画面（Flutter, Vue使用）</td></tr>
+  </table>
+
+  <!-- プロジェクトの特徴 -->
+  <div class="section-heading">
+    <span class="heading-text">プロジェクトの特徴</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card">
+              <h4 class="feature-title">Webとタブレットの<br>UI/動線を統一</h4>
+              <p class="feature-body">従来別々に存在していた<span class="masked">会員向けWebサイト</span>と店頭タブレット向け画面を、Vue.jsでリプレイス。両チャネルで同じUI/動線を実現し、ユーザーがどの接点からアクセスしても一貫した体験を提供できる状態を構築しました。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">モダンフロントエンドへの<br>計画的な移行</h4>
+              <p class="feature-body">既存資産（Flutter/Vue）を踏まえつつ、保守性とパフォーマンスを意識した設計でリプレイスを推進。<span class="masked">会員サイト</span>のモバイル版リポジトリを参照しながら、光事業向け画面に最適化した実装を進めています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">チーム拡張と若手育成の両立</h4>
+              <p class="feature-body">同プロジェクト内で複数名体制を構築し、フロントエンド初学者から中堅レベルまで段階的に育成。プロジェクトの納期を守りながら、エンジニアのキャリア成長も支援しています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">日々の運用課題への即応</h4>
+              <p class="feature-body">アラート対応やチーム間調整も含めた運用フェーズにも対応。仕様変更が多い環境下でも、キャッチアップしながら品質を担保する開発スタイルで貢献しています。</p>
+            </div>
+  </div>
+
+  <!-- 提供サービス -->
+  <div class="section-heading">
+    <span class="heading-text">提供サービス</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="services-chips">
+    <span class="service-chip">フロントエンド開発/リプレイス</span>
+<span class="service-chip">UI/UX統一設計</span>
+<span class="service-chip">通信キャリア領域での大規模Web開発</span>
+<span class="service-chip">モダンフレームワーク移行支援（Vue/Next.js）</span>
+  </div>
+
+</section>
+
+
+<section class="case-page" id="case-05">
+
+  <!-- パンくず -->
+  <div class="breadcrumb">
+    <a href="#">TOP</a> ＞ <a href="#">Works</a> ＞ ⑤ 大手計測・分析機器メーカー
+  </div>
+
+  <!-- メインビジュアル -->
+  <div class="main-visual" style="--brand: #D50032;">
+    <div class="main-visual-band"></div>
+    <div class="main-visual-body">
+      <div class="client-logo-mask">
+        <div class="logo-svg-wrap" style="color: #D50032;">
+      <svg viewBox="0 0 100 80" width="140" height="112" xmlns="http://www.w3.org/2000/svg">
+        
+            <circle cx="50" cy="45" r="26" fill="none" stroke="currentColor" stroke-width="3"/>
+            <line x1="50" y1="45" x2="66" y2="30" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="50" cy="45" r="4" fill="currentColor"/>
+            <line x1="50" y1="22" x2="50" y2="26" stroke="currentColor" stroke-width="2"/>
+            <line x1="73" y1="45" x2="69" y2="45" stroke="currentColor" stroke-width="2"/>
+            <line x1="27" y1="45" x2="31" y2="45" stroke="currentColor" stroke-width="2"/>
+            <line x1="34" y1="29" x2="37" y2="32" stroke="currentColor" stroke-width="2"/>
+            <line x1="66" y1="29" x2="63" y2="32" stroke="currentColor" stroke-width="2"/>
+        
+      </svg>
+      <div class="logo-text">
+        <div class="logo-text-sub">INSTRUMENTS</div>
+        <div class="logo-text-main">大手計測・分析機器メーカー</div>
+      </div>
+    </div>
+      </div>
+    </div>
+    <div class="main-visual-band"></div>
+  </div>
+
+  <!-- 案件情報カード -->
+  <div class="case-info-card">
+    <div class="case-category">GRC・統制可視化基盤構築</div>
+    <h1 class="case-title">
+      <span class="masked">大手計測・分析機器メーカー様</span><br>
+      ホットラインから始まる全社リスク管理 ServiceNowによる<span class="masked">統制可視化基盤（IRM-GRC）</span>構築
+    </h1>
+    <div class="case-tags">
+      <span class="case-tag">ServiceNow</span>
+<span class="case-tag">IRM-GRC</span>
+<span class="case-tag">ホットライン</span>
+<span class="case-tag">コンプライアンス</span>
+<span class="case-tag">リスク管理</span>
+<span class="case-tag">AI要約</span>
+<span class="case-tag">製造業</span>
+    </div>
+    <div class="case-problems">
+      <div class="problems-label">解決した課題</div>
+      <ul class="problems-list">
+        <li>通報・ハラスメント・インシデント対応がMicrosoft Forms→Excel→メールでのやり取りで属人化し、運用の限界を迎えていた</li>
+<li>通報から対応・クローズまでの一連のフローが可視化されておらず、不祥事や事故の早期発見が困難だった</li>
+<li>グループ会社含めた横展開を見据えた、拡張性の高い統制基盤が必要だった</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 概要セクション -->
+  <div class="section-heading">
+    <span class="heading-text">概要</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="overview-body">
+    <p><span class="masked">クライアント様</span>のリスク管理・統制可視化プロジェクト「IRM-GRC（Integrated Risk Management - Governance Risk Compliance）」の開発を支援。</p>
+<p>従来、コンプライアンス・ハラスメント・インシデント通報の業務は、Microsoft Forms→Excel→メールという非効率な運用で属人化しており、運用の限界を迎えていました。</p>
+<p>ウェブエッジは、ServiceNowを用いて通報〜対応〜クローズまでを一気通貫で可視化するホットライン機能を開発。AI要約と自動化により管理工数を大幅に削減し、不祥事や事故の早期発見・拡大防止を可能にしました。</p>
+<p>結果として、<span class="masked">クライアント様</span>が安心して事業拡大できる経営判断・監査に耐える基盤の構築に貢献しています。</p>
+  </div>
+
+  <table class="summary-table">
+    <tr><th>技術スタック</th><td>ServiceNow / React / JavaScript / HTML / CSS / SQL / MySQL / PostgreSQL</td></tr>
+<tr><th>対応領域</th><td>1. ホットライン（コンプライアンス・ハラスメント・インシデント通報）<br>2. リスク管理（会社リスク保守運用）<br>3. 監査（リスク対策の実施監査）</td></tr>
+<tr><th>今後の展開</th><td>IRM-GRC全体を<span class="masked">クライアントグループ会社</span>へ横展開予定。現在は2名体制で保守開発を継続し、信頼性を担保</td></tr>
+  </table>
+
+  <!-- プロジェクトの特徴 -->
+  <div class="section-heading">
+    <span class="heading-text">プロジェクトの特徴</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card">
+              <h4 class="feature-title">Excel・メール依存からの完全脱却</h4>
+              <p class="feature-body">通報〜対応〜クローズまでをServiceNow上で一元化・可視化。従来のExcelやメールでのやり取りに依存した属人的な運用を完全に刷新し、組織として「誰が何を見て、いつ対応するか」を明確化できる仕組みを構築しました。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">AI要約と自動化で<br>管理工数を削減</h4>
+              <p class="feature-body">通報内容のAI要約機能や、ステータス遷移の自動化により、管理者の確認・整理工数を大幅に削減。担当者は判断と対応に集中でき、不祥事や事故の早期発見・拡大防止につながる体制を整備しました。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">監査・経営判断に耐える<br>基盤の構築</h4>
+              <p class="feature-body"><span class="masked">クライアント様</span>が安心して事業拡大できる経営判断・監査に耐える基盤を構築。リスク管理・監査領域への展開を見据え、IRM-GRC全体（ホットライン・リスク管理・監査）をグループ会社などへ横展開する基盤を整えています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">技術者の視座を引き上げる体制</h4>
+              <p class="feature-body">開発者視点だけでなくビジネス価値を言語化できる人材育成を意識した体制で参画。プリセールスのように顧客と対面で要件を詰められるリーダーレベルへの成長機会を、プロジェクトの中で確保しています。</p>
+            </div>
+  </div>
+
+  <!-- 提供サービス -->
+  <div class="section-heading">
+    <span class="heading-text">提供サービス</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="services-chips">
+    <span class="service-chip">ServiceNow開発・運用</span>
+<span class="service-chip">GRC（Governance/Risk/Compliance）基盤構築</span>
+<span class="service-chip">ホットライン・通報システム構築</span>
+<span class="service-chip">AI要約・自動化機能の実装</span>
+<span class="service-chip">グループ会社横展開支援</span>
+  </div>
+
+</section>
+
+
+<section class="case-page" id="case-06">
+
+  <!-- パンくず -->
+  <div class="breadcrumb">
+    <a href="#">TOP</a> ＞ <a href="#">Works</a> ＞ ⑥ 大手ISP・ネットワーク事業者
+  </div>
+
+  <!-- メインビジュアル -->
+  <div class="main-visual" style="--brand: #E60012;">
+    <div class="main-visual-band"></div>
+    <div class="main-visual-body">
+      <div class="client-logo-mask">
+        <div class="logo-svg-wrap" style="color: #E60012;">
+      <svg viewBox="0 0 100 80" width="140" height="112" xmlns="http://www.w3.org/2000/svg">
+        
+            <circle cx="50" cy="42" r="26" fill="none" stroke="currentColor" stroke-width="3"/>
+            <ellipse cx="50" cy="42" rx="26" ry="10" fill="none" stroke="currentColor" stroke-width="2"/>
+            <ellipse cx="50" cy="42" rx="10" ry="26" fill="none" stroke="currentColor" stroke-width="2"/>
+            <line x1="24" y1="42" x2="76" y2="42" stroke="currentColor" stroke-width="2"/>
+        
+      </svg>
+      <div class="logo-text">
+        <div class="logo-text-sub">NETWORK SERVICE</div>
+        <div class="logo-text-main">大手ISP・ネットワークサービス事業者</div>
+      </div>
+    </div>
+      </div>
+    </div>
+    <div class="main-visual-band"></div>
+  </div>
+
+  <!-- 案件情報カード -->
+  <div class="case-info-card">
+    <div class="case-category">SaaS品質管理・Webサイト制作</div>
+    <h1 class="case-title">
+      <span class="masked">大手ISP・ネットワークサービス事業者様</span><br>
+      医療・介護連携SaaSの裏側を支える <span class="masked">医療・介護連携SaaSサービス</span>品質管理体制の構築
+    </h1>
+    <div class="case-tags">
+      <span class="case-tag">SaaS</span>
+<span class="case-tag">医療・介護連携</span>
+<span class="case-tag">QA</span>
+<span class="case-tag">品質管理</span>
+<span class="case-tag">テスト</span>
+<span class="case-tag">Webサイト制作</span>
+<span class="case-tag">マニュアル整備</span>
+    </div>
+    <div class="case-problems">
+      <div class="problems-label">解決した課題</div>
+      <ul class="problems-list">
+        <li><span class="masked">クライアント様</span>の自治体向け医療・介護連携SaaS<span class="masked">（医療・介護連携SaaSサービス）</span>において、開発部門が新規開発・機能改善に集中するため、品質管理・サポート領域を外部に委託する必要があった</li>
+<li>サービス拡張に伴うテスト範囲の肥大化と、マニュアルの構成管理・情報整理の標準化が課題だった</li>
+<li>他チーム（アプリ/インフラ）との連携ポイント増加により、情報共有の仕組み強化が求められていた</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 概要セクション -->
+  <div class="section-heading">
+    <span class="heading-text">概要</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="overview-body">
+    <p><span class="masked">クライアント様</span>が提供する自治体向け医療・介護連携SaaS<span class="masked">（医療・介護連携SaaSサービス）</span>において、品質管理テスト、マニュアルサイト作成・修正、関連Webサイトの新規作成・改修を支援。</p>
+<p><span class="masked">クライアント様</span>の開発部門が新規開発・機能改善に集中できるよう、テスト・サポート領域を外部の専門チームに委託する体制を構築。ウェブエッジは複数名体制で、サービス全体の品質維持と情報発信力向上を担っています。</p>
+<p>利用自治体・医療介護専門職の利便性を支える「縁の下の品質基盤」として、問い合わせ削減・オンボーディング効率化・新規導入拡大の後押しに貢献しています。</p>
+  </div>
+
+  <table class="summary-table">
+    <tr><th>技術・ツールスタック</th><td>HTML / CSS / テスト管理関連ツール / Webマニュアル・サイト制作ツール / <span class="masked">クライアント独自基盤</span>（アプリ/インフラ/テストチーム体制）</td></tr>
+<tr><th>チーム体制</th><td>複数名（営業担当・品質管理担当・Webサイト制作担当）で長期的に体制を維持。1on1の定期実施でチームコンディションも継続管理</td></tr>
+<tr><th>対象サービス</th><td><span class="masked">医療・介護連携SaaSサービス</span>（医療・介護現場の多職種連携を支えるSaaS）</td></tr>
+  </table>
+
+  <!-- プロジェクトの特徴 -->
+  <div class="section-heading">
+    <span class="heading-text">プロジェクトの特徴</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card">
+              <h4 class="feature-title">開発と品質管理の役割分担で<br>生産性を最大化</h4>
+              <p class="feature-body"><span class="masked">クライアント提供サービス</span>の運用・品質管理を外部専門チームに委託することで、<span class="masked">クライアント様</span>の開発部門は新規開発・機能改善に集中できる体制を構築。役割分担を最適化することで、サービス全体の進化スピードを高めています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">医療・介護現場の利便性向上に<br>直結する品質保証</h4>
+              <p class="feature-body">機能追加やサービス拡張に伴って肥大化するテスト範囲を継続的にカバー。サービス品質を維持することで、利用自治体・医療介護専門職の現場オペレーションを支えています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">マニュアル整備で<br>問い合わせ削減</h4>
+              <p class="feature-body">更新頻度の高いマニュアルを継続的に整備し、情報構成を標準化。問い合わせの削減・オンボーディング効率化を実現し、サポートコストの低減にも貢献しています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">関連Webサイトの新規制作で<br>導入を後押し</h4>
+              <p class="feature-body">新規Webサイトの構築や既存サイトの改修を通じて、サービスの情報発信力を向上。自治体への提案や導入拡大のフェーズを後押しする「攻めの品質管理」を実践しています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">三位一体で改善が回る体制</h4>
+              <p class="feature-body">アプリ・インフラ・テストの三チームが連携して改善を回せる体制づくりに貢献。情報共有の仕組みを強化することで、サービス全体の継続的な改善を実現しています。</p>
+            </div>
+  </div>
+
+  <!-- 提供サービス -->
+  <div class="section-heading">
+    <span class="heading-text">提供サービス</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="services-chips">
+    <span class="service-chip">SaaS品質管理（QA）</span>
+<span class="service-chip">テスト設計・実施</span>
+<span class="service-chip">マニュアルサイト制作・運用</span>
+<span class="service-chip">Webサイト新規制作・改修</span>
+<span class="service-chip">カスタマーサポート支援</span>
+  </div>
+
+</section>
+
+
+<section class="case-page" id="case-09">
+
+  <!-- パンくず -->
+  <div class="breadcrumb">
+    <a href="#">TOP</a> ＞ <a href="#">Works</a> ＞ ⑨ 大手メガバンク
+  </div>
+
+  <!-- メインビジュアル -->
+  <div class="main-visual" style="--brand: #00A0E9;">
+    <div class="main-visual-band"></div>
+    <div class="main-visual-body">
+      <div class="client-logo-mask">
+        <div class="logo-svg-wrap" style="color: #00A0E9;">
+      <svg viewBox="0 0 100 80" width="140" height="112" xmlns="http://www.w3.org/2000/svg">
+        
+            <polygon points="50,18 20,32 80,32" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+            <rect x="25" y="36" width="6" height="24" fill="currentColor"/>
+            <rect x="38" y="36" width="6" height="24" fill="currentColor"/>
+            <rect x="56" y="36" width="6" height="24" fill="currentColor"/>
+            <rect x="69" y="36" width="6" height="24" fill="currentColor"/>
+            <rect x="18" y="62" width="64" height="5" fill="currentColor"/>
+        
+      </svg>
+      <div class="logo-text">
+        <div class="logo-text-sub">MEGABANK</div>
+        <div class="logo-text-main">大手メガバンク</div>
+      </div>
+    </div>
+      </div>
+    </div>
+    <div class="main-visual-band"></div>
+  </div>
+
+  <!-- 案件情報カード -->
+  <div class="case-info-card">
+    <div class="case-category">金融システム/データ分析</div>
+    <h1 class="case-title">
+      大手メガバンク様（マネー・ローンダリング対策領域）<br>
+      激増する金融犯罪に立ち向かう、メガバンクのAML（マネロン対策）基盤を支えるデータ精査
+    </h1>
+    <div class="case-tags">
+      <span class="case-tag">金融</span>
+<span class="case-tag">メガバンク</span>
+<span class="case-tag">AML</span>
+<span class="case-tag">マネー・ローンダリング対策</span>
+<span class="case-tag">データ分析</span>
+<span class="case-tag">SAS</span>
+<span class="case-tag">Python</span>
+<span class="case-tag">PowerQuery</span>
+    </div>
+    <div class="case-problems">
+      <div class="problems-label">解決した課題</div>
+      <ul class="problems-list">
+        <li>2024年（令和6年）の金融犯罪検挙件数が前年比約4割増の1,283件に達するなか、メガバンクとして「お客様が詐欺に遭うのを未然に防ぐ」AML体制の強化が急務だった</li>
+<li>FATF（金融活動作業部会）の国際審査において不備が認められれば、日本の銀行全体が国際送金から排除される、あるいは巨額の制裁金を科されるリスクがあった</li>
+<li>膨大なデータの精査・フィルタリング・疑わしい取引分析を、自動化困難な検証業務として継続的に対応できるパートナーが必要だった</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 概要セクション -->
+  <div class="section-heading">
+    <span class="heading-text">概要</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="overview-body">
+    <p>大手メガバンク様のマネー・ローンダリング対策（AML）領域における、データモニタリング・フィルタリング・疑わしい取引分析を支援。</p>
+<p>2024年の金融犯罪検挙件数は前年から約4割増の1,283件に達し、メガバンクの役割は「預かったお金を管理する」から「お客様が詐欺に遭うのを未然に防ぐ」へとシフトしています。同時に、FATF（金融活動作業部会）による国際審査で不備が認められれば、日本の銀行全体が国際送金から排除される、あるいは巨額の制裁金を科されるリスクがあり、金融機関のAML対応は経営の最重要課題となっています。</p>
+<p>ウェブエッジは、上位コンサルティングファームから引き継いだ複雑なデータ分析業務を担当。膨大なデータの精査により登録漏れや誤りを防ぎ、銀行のマネーロンダリング対策と犯罪抑止に不可欠な正確なデータ基盤を提供しています。</p>
+<p><em>※本事例は守秘性が高いため、クライアント名は非公開（業界・領域での記載）としています。</em></p>
+  </div>
+
+  <table class="summary-table">
+    <tr><th>技術スタック</th><td>SAS（統計解析システム） / Python（コード分析基盤） / ODM=Oracle Data Miner（データマイニング/機械学習ツール） / Power Query（データ変換・準備エンジン） / Tableau（最終報告用） / Visual Basic / VBA / Access / Oracle</td></tr>
+<tr><th>対応領域</th><td>フィルタリング（口座情報の精査） / モニタリング（取引監視） / 疑わしい取引分析</td></tr>
+  </table>
+
+  <!-- プロジェクトの特徴 -->
+  <div class="section-heading">
+    <span class="heading-text">プロジェクトの特徴</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card">
+              <h4 class="feature-title">金融犯罪激増時代の<br>銀行業務を支える</h4>
+              <p class="feature-body">2024年の検挙件数が前年比約4割増の1,283件に達するなか、銀行業務は「お金の管理」から「顧客保護」へと役割を拡大。ウェブエッジは、その最前線でデータ精査業務を担い、銀行の社会的責任の遂行を技術面から支援しています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">FATF審査に耐える<br>品質のデータ基盤</h4>
+              <p class="feature-body">FATFという国際機関の厳しい審査に対応するため、膨大なデータの登録漏れや誤りを防ぐ精密な検証作業を実施。日本の銀行全体が国際送金網に留まれるかという、金融インフラの根幹に関わる業務を担っています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">自動化困難な検証作業を<br>専門人材で代行</h4>
+              <p class="feature-body">マネロン対策のデータ分析は、人間の判断を要する部分が多く自動化が困難。ウェブエッジは、SAS・Python・PowerQuery・ODM（Oracle Data Miner）といった多様なツールを使いこなす専門人材を配置し、行員の負担を軽減。より重要度の高い業務に集中できる環境作りに貢献しています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">上位コンサルからの<br>業務引き継ぎを完遂</h4>
+              <p class="feature-body">従来は大手コンサルティングファームが担っていた業務を、コスト最適化のため引き継ぎ。半年程度の引き継ぎ期間を経て、品質を落とすことなく安定運用を実現。フィルタリング・モニタリング・疑わしい取引分析という3領域すべてに対応しています。</p>
+            </div>
+  </div>
+
+  <!-- 提供サービス -->
+  <div class="section-heading">
+    <span class="heading-text">提供サービス</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="services-chips">
+    <span class="service-chip">金融系データ分析</span>
+<span class="service-chip">AML（マネー・ローンダリング対策）支援</span>
+<span class="service-chip">ETL・データ精査業務</span>
+<span class="service-chip">上位コンサルからの業務引き継ぎ</span>
+<span class="service-chip">長期運用支援</span>
+  </div>
+
+</section>
+
+
+<section class="case-page" id="case-10">
+
+  <!-- パンくず -->
+  <div class="breadcrumb">
+    <a href="#">TOP</a> ＞ <a href="#">Works</a> ＞ ⑩ 大手損害保険会社
+  </div>
+
+  <!-- メインビジュアル -->
+  <div class="main-visual" style="--brand: #00873C;">
+    <div class="main-visual-band"></div>
+    <div class="main-visual-body">
+      <div class="client-logo-mask">
+        <div class="logo-svg-wrap" style="color: #00873C;">
+      <svg viewBox="0 0 100 80" width="140" height="112" xmlns="http://www.w3.org/2000/svg">
+        
+            <path d="M 50 18 L 24 28 L 24 44 Q 24 60 50 68 Q 76 60 76 44 L 76 28 Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+            <path d="M 50 28 L 34 34 L 34 44 Q 34 54 50 58 Q 66 54 66 44 L 66 34 Z" fill="currentColor" opacity="0.15"/>
+            <path d="M 40 44 L 47 51 L 60 36" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        
+      </svg>
+      <div class="logo-text">
+        <div class="logo-text-sub">P&C INSURANCE</div>
+        <div class="logo-text-main">大手損害保険会社</div>
+      </div>
+    </div>
+      </div>
+    </div>
+    <div class="main-visual-band"></div>
+  </div>
+
+  <!-- 案件情報カード -->
+  <div class="case-info-card">
+    <div class="case-category">業務システム開発（Salesforce）</div>
+    <h1 class="case-title">
+      <span class="masked">大手損害保険会社様</span><br>
+      保険業界DXの最前線 本社×販売代理店をつなぐSalesforce情報連携基盤
+    </h1>
+    <div class="case-tags">
+      <span class="case-tag">保険</span>
+<span class="case-tag">Salesforce</span>
+<span class="case-tag">システム連携</span>
+<span class="case-tag">業務効率化</span>
+<span class="case-tag">AWS</span>
+<span class="case-tag">代理店</span>
+<span class="case-tag">承認フロー</span>
+    </div>
+    <div class="case-problems">
+      <div class="problems-label">解決した課題</div>
+      <ul class="problems-list">
+        <li><span class="masked">クライアント様</span>と販売代理店間で、申請・承認業務がメールベースで分断されており、業務効率と判断スピードに課題があった</li>
+<li>本社と代理店が同一システムを使えていなかったため、申請理由などの情報が共有されず、認識齟齬や手戻りが頻発していた</li>
+<li>保険商品マニュアル・データが複数箇所に分散しており、代理店担当者が必要情報にアクセスする手間が大きかった</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 概要セクション -->
+  <div class="section-heading">
+    <span class="heading-text">概要</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="overview-body">
+    <p><span class="masked">大手損害保険会社</span>様の販売代理店向け情報連携システムにおいて、SalesforceとAWS/IBMサーバーを連携させるバックエンド処理開発を支援。</p>
+<p>従来、本社と販売代理店の業務連携はメールベースで行われており、申請理由の共有・承認判断・マニュアル参照に大きな手間がかかっていました。</p>
+<p>ウェブエッジは、本社と代理店が同一システムを利用できるポータルサイトの開発に貢献。従来のメール連絡を廃止し、申請理由もシステム上で共有されることで、業務フロー全体の効率化と承認判断の迅速化を実現しました。</p>
+<p>マニュアルやデータを一箇所に集約し、画面上のガイドに従うだけで複雑な手続きが完了する環境を提供することで、保険業界における業務DXのモデルケースを構築しています。</p>
+  </div>
+
+  <table class="summary-table">
+    <tr><th>技術スタック</th><td>Salesforce（Apex/Java） / AWS / IBMサーバー連携</td></tr>
+<tr><th>担当領域</th><td>販売代理店向けポータルサイト開発 / 業務フロー作成 / 単体・結合試験 / 社内システム（出張管理など）のテスト</td></tr>
+<tr><th>今後の展望</th><td>保険業界全体でDXが加速するなか、製品知識を活かした「ビジネス提案」フェーズへの展開を視野。<span class="masked">クライアント様</span>からの追加ご相談にも対応できる体制強化を進めています</td></tr>
+  </table>
+
+  <!-- プロジェクトの特徴 -->
+  <div class="section-heading">
+    <span class="heading-text">プロジェクトの特徴</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card">
+              <h4 class="feature-title">本社×代理店の<br>業務フローを統合</h4>
+              <p class="feature-body">従来メールで分断されていた本社と販売代理店の申請・承認業務を、同一システム上で完結できる仕組みに刷新。申請理由もシステム上で共有されるため、認識齟齬や手戻りが大幅に減少し、業務全体の効率化と承認判断の迅速化を実現しました。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">情報集約による<br>代理店業務の生産性向上</h4>
+              <p class="feature-body">マニュアル・データを一箇所に集約し、画面上のガイドに従うだけで複雑な手続きが完了する環境を提供。代理店担当者の習熟コスト削減と作業時間短縮を実現し、保険業界における業務体験の改善に大きく貢献しています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">Salesforce×AWS×IBMサーバーの<br>ハイブリッド連携</h4>
+              <p class="feature-body">Salesforceをフロントとしながら、AWSと既存のIBMサーバー基盤を組み合わせたハイブリッド構成で、業務システムを開発。クラウドとオンプレ資産の両方を活かす設計で、保険業界の堅牢性要件と最新DX要件の両方を満たしています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">長期パートナーとの<br>「クッション役」</h4>
+              <p class="feature-body">ベテラン技術者と<span class="masked">クライアント様</span>のプロパーメンバーの間で、認識の齟齬を防ぐ「クッション役」として機能。プロジェクトを円滑に進める潤滑油の役割を果たし、長期的な信頼関係を構築しています。</p>
+            </div>
+  </div>
+
+  <!-- 提供サービス -->
+  <div class="section-heading">
+    <span class="heading-text">提供サービス</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="services-chips">
+    <span class="service-chip">Salesforce開発・連携</span>
+<span class="service-chip">保険業界向け業務システム構築</span>
+<span class="service-chip">本社×代理店間ポータル開発</span>
+<span class="service-chip">AWS/オンプレ ハイブリッド連携設計</span>
+<span class="service-chip">業務フロー最適化支援</span>
+  </div>
+
+</section>
+
+
+<section class="case-page" id="case-11">
+
+  <!-- パンくず -->
+  <div class="breadcrumb">
+    <a href="#">TOP</a> ＞ <a href="#">Works</a> ＞ ⑪ 大手アパレル小売グループ
+  </div>
+
+  <!-- メインビジュアル -->
+  <div class="main-visual" style="--brand: #BF0000;">
+    <div class="main-visual-band"></div>
+    <div class="main-visual-body">
+      <div class="client-logo-mask">
+        <div class="logo-svg-wrap" style="color: #BF0000;">
+      <svg viewBox="0 0 100 80" width="140" height="112" xmlns="http://www.w3.org/2000/svg">
+        
+            <circle cx="50" cy="24" r="5" fill="none" stroke="currentColor" stroke-width="3"/>
+            <line x1="50" y1="29" x2="50" y2="36" stroke="currentColor" stroke-width="3"/>
+            <path d="M 20 60 L 50 36 L 80 60 Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+            <line x1="20" y1="60" x2="80" y2="60" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+        
+      </svg>
+      <div class="logo-text">
+        <div class="logo-text-sub">APPAREL RETAIL</div>
+        <div class="logo-text-main">大手アパレル小売グループ</div>
+      </div>
+    </div>
+      </div>
+    </div>
+    <div class="main-visual-band"></div>
+  </div>
+
+  <!-- 案件情報カード -->
+  <div class="case-info-card">
+    <div class="case-category">運用支援・データ分析・AI業務支援</div>
+    <h1 class="case-title">
+      <span class="masked">大手アパレル小売グループ様</span><br>
+      世界中の店舗を支える運用基盤 <span class="masked">グローバル</span>店舗管理システム支援
+    </h1>
+    <div class="case-tags">
+      <span class="case-tag">グローバル</span>
+<span class="case-tag">店舗運用</span>
+<span class="case-tag">ServiceNow</span>
+<span class="case-tag">SQL</span>
+<span class="case-tag">AIデータ加工</span>
+<span class="case-tag">小売</span>
+    </div>
+    <div class="case-problems">
+      <div class="problems-label">解決した課題</div>
+      <ul class="problems-list">
+        <li><span class="masked">クライアント様</span>の店舗・本部向けシステム運用において、店舗事業者と本部双方からの問い合わせが多岐にわたり、対応工数が膨大化していた</li>
+<li>24時間稼働のグローバル運営に対応するため、3交代制運用体制の構築が求められ、対応できる経験者が限られていた</li>
+<li>AI活用に向けた帳票データの加工・整備が大量に発生し、社内リソースだけでは処理しきれない状況だった</li>
+<li>人事シミュレーション・営業データなど、Excel中心の業務改善ニーズが多発していた</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 概要セクション -->
+  <div class="section-heading">
+    <span class="heading-text">概要</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="overview-body">
+    <p><span class="masked">大手アパレル小売グループ様</span>の店舗・本部向けシステム運用支援において、複数名体制で長期的に貢献。</p>
+<p><span class="masked">世界中で展開する店舗ブランド</span>の店舗運営を支えるため、問い合わせ対応・データ抽出・アプリ配信管理・OSアップデート対応・権限管理など、現場運用全般を担当。海外からの問い合わせを含むグローバル対応や、24時間体制での3交代制運用にも対応しています。</p>
+<p>さらに近年は、AI活用に向けた帳票データの加工・整備、人事シミュレーション用のExcelデータ統合など、業務効率化・データ活用領域にも貢献範囲を拡大。「運用の橋渡し」「業務改善の伴走」という二つの軸で、<span class="masked">クライアント様</span>の事業を支えています。</p>
+  </div>
+
+  <table class="summary-table">
+    <tr><th>技術スタック</th><td>ServiceNow / SQL（各種DB） / Excel（VLOOKUP/ピボット/VBA/マクロ） / 独自ERPパッケージシステム / AWS / GitHub / iOS</td></tr>
+<tr><th>対応領域</th><td>WPS（ワークプランシステム）L2業務 / 店舗運用 / 在庫・商品管理 / アプリ配信・OSアップデート / AIデータ加工 / 人事シミュレーション / 営業データ整理</td></tr>
+<tr><th>体制</th><td>複数名で長期参画（営業担当：阿部・友田）。1on1の定期実施でチームコンディションも継続管理</td></tr>
+<tr><th>対応の特殊性</th><td>グローバル運営のため、店舗計画周りに関してはL3（開発者）レベルの対応もこなしている点が高く評価されています</td></tr>
+  </table>
+
+  <!-- プロジェクトの特徴 -->
+  <div class="section-heading">
+    <span class="heading-text">プロジェクトの特徴</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card">
+              <h4 class="feature-title">店舗×本部の運用を橋渡し</h4>
+              <p class="feature-body">店舗事業者と本部ユーザからの問い合わせを、業務に即した柔軟な対応で処理。回答のズレが発生するケースも詳細ヒアリングで解消し、店舗の混乱や業務停滞を防止。アプリ配信やOSアップデート対応を正確に実施し、業務端末の安定稼働を支援しています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">グローバル24時間運営への対応</h4>
+              <p class="feature-body">世界中の店舗を24時間稼働で支える3交代制運用体制に対応。海外からの問い合わせ時には英語対応も発生する難易度の高い業務環境のなか、複数名体制で安定的に対応できる体制を維持しています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">AI活用に向けたデータ整備<br>（AIコックピット業務）</h4>
+              <p class="feature-body">帳票データ（売上）をAIで活用できる形に整備するためのデータ加工業務を担当。約140件の帳票を順次AIにコンバートし、店舗別売上・商品別売上などを即座に参照できる状態づくりに貢献。小売業における売上分析・需要予測の高度化を後押ししています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">人事・営業領域の<br>Excel業務改善</h4>
+              <p class="feature-body">営業が使用する店舗・人事関連のExcelデータを整理・統合する業務を担当。複数シート・複数データを統合することで、営業・人事担当者の情報確認の効率化・店舗運営・人員配置の判断スピード向上に貢献しています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">在庫・商品データの精度向上</h4>
+              <p class="feature-body">在庫・商品データの正確性向上により、店舗運営の効率化をサポート。ServiceNowを通じた問い合わせ対応により、障害・不具合の早期解消を支援し、グローバル運営の安定化に寄与しています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">属人化の解消とナレッジ標準化</h4>
+              <p class="feature-body">頻出問い合わせを整理して品質を均一化し、対応スピードを向上。業務マニュアルやチェック手順の整備により、属人化せず継続運用できる状態の構築を目指して継続改善しています。</p>
+            </div>
+  </div>
+
+  <!-- 提供サービス -->
+  <div class="section-heading">
+    <span class="heading-text">提供サービス</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="services-chips">
+    <span class="service-chip">店舗・本部運用支援</span>
+<span class="service-chip">グローバル24時間運用対応</span>
+<span class="service-chip">AIデータ加工・整備</span>
+<span class="service-chip">業務効率化（Excel/VBA）支援</span>
+<span class="service-chip">データ分析・SQL運用</span>
+<span class="service-chip">ServiceNow運用支援</span>
+  </div>
+
+</section>
+
+
+<section class="case-page" id="case-12">
+
+  <!-- パンくず -->
+  <div class="breadcrumb">
+    <a href="#">TOP</a> ＞ <a href="#">Works</a> ＞ ⑫ 大手FinTech
+  </div>
+
+  <!-- メインビジュアル -->
+  <div class="main-visual" style="--brand: #0060FF;">
+    <div class="main-visual-band"></div>
+    <div class="main-visual-body">
+      <div class="client-logo-mask">
+        <div class="logo-svg-wrap" style="color: #0060FF;">
+      <svg viewBox="0 0 100 80" width="140" height="112" xmlns="http://www.w3.org/2000/svg">
+        
+            <line x1="20" y1="66" x2="80" y2="66" stroke="currentColor" stroke-width="3"/>
+            <line x1="20" y1="18" x2="20" y2="66" stroke="currentColor" stroke-width="3"/>
+            <rect x="28" y="54" width="8" height="12" fill="currentColor" opacity="0.4"/>
+            <rect x="42" y="44" width="8" height="22" fill="currentColor" opacity="0.6"/>
+            <rect x="56" y="34" width="8" height="32" fill="currentColor" opacity="0.8"/>
+            <path d="M 26 46 L 40 36 L 54 26 L 72 16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <polygon points="72,16 66,18 70,24" fill="currentColor"/>
+        
+      </svg>
+      <div class="logo-text">
+        <div class="logo-text-sub">FINTECH</div>
+        <div class="logo-text-main">大手FinTech・資産運用サービス</div>
+      </div>
+    </div>
+      </div>
+    </div>
+    <div class="main-visual-band"></div>
+  </div>
+
+  <!-- 案件情報カード -->
+  <div class="case-info-card">
+    <div class="case-category">フロントエンド開発（マーケティング領域）</div>
+    <h1 class="case-title">
+      <span class="masked">大手FinTech・資産運用サービス提供企業様</span><br>
+      FinTechリーダーのマーケティング基盤を支える フロントエンド/マークアップ開発
+    </h1>
+    <div class="case-tags">
+      <span class="case-tag">FinTech</span>
+<span class="case-tag">マーケティング</span>
+<span class="case-tag">フロントエンド</span>
+<span class="case-tag">HTML</span>
+<span class="case-tag">CSS</span>
+<span class="case-tag">Vue.js</span>
+<span class="case-tag">Laravel</span>
+    </div>
+    <div class="case-problems">
+      <div class="problems-label">解決した課題</div>
+      <ul class="problems-list">
+        <li><span class="masked">クライアント様</span>のマーケティング部門は、新規集客のための新規ページ作成・既存ページ修正のニーズが継続的に発生していた</li>
+<li>社内マークアップ担当者がディレクションと実装を兼務しており、実作業に時間を取られてディレクションに集中できない状況だった</li>
+<li>フレームワークを用いた新規ページ作成では、専門スキルを持つフロントエンドエンジニアの常駐サポートが必要だった</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 概要セクション -->
+  <div class="section-heading">
+    <span class="heading-text">概要</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="overview-body">
+    <p>資産運用FinTechサービスを提供する<span class="masked">大手FinTech・資産運用サービス提供企業様</span>のマーケティング部門において、フロントエンド/マークアップ開発を支援。</p>
+<p><span class="masked">クライアント様</span>のマーケティングチームでは、新規集客のための新規ページ作成・既存ページ修正の業務が継続的に発生する一方、社内のフロントエンド担当者はディレクションと実装を兼務しており、実作業に時間を取られる状況でした。</p>
+<p>ウェブエッジは、フロントエンドエンジニアとして参画し、マークアップ・既存ページ修正・新規ページ作成を担当。社内担当者（プロパー）の課題を巻き取ることで、ディレクション業務に集中できる環境を実現しました。<span class="masked">クライアント様</span>の集客側マークアップ業務を担当することで、新規集客の最前線で技術貢献しています。</p>
+  </div>
+
+  <table class="summary-table">
+    <tr><th>技術スタック</th><td>HTML / CSS / PHP（Laravel） / Vue.js / VS Code / SourceTree / Git</td></tr>
+<tr><th>対応領域</th><td>マークアップ / 既存ページ修正 / 新規ページ作成 / FW（Vue.js/Laravel）対応</td></tr>
+<tr><th>体制</th><td>フロントエンドエンジニア1名常駐（営業担当：佐藤）。定期的な1on1でキャリア成長も伴走</td></tr>
+  </table>
+
+  <!-- プロジェクトの特徴 -->
+  <div class="section-heading">
+    <span class="heading-text">プロジェクトの特徴</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card">
+              <h4 class="feature-title">プロパー担当者の<br>ディレクション集中を支援</h4>
+              <p class="feature-body">マーケティング部門のフロントエンド担当者が抱える実作業を巻き取ることで、より戦略的なディレクション業務に集中できる環境を提供。社内人材の生産性を高める「業務分担最適化」の役割を果たしています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">集客側マークアップで<br>新規集客に貢献</h4>
+              <p class="feature-body">クライアント様の集客側ページ（<span class="masked">セキュリティ関連</span>など）のマークアップを担当することで、新規集客を直接的に後押し。FinTech企業のマーケティング成果に寄与しています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">フレームワーク（Vue.js/Laravel）<br>対応への成長</h4>
+              <p class="feature-body">当初はマークアップ中心の業務でしたが、徐々にフレームワーク（Vue.js/Laravel）を用いた新規ページ作成にも対応領域を拡大。マーケティング部署のWeb運用保守側のリーダーレベルを目指せる体制を構築中です。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">一人称で動ける<br>フロントエンドエンジニアへ</h4>
+              <p class="feature-body">将来的にはフロントエンドエンジニアとして一人称で動ける状態を目指し、参画メンバーの技術成長を継続的に支援。<span class="masked">クライアント様</span>の長期的な技術パートナーとしての立場を確立しています。</p>
+            </div>
+  </div>
+
+  <!-- 提供サービス -->
+  <div class="section-heading">
+    <span class="heading-text">提供サービス</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="services-chips">
+    <span class="service-chip">フロントエンド開発</span>
+<span class="service-chip">マークアップ業務</span>
+<span class="service-chip">マーケティングサイト運用</span>
+<span class="service-chip">Vue.js/Laravel対応</span>
+<span class="service-chip">社内人材の業務分担最適化</span>
+  </div>
+
+</section>
+
+
+<section class="case-page" id="case-13">
+
+  <!-- パンくず -->
+  <div class="breadcrumb">
+    <a href="#">TOP</a> ＞ <a href="#">Works</a> ＞ ⑬ 流通系銀行
+  </div>
+
+  <!-- メインビジュアル -->
+  <div class="main-visual" style="--brand: #E4007F;">
+    <div class="main-visual-band"></div>
+    <div class="main-visual-body">
+      <div class="client-logo-mask">
+        <div class="logo-svg-wrap" style="color: #E4007F;">
+      <svg viewBox="0 0 100 80" width="140" height="112" xmlns="http://www.w3.org/2000/svg">
+        
+            <polygon points="50,16 25,26 75,26" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+            <rect x="28" y="30" width="4" height="18" fill="currentColor"/>
+            <rect x="40" y="30" width="4" height="18" fill="currentColor"/>
+            <rect x="56" y="30" width="4" height="18" fill="currentColor"/>
+            <rect x="68" y="30" width="4" height="18" fill="currentColor"/>
+            <rect x="22" y="50" width="56" height="4" fill="currentColor"/>
+            <circle cx="34" cy="66" r="3" fill="none" stroke="currentColor" stroke-width="2.5"/>
+            <circle cx="60" cy="66" r="3" fill="none" stroke="currentColor" stroke-width="2.5"/>
+            <path d="M 26 58 L 68 58 L 64 66 L 32 66 Z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+        
+      </svg>
+      <div class="logo-text">
+        <div class="logo-text-sub">RETAIL BANK</div>
+        <div class="logo-text-main">流通系銀行</div>
+      </div>
+    </div>
+      </div>
+    </div>
+    <div class="main-visual-band"></div>
+  </div>
+
+  <!-- 案件情報カード -->
+  <div class="case-info-card">
+    <div class="case-category">金融システム運用・改修</div>
+    <h1 class="case-title">
+      <span class="masked">流通系銀行様</span><br>
+      金融×流通の融合銀行を支える 店舗端末システムの運用・改修
+    </h1>
+    <div class="case-tags">
+      <span class="case-tag">金融</span>
+<span class="case-tag">店舗端末</span>
+<span class="case-tag">口座開設</span>
+<span class="case-tag">Java</span>
+<span class="case-tag">JBoss EAP</span>
+<span class="case-tag">Oracle</span>
+<span class="case-tag">流通系金融</span>
+    </div>
+    <div class="case-problems">
+      <div class="problems-label">解決した課題</div>
+      <ul class="problems-list">
+        <li><span class="masked">クライアント様</span>の店舗で利用される顧客操作端末（口座開設・各種申込）について、運用と継続的な改修を両立できるパートナーが必要だった</li>
+<li>金融機関ならではの高いセキュリティ要件と、改修対応のスピード感を両立する必要があった</li>
+<li>利用者（従業員/顧客双方）の操作性を向上させる継続的な改修ニーズが発生していた</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 概要セクション -->
+  <div class="section-heading">
+    <span class="heading-text">概要</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="overview-body">
+    <p><span class="masked">流通系銀行</span>様の店舗端末システム（口座開設・顧客操作端末など）の運用/改修対応を支援。</p>
+<p><span class="masked">クライアント様</span>は、<span class="masked">大型商業施設内</span>の店舗で顧客が直接操作する端末を用いて口座開設や各種申込を完結できる、流通×金融融合型の銀行モデルを展開しています。この店舗端末システムの安定運用と継続的な改修は、利用者体験と銀行業務の効率に直結する重要領域です。</p>
+<p>ウェブエッジは、金融要件に強い実績を持つパートナーとして参画。Java/JBoss EAP/Oracleといったエンタープライズ金融システムの技術スタックで運用支援を行い、各種改修を通じて従業員・顧客双方の操作性改善に貢献しました。</p>
+  </div>
+
+  <table class="summary-table">
+    <tr><th>技術スタック</th><td>Java / JBoss EAP / Oracle</td></tr>
+<tr><th>対象システム</th><td><span class="masked">クライアント</span> 店舗端末システム（口座開設・顧客操作端末）</td></tr>
+<tr><th>商流</th><td><span class="masked">クライアント→大手コンサル→中間ベンダー→ウェブエッジ</span></td></tr>
+<tr><th>体制</th><td>営業担当：阿部。毎月1on1実施でメンバーの稼働とキャリアを継続管理</td></tr>
+  </table>
+
+  <!-- プロジェクトの特徴 -->
+  <div class="section-heading">
+    <span class="heading-text">プロジェクトの特徴</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card">
+              <h4 class="feature-title">金融×流通の融合モデルを<br>支える運用力</h4>
+              <p class="feature-body"><span class="masked">大型商業施設内</span>で顧客が直接操作する店舗端末という、金融機関の中でも独自の運用要件を持つシステムを継続支援。セキュリティ性と操作性を両立する難しい要件のなか、安定的な運用を実現しています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">改修による顧客体験の<br>継続的改善</h4>
+              <p class="feature-body">各種改修対応を通じて、利用者（従業員/顧客）の操作性を継続的に改善。口座開設や申込手続きが、より直感的・スムーズに完結できる体験づくりに貢献しています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">金融要件に応える<br>技術スタック</h4>
+              <p class="feature-body">Java/JBoss EAP/Oracleといった、エンタープライズ金融システムで広く採用される技術スタックでの運用・改修を実施。金融機関ならではのセキュリティ・トランザクション要件にも適切に対応しています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">上流から改修まで<br>一通り対応</h4>
+              <p class="feature-body">業務・機能理解を段階的にキャッチアップしながら、上流〜改修対応を一通り任せられるレベルへと成長。次フェーズへの円滑なスライドも実現しています。</p>
+            </div>
+  </div>
+
+  <!-- 提供サービス -->
+  <div class="section-heading">
+    <span class="heading-text">提供サービス</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="services-chips">
+    <span class="service-chip">金融システム運用・改修</span>
+<span class="service-chip">店舗端末システム支援</span>
+<span class="service-chip">Java/エンタープライズ開発</span>
+<span class="service-chip">セキュリティ要件対応</span>
+  </div>
+
+</section>
+
+
+<section class="case-page" id="case-14">
+
+  <!-- パンくず -->
+  <div class="breadcrumb">
+    <a href="#">TOP</a> ＞ <a href="#">Works</a> ＞ ⑭ 行政機関（税務領域）
+  </div>
+
+  <!-- メインビジュアル -->
+  <div class="main-visual" style="--brand: #7A6549;">
+    <div class="main-visual-band"></div>
+    <div class="main-visual-body">
+      <div class="client-logo-mask">
+        <div class="logo-svg-wrap" style="color: #7A6549;">
+      <svg viewBox="0 0 100 80" width="140" height="112" xmlns="http://www.w3.org/2000/svg">
+        
+            <polygon points="50,14 22,26 78,26" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+            <rect x="28" y="30" width="6" height="26" fill="currentColor"/>
+            <rect x="44" y="30" width="6" height="26" fill="currentColor"/>
+            <rect x="60" y="30" width="6" height="26" fill="currentColor"/>
+            <rect x="20" y="58" width="60" height="5" fill="currentColor"/>
+            <rect x="20" y="66" width="60" height="3" fill="currentColor" opacity="0.6"/>
+            <line x1="50" y1="14" x2="50" y2="6" stroke="currentColor" stroke-width="2"/>
+            <path d="M 50 6 L 62 8 L 50 12 Z" fill="currentColor"/>
+        
+      </svg>
+      <div class="logo-text">
+        <div class="logo-text-sub">GOVERNMENT</div>
+        <div class="logo-text-main">行政機関（税務領域）</div>
+      </div>
+    </div>
+      </div>
+    </div>
+    <div class="main-visual-band"></div>
+  </div>
+
+  <!-- 案件情報カード -->
+  <div class="case-info-card">
+    <div class="case-category">公共システム開発/データ基盤</div>
+    <h1 class="case-title">
+      <span class="masked">行政機関様（税務領域/公共システム）</span><br>
+      国の根幹を支える税制処理基盤 <span class="masked">巨額の税収</span>を扱う高次元システム開発
+    </h1>
+    <div class="case-tags">
+      <span class="case-tag">行政</span>
+<span class="case-tag">税制処理</span>
+<span class="case-tag">IBM</span>
+<span class="case-tag">Datastage</span>
+<span class="case-tag">CP4D</span>
+<span class="case-tag">ETL</span>
+<span class="case-tag">データ基盤</span>
+    </div>
+    <div class="case-problems">
+      <div class="problems-label">解決した課題</div>
+      <ul class="problems-list">
+        <li>国の根幹に関わる重要インフラとして、税制処理システムには極めて高い品質と長期的な安定稼働が求められていた</li>
+<li><span class="masked">巨額</span>の税収を扱う高次元システムにおいて、税制改正への迅速なシステム対応・データ可視化が必要だった</li>
+<li>職員に向けたCP4Dの使用方法レクチャー含め、運用立ち上げを並走できるパートナーが求められていた</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 概要セクション -->
+  <div class="section-heading">
+    <span class="heading-text">概要</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="overview-body">
+    <p><span class="masked">行政機関</span>の税制処理に関わる高次元システムの開発・データ移行・分析支援、および職員に向けたCP4D（Cloud Pak for Data）使用方法レクチャーを実施。</p>
+<p>本システムは、<span class="masked">巨額</span>の税収を扱う国の根幹に関わる重要インフラ。万が一の際の責任を負える体力と、長期的な安定稼働を保証できる実績を持つパートナーとして、<span class="masked">大手システムベンダーの資本提携先を経由した長い商流</span>の中でウェブエッジが参画しています。</p>
+<p>ウェブエッジは、IBM DataStage（ETLツール）を用いたデータ変換ジョブの作成・変更、ETL関連の知見とSQLの知識でプロジェクトの立ち上がりを加速。2026年9月のリリースを目指し、リリース後の運用フェーズも見据えた基盤づくりに貢献しています。</p>
+  </div>
+
+  <table class="summary-table">
+    <tr><th>技術スタック</th><td>SQL / Shell / Linux / Oracle / IBM DataStage（ETL） / AWS / CP4D（IBM Cloud Pak for Data） / ICP4D</td></tr>
+<tr><th>商流</th><td><span class="masked">行政機関→大手ITベンダー→複数の中間ベンダー→ウェブエッジ</span></td></tr>
+<tr><th>対応領域</th><td>データ移行 / 設計 / 分析 / ETLジョブ作成・変更 / 職員向け CP4D 使用方法レクチャー</td></tr>
+<tr><th>スケジュール</th><td>2026年9月：リリース予定 / リリース後：運用フェーズへ移行</td></tr>
+  </table>
+
+  <!-- プロジェクトの特徴 -->
+  <div class="section-heading">
+    <span class="heading-text">プロジェクトの特徴</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card">
+              <h4 class="feature-title">国の重要インフラを支える<br>品質保証</h4>
+              <p class="feature-body"><span class="masked">巨額の税収規模</span>を扱う税制処理システムは、国の根幹に関わる重要インフラ。万が一のシステム障害が国民生活に大きな影響を与えるため、極めて高い品質と長期安定稼働の保証が求められます。ウェブエッジは<span class="masked">大手システムベンダーの資本提携先</span>からの商流の中で、その責任を担う一員として参画しています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">税制改正への迅速対応を<br>実現するデータ基盤</h4>
+              <p class="feature-body">税制改正があった際に、システム側で迅速に対応できる柔軟性、および顧客（職員）側ですぐに把握・可視化できるレポーティング機能が求められます。ETL（IBM DataStage）とCP4Dを組み合わせた基盤で、変更対応性の高いシステムを構築しています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">ETL/データ移行・設計・分析の<br>総合支援</h4>
+              <p class="feature-body">データ移行・設計・分析を一気通貫で支援。SQL/Shell/Linux/Oracle/ETL（Datastage）/AWS/BI（CP4D）といった幅広い技術スタックを活用し、税制処理に必要なデータの整備・変換・可視化を実現しています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">職員向けレクチャーで<br>運用立ち上げを並走</h4>
+              <p class="feature-body">開発だけでなく、職員に向けたCP4Dの使用方法レクチャーも実施。リリース後の運用フェーズで職員が自走できる体制づくりに貢献し、外部依存度を下げる「内製化支援型」のスタンスで参画しています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">複数名体制で長期的な貢献</h4>
+              <p class="feature-body">複数名で参画し、長期的にプロジェクトに貢献。リリースは2026年9月予定、その後は運用フェーズへと移行し、税制改正があった場合の継続対応も視野に入れています。</p>
+            </div>
+  </div>
+
+  <!-- 提供サービス -->
+  <div class="section-heading">
+    <span class="heading-text">提供サービス</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="services-chips">
+    <span class="service-chip">公共システム開発</span>
+<span class="service-chip">データ基盤構築（ETL/DWH）</span>
+<span class="service-chip">IBM DataStage活用</span>
+<span class="service-chip">CP4D（BI）導入支援</span>
+<span class="service-chip">職員向けレクチャー・内製化支援</span>
+  </div>
+
+</section>
+
+
+<section class="case-page" id="case-15">
+
+  <!-- パンくず -->
+  <div class="breadcrumb">
+    <a href="#">TOP</a> ＞ <a href="#">Works</a> ＞ ⑮ 大手化学メーカー
+  </div>
+
+  <!-- メインビジュアル -->
+  <div class="main-visual" style="--brand: #003F88;">
+    <div class="main-visual-band"></div>
+    <div class="main-visual-body">
+      <div class="client-logo-mask">
+        <div class="logo-svg-wrap" style="color: #003F88;">
+      <svg viewBox="0 0 100 80" width="140" height="112" xmlns="http://www.w3.org/2000/svg">
+        
+            <circle cx="50" cy="22" r="6" fill="currentColor"/>
+            <circle cx="28" cy="50" r="6" fill="currentColor" opacity="0.7"/>
+            <circle cx="72" cy="50" r="6" fill="currentColor" opacity="0.7"/>
+            <circle cx="50" cy="68" r="6" fill="currentColor" opacity="0.5"/>
+            <line x1="50" y1="28" x2="28" y2="44" stroke="currentColor" stroke-width="2.5"/>
+            <line x1="50" y1="28" x2="72" y2="44" stroke="currentColor" stroke-width="2.5"/>
+            <line x1="28" y1="56" x2="50" y2="62" stroke="currentColor" stroke-width="2.5"/>
+            <line x1="72" y1="56" x2="50" y2="62" stroke="currentColor" stroke-width="2.5"/>
+            <line x1="34" y1="50" x2="66" y2="50" stroke="currentColor" stroke-width="2.5" opacity="0.5"/>
+        
+      </svg>
+      <div class="logo-text">
+        <div class="logo-text-sub">CHEMICAL MANUFACTURER</div>
+        <div class="logo-text-main">大手化学メーカー</div>
+      </div>
+    </div>
+      </div>
+    </div>
+    <div class="main-visual-band"></div>
+  </div>
+
+  <!-- 案件情報カード -->
+  <div class="case-info-card">
+    <div class="case-category">データ基盤構築（クラウド）</div>
+    <h1 class="case-title">
+      <span class="masked">大手化学メーカー様</span><br>
+      化学メーカーの全社データ活用を加速 Azure×Databricksによるデータ利活用基盤構築
+    </h1>
+    <div class="case-tags">
+      <span class="case-tag">化学メーカー</span>
+<span class="case-tag">データ基盤</span>
+<span class="case-tag">Azure</span>
+<span class="case-tag">Databricks</span>
+<span class="case-tag">モデリング</span>
+<span class="case-tag">ETL/ELT</span>
+<span class="case-tag">データエンジニアリング</span>
+    </div>
+    <div class="case-problems">
+      <div class="problems-label">解決した課題</div>
+      <ul class="problems-list">
+        <li><span class="masked">クライアント様</span>社内におけるデータ活用を高速化し、分析・業務改善の基盤を整備する必要があった</li>
+<li>社内に大規模データ基盤の構築ノウハウを持つ専門エンジニアが少なく、外部の専門性活用が必須だった</li>
+<li>データモデリング・ガイドライン整備による、再利用性・保守性の高いデータ基盤の構築が求められていた</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 概要セクション -->
+  <div class="section-heading">
+    <span class="heading-text">概要</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="overview-body">
+    <p>化学メーカー大手 <span class="masked">大手化学メーカー様</span>の「データ利活用基盤構築：ファーストユースケース」プロジェクトを支援。</p>
+<p><span class="masked">クライアント様</span>は、データ活用を高速化し、分析・業務改善の基盤を整備するという全社方針のもと、Microsoft Azure×Databricksを用いた大規模データ基盤の構築を推進していました。</p>
+<p>ウェブエッジは、Azure・Databricksの構築ノウハウを持つデータエンジニアを派遣。データモデリング・ガイドライン整備により、再利用性・保守性が高いデータ基盤の構築に貢献。分析チームがすぐに利用できる環境を提供し、意思決定の迅速化につなげました。</p>
+<p>さらに、開発プロセスの標準化により、今後のユースケース追加時のコスト削減・リードタイム短縮を実現する基盤を整えています。</p>
+  </div>
+
+  <table class="summary-table">
+    <tr><th>技術スタック</th><td>Azure / Databricks / Azure Storage / GitHub / PowerPoint</td></tr>
+<tr><th>商流</th><td><span class="masked">クライアント→元請ベンダー→中間ベンダー→ウェブエッジ</span></td></tr>
+<tr><th>対応領域</th><td>データエンジニアリング / データ活用基盤（Azure / Databricks） / モデリング設計 / ルール標準化 / ETL・ELTパイプライン構築</td></tr>
+<tr><th>体制</th><td>営業担当：友田。定期的な1on1で参画メンバーの状況とキャリアを管理</td></tr>
+  </table>
+
+  <!-- プロジェクトの特徴 -->
+  <div class="section-heading">
+    <span class="heading-text">プロジェクトの特徴</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card">
+              <h4 class="feature-title">化学メーカーの<br>全社データ活用を加速</h4>
+              <p class="feature-body"><span class="masked">クライアント様</span>の全社的なデータ活用方針のもと、ファーストユースケースとなるデータ基盤構築を担当。データ活用を高速化することで、分析・業務改善のスピードが社内全体で向上する基盤づくりに貢献しています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">大規模データ基盤の<br>構築ノウハウ提供</h4>
+              <p class="feature-body">社内に専門エンジニアが少ない領域に対して、Azure・Databricksの大規模データ基盤構築ノウハウを提供。外部の専門性を最大限活用していただく形で、品質と速度を両立した基盤構築を実現しています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">モデリング・ガイドライン整備で<br>再利用性を確保</h4>
+              <p class="feature-body">データモデリング・ガイドライン整備により、単発のユースケースで終わらない、再利用性・保守性の高いデータ基盤を構築。今後のユースケース追加時にも、最小限のコストで展開できる設計を実現しています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">分析チームのスピードアップを<br>実現</h4>
+              <p class="feature-body">分析チームがすぐに利用できる環境を提供することで、意思決定の迅速化に直接貢献。データを「使える形」で整備するという、ビジネスインパクトに直結する役割を担っています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">プロジェクト管理・品質管理は<br>元請が保持</h4>
+              <p class="feature-body">プロジェクト管理・品質管理の体制を元請ベンダーが保持しており、その中でウェブエッジがAzure・Databricksの専門性を提供する、安定した推進体制を構築しています。</p>
+            </div>
+  </div>
+
+  <!-- 提供サービス -->
+  <div class="section-heading">
+    <span class="heading-text">提供サービス</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="services-chips">
+    <span class="service-chip">データ基盤構築（クラウド）</span>
+<span class="service-chip">Azure/Databricks導入支援</span>
+<span class="service-chip">データモデリング・標準化</span>
+<span class="service-chip">ETL/ELTパイプライン構築</span>
+<span class="service-chip">データエンジニアリング</span>
+  </div>
+
+</section>
+
+
+</main>
+
+<footer class="site-footer">
+  Copyright © WEBEDGE Inc. All Rights Reserved. — マスキング版プレビュー
+</footer>
 
 <script>
-// ===== Auth =====
-const VALID_ID = 'webedge';
-const VALID_PASS = 'webedge99';
+  const tabs = document.querySelectorAll('.nav-tab');
+  const pages = document.querySelectorAll('.case-page, .index-page');
 
-function doLogin() {
-  const id = document.getElementById('login-id').value.trim();
-  const pass = document.getElementById('login-pass').value;
-  const errEl = document.getElementById('login-error');
-  if (id === VALID_ID && pass === VALID_PASS) {
-    errEl.style.display = 'none';
-    document.getElementById('login-screen').style.display = 'none';
-    document.getElementById('app').style.display = 'block';
-    renderTable();
-  } else {
-    errEl.style.display = 'block';
-  }
-}
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const targetId = tab.dataset.target;
 
-function doLogout() {
-  document.getElementById('login-screen').style.display = 'flex';
-  document.getElementById('app').style.display = 'none';
-  document.getElementById('login-id').value = '';
-  document.getElementById('login-pass').value = '';
-}
+      // タブ切替
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
 
-// Enter key login
-document.addEventListener('keydown', e => {
-  if (e.key === 'Enter' && document.getElementById('login-screen').style.display !== 'none') doLogin();
-});
+      // ページ切替
+      pages.forEach(p => {
+        if (p.id === targetId) {
+          p.classList.add('active');
+          if (p.classList.contains('index-page')) {
+            p.classList.remove('hidden');
+          }
+        } else {
+          p.classList.remove('active');
+          if (p.classList.contains('index-page')) {
+            p.classList.add('hidden');
+          }
+        }
+      });
 
-// ===== Data =====
-const candidates = [
-  {
-    id: 1,
-    name: '田中 太郎',
-    company: '株式会社テックソリューション',
-    price: 72,
-    startDate: '2026年4月1日',
-    workStyle: '週1リモート可',
-    grade: 'A',
-    matchScore: 95,
-    reason: 'Laravel11の実務経験5年以上。ECサイト開発の豊富な実績あり。コミュニケーション能力が高く即戦力として期待できる。',
-    concern: '希望単価がやや高め。長期継続に向けて要交渉。',
-    skillSheetUrl: ''
-  },
-  {
-    id: 2,
-    name: '鈴木 花子',
-    company: 'フリーランス',
-    price: 68,
-    startDate: '2026年4月中旬',
-    workStyle: '週1リモート可',
-    grade: 'A-',
-    matchScore: 82,
-    reason: 'PHPフルスタック開発が得意。Laravel歴3年。アニメ系ECサイトの開発経験あり。',
-    concern: '複数案件掛け持ちのため稼働率の確認が必要。',
-    skillSheetUrl: ''
-  },
-  {
-    id: 3,
-    name: '佐藤 健一',
-    company: '合同会社デジタルクラフト',
-    price: 70,
-    startDate: '2026年4月1日',
-    workStyle: 'フル出社対応可',
-    grade: 'A-',
-    matchScore: 78,
-    reason: 'Laravel/PHP歴4年。バックエンド専門。API設計・DB最適化が強み。',
-    concern: 'フロントエンドは別メンバーとの連携が必要。',
-    skillSheetUrl: ''
-  },
-  {
-    id: 4,
-    name: '山田 次郎',
-    company: '株式会社コードファクトリー',
-    price: 80,
-    startDate: '2026年5月〜',
-    workStyle: '週2リモート希望',
-    grade: 'A-',
-    matchScore: 70,
-    reason: 'Laravel上級者。大規模EC開発の経験豊富。設計力が高い。',
-    concern: '単価が予算超過。稼働開始が5月以降のため要調整。',
-    skillSheetUrl: ''
-  }
-];
-
-// ===== State =====
-let gradeFilter = 'all';
-
-function setGradeFilter(grade) {
-  gradeFilter = grade;
-  document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.grade === grade);
+      // スクロールトップ
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
   });
-  renderTable();
-}
-
-function getFiltered() {
-  const q = document.getElementById('search-input').value.toLowerCase();
-  const sort = document.getElementById('sort-select').value;
-
-  let list = candidates.filter(c => {
-    const matchGrade = gradeFilter === 'all' || c.grade === gradeFilter;
-    const matchSearch = !q || c.name.toLowerCase().includes(q)
-      || c.company.toLowerCase().includes(q)
-      || c.reason.toLowerCase().includes(q);
-    return matchGrade && matchSearch;
-  });
-
-  if (sort === 'match_desc') list.sort((a,b) => b.matchScore - a.matchScore);
-  else if (sort === 'price_asc') list.sort((a,b) => a.price - b.price);
-  else if (sort === 'price_desc') list.sort((a,b) => b.price - a.price);
-  else if (sort === 'name_asc') list.sort((a,b) => a.name.localeCompare(b.name));
-
-  return list;
-}
-
-function gradeBadge(g) {
-  return `<span class="grade-badge grade-${g.replace('-','')}">${g}</span>`;
-}
-
-function renderTable() {
-  const list = getFiltered();
-
-  // Stats (always from all data)
-  document.getElementById('stat-total').textContent = candidates.length;
-  document.getElementById('stat-a').textContent = candidates.filter(c => c.grade === 'A').length;
-  document.getElementById('stat-am').textContent = candidates.filter(c => c.grade === 'A-').length;
-  document.getElementById('stat-budget').textContent = candidates.filter(c => c.price <= 75).length;
-
-  // Table
-  const tbody = document.getElementById('table-body');
-  if (list.length === 0) {
-    tbody.innerHTML = '<tr class="empty-row"><td colspan="10">該当する候補者がいません</td></tr>';
-  } else {
-    tbody.innerHTML = list.map(c => `
-      <tr>
-        <td><strong>${c.name}</strong></td>
-        <td>${c.company}</td>
-        <td>${c.price}万円</td>
-        <td>${c.startDate}</td>
-        <td>${c.workStyle}</td>
-        <td>${gradeBadge(c.grade)}</td>
-        <td>${c.matchScore}点</td>
-        <td style="max-width:200px;font-size:0.82rem;">${c.reason}</td>
-        <td style="max-width:160px;font-size:0.82rem;color:#dc2626;">${c.concern}</td>
-        <td>${c.skillSheetUrl ? `<button class="skill-btn" onclick="openModal('${c.name}のスキルシート','${c.skillSheetUrl}')">表示</button>` : '<span style="color:#d1d5db;font-size:0.8rem;">未登録</span>'}</td>
-      </tr>
-    `).join('');
-  }
-
-  // Cards
-  const cards = document.getElementById('cards-body');
-  cards.innerHTML = list.map(c => `
-    <div class="card">
-      <div class="card-header">
-        <span class="card-name">${c.name}</span>
-        ${gradeBadge(c.grade)}
-      </div>
-      <div class="card-row"><span>会社</span><span>${c.company}</span></div>
-      <div class="card-row"><span>単価</span><span>${c.price}万円</span></div>
-      <div class="card-row"><span>稼働開始</span><span>${c.startDate}</span></div>
-      <div class="card-row"><span>稼働形態</span><span>${c.workStyle}</span></div>
-      <div class="card-row"><span>相性スコア</span><span>${c.matchScore}点</span></div>
-      <div class="card-memo">📋 ${c.reason}</div>
-      ${c.concern ? `<div class="card-memo" style="color:#dc2626;background:#fff5f5;">⚠️ ${c.concern}</div>` : ''}
-      ${c.skillSheetUrl ? `<button class="skill-btn" style="margin-top:10px;width:100%;" onclick="openModal('${c.name}のスキルシート','${c.skillSheetUrl}')">スキルシートを見る</button>` : ''}
-    </div>
-  `).join('') || '<p style="text-align:center;color:#9ca3af;padding:32px;">該当する候補者がいません</p>';
-}
-
-// ===== Modal =====
-function openModal(title, url) {
-  document.getElementById('modal-title').textContent = title;
-  const body = document.getElementById('modal-body');
-  if (url) {
-    body.innerHTML = `<iframe src="${url}" allowfullscreen></iframe>`;
-  } else {
-    body.innerHTML = '<div class="no-sheet">スキルシートが登録されていません</div>';
-  }
-  document.getElementById('modal').classList.add('open');
-}
-
-function closeModal() {
-  document.getElementById('modal').classList.remove('open');
-  document.getElementById('modal-body').innerHTML = '';
-}
-
-document.getElementById('modal').addEventListener('click', e => {
-  if (e.target === document.getElementById('modal')) closeModal();
-});
 </script>
+
 </body>
 </html>
