@@ -538,6 +538,17 @@
   .case-card2.hide { display: none; }
   .cc-direct { font-size: 10.5px; font-weight: 700; color: #fff; background: #0EA371; border-radius: 4px; padding: 2px 7px; }
   .case-card2.direct { border-left-color: #0EA371; }
+
+  /* gallery cards */
+  .case-card2 { padding: 0; overflow: hidden; border-left: 1px solid var(--line); }
+  .case-card2.direct { border-left: 1px solid var(--line); }
+  .cc-thumb { position: relative; aspect-ratio: 16 / 10; background: linear-gradient(135deg, var(--kv), rgba(0,0,0,0.28)); display: flex; align-items: center; justify-content: center; }
+  .cc-thumb-icon { width: 66px; height: 53px; color: #fff; opacity: 0.92; }
+  .cc-metric { position: absolute; left: 10px; bottom: 10px; background: rgba(255,255,255,0.96); color: var(--text); font-size: 11.5px; font-weight: 700; padding: 4px 10px; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
+  .cc-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 7px; }
+  .cta-band { text-align: center; margin: 30px 0 6px; }
+  .cta-band a { display: inline-block; background: var(--brand-dark); color: #fff; font-weight: 700; padding: 14px 34px; border-radius: 999px; text-decoration: none; font-size: 15px; transition: filter .12s; }
+  .cta-band a:hover { filter: brightness(1.08); }
 </style>
 </head>
 <body>
@@ -670,235 +681,551 @@
       <div class="cards-count" id="cards-count"></div>
       <div class="case-cards" id="case-cards">
         <button class="case-card2 direct" data-target="case-his" data-industry="旅行・運輸" data-tech="業務システム・基幹,AI駆動開発・AI活用">
-          <div class="cc-top"><span class="cc-industry">旅行・運輸</span><span class="cc-direct">エンドユーザー直</span></div>
-          <div class="cc-name">株式会社エイチ・アイ・エス</div>
-          <div class="cc-cat">基幹システム開発／データ活用基盤構築</div>
-          <div class="cc-techs"><span class="cc-tech">業務システム・基幹</span><span class="cc-tech">AI駆動開発・AI活用</span></div>
+          <div class="cc-thumb" style="--kv: #0068B7;">
+            <span class="cc-metric">検索速度 約2倍</span>
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><path d="M12 52 L88 30 L84 40 L40 56 Z" fill="currentColor" opacity="0.85"/>
+            <path d="M46 52 L70 26 L76 28 L58 54 Z" fill="currentColor" opacity="0.45"/>
+            <circle cx="20" cy="60" r="3" fill="currentColor"/>
+            <line x1="14" y1="66" x2="86" y2="66" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">旅行・運輸</span><span class="cc-direct">エンドユーザー直</span></div>
+            <div class="cc-name">株式会社エイチ・アイ・エス</div>
+            <div class="cc-cat">基幹システム開発／データ活用基盤構築</div>
+            <div class="cc-techs"><span class="cc-tech">業務システム・基幹</span><span class="cc-tech">AI駆動開発・AI活用</span></div>
+          </div>
         </button>
         <button class="case-card2 direct" data-target="case-japanet" data-industry="小売・EC・通販" data-tech="EC構築・運用,フロントエンド">
-          <div class="cc-top"><span class="cc-industry">小売・EC・通販</span><span class="cc-direct">エンドユーザー直</span></div>
-          <div class="cc-name">株式会社ジャパネットたかた</div>
-          <div class="cc-cat">ECサイト制作・運用支援（デザイン／コーディング）</div>
-          <div class="cc-techs"><span class="cc-tech">EC構築・運用</span><span class="cc-tech">フロントエンド</span></div>
+          <div class="cc-thumb" style="--kv: #E60012;">
+            
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><path d="M30 20 L34 30 L44 30 L36 37 L39 47 L30 41 L21 47 L24 37 L16 30 L26 30 Z" fill="currentColor" opacity="0.7"/>
+            <rect x="52" y="30" width="34" height="26" rx="3" fill="none" stroke="currentColor" stroke-width="3"/>
+            <line x1="60" y1="56" x2="60" y2="62" stroke="currentColor" stroke-width="3"/>
+            <line x1="78" y1="56" x2="78" y2="62" stroke="currentColor" stroke-width="3"/>
+            <line x1="54" y1="62" x2="84" y2="62" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">小売・EC・通販</span><span class="cc-direct">エンドユーザー直</span></div>
+            <div class="cc-name">株式会社ジャパネットたかた</div>
+            <div class="cc-cat">ECサイト制作・運用支援（デザイン／コーディング）</div>
+            <div class="cc-techs"><span class="cc-tech">EC構築・運用</span><span class="cc-tech">フロントエンド</span></div>
+          </div>
         </button>
         <button class="case-card2 direct" data-target="case-tokyoto" data-industry="公共・行政" data-tech="研修・人材育成">
-          <div class="cc-top"><span class="cc-industry">公共・行政</span><span class="cc-direct">エンドユーザー直</span></div>
-          <div class="cc-name">東京都</div>
-          <div class="cc-cat">プログラミング研修（カリキュラム設計〜企画〜実施）</div>
-          <div class="cc-techs"><span class="cc-tech">研修・人材育成</span></div>
+          <div class="cc-thumb" style="--kv: #008542;">
+            
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><path d="M50 24 L80 34 L50 44 L20 34 Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M34 39 L34 52 Q50 60 66 52 L66 39" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><line x1="80" y1="34" x2="80" y2="50" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">公共・行政</span><span class="cc-direct">エンドユーザー直</span></div>
+            <div class="cc-name">東京都</div>
+            <div class="cc-cat">プログラミング研修（カリキュラム設計〜企画〜実施）</div>
+            <div class="cc-techs"><span class="cc-tech">研修・人材育成</span></div>
+          </div>
         </button>
         <button class="case-card2 direct" data-target="case-coop-design" data-industry="金融・保険" data-tech="フロントエンド,UI/UXデザイン">
-          <div class="cc-top"><span class="cc-industry">金融・保険</span><span class="cc-direct">エンドユーザー直</span></div>
-          <div class="cc-name">大手共済団体様</div>
-          <div class="cc-cat">保険見積もり（掛金シミュレーション）ページ開発（受託）</div>
-          <div class="cc-techs"><span class="cc-tech">フロントエンド</span><span class="cc-tech">UI/UXデザイン</span></div>
+          <div class="cc-thumb" style="--kv: #1CA65B;">
+            
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><rect x="26" y="18" width="48" height="44" rx="3" fill="none" stroke="currentColor" stroke-width="3"/><line x1="26" y1="28" x2="74" y2="28" stroke="currentColor" stroke-width="3"/><line x1="34" y1="38" x2="52" y2="38" stroke="currentColor" stroke-width="2.5"/><line x1="34" y1="46" x2="52" y2="46" stroke="currentColor" stroke-width="2.5"/><rect x="58" y="36" width="10" height="16" rx="1.5" fill="currentColor" opacity="0.5"/><text x="63" y="49" font-size="9" fill="#fff" text-anchor="middle">¥</text></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">金融・保険</span><span class="cc-direct">エンドユーザー直</span></div>
+            <div class="cc-name">大手共済団体様</div>
+            <div class="cc-cat">保険見積もり（掛金シミュレーション）ページ開発（受託）</div>
+            <div class="cc-techs"><span class="cc-tech">フロントエンド</span><span class="cc-tech">UI/UXデザイン</span></div>
+          </div>
         </button>
         <button class="case-card2 direct" data-target="case-mfs" data-industry="金融・保険" data-tech="フロントエンド">
-          <div class="cc-top"><span class="cc-industry">金融・保険</span><span class="cc-direct">エンドユーザー直</span></div>
-          <div class="cc-name">株式会社MFS</div>
-          <div class="cc-cat">SaaS開発（FinTech／フロントエンド）</div>
-          <div class="cc-techs"><span class="cc-tech">フロントエンド</span></div>
+          <div class="cc-thumb" style="--kv: #123A6B;">
+            
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><path d="M24 42 L50 20 L76 42 L76 60 L24 60 Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+            <rect x="40" y="48" width="8" height="12" fill="currentColor" opacity="0.4"/>
+            <line x1="56" y1="56" x2="56" y2="48" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            <line x1="62" y1="56" x2="62" y2="44" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            <line x1="68" y1="56" x2="68" y2="40" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">金融・保険</span><span class="cc-direct">エンドユーザー直</span></div>
+            <div class="cc-name">株式会社MFS</div>
+            <div class="cc-cat">SaaS開発（FinTech／フロントエンド）</div>
+            <div class="cc-techs"><span class="cc-tech">フロントエンド</span></div>
+          </div>
         </button>
         <button class="case-card2 direct" data-target="case-inventit" data-industry="IT・Web・広告" data-tech="SaaS開発,AI駆動開発・AI活用">
-          <div class="cc-top"><span class="cc-industry">IT・Web・広告</span><span class="cc-direct">エンドユーザー直</span></div>
-          <div class="cc-name">インヴェンティット株式会社</div>
-          <div class="cc-cat">SaaS開発（MDM／モバイル端末管理）＋AI活用開発</div>
-          <div class="cc-techs"><span class="cc-tech">SaaS開発</span><span class="cc-tech">AI駆動開発・AI活用</span></div>
+          <div class="cc-thumb" style="--kv: #7DB928;">
+            <span class="cc-metric">テストカバレッジ 約43%→98%</span>
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><rect x="38" y="16" width="24" height="42" rx="4" fill="none" stroke="currentColor" stroke-width="3"/>
+            <path d="M50 26 L62 30 L62 40 Q62 50 50 54 Q38 50 38 40 L38 30 Z" fill="currentColor" opacity="0.35"/>
+            <path d="M45 39 L49 43 L57 34" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="50" cy="60" r="2" fill="currentColor"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">IT・Web・広告</span><span class="cc-direct">エンドユーザー直</span></div>
+            <div class="cc-name">インヴェンティット株式会社</div>
+            <div class="cc-cat">SaaS開発（MDM／モバイル端末管理）＋AI活用開発</div>
+            <div class="cc-techs"><span class="cc-tech">SaaS開発</span><span class="cc-tech">AI駆動開発・AI活用</span></div>
+          </div>
         </button>
         <button class="case-card2 direct" data-target="case-arma" data-industry="小売・EC・通販" data-tech="EC構築・運用,AI駆動開発・AI活用">
-          <div class="cc-top"><span class="cc-industry">小売・EC・通販</span><span class="cc-direct">エンドユーザー直</span></div>
-          <div class="cc-name">株式会社アルマビアンカ</div>
-          <div class="cc-cat">ECサイト開発</div>
-          <div class="cc-techs"><span class="cc-tech">EC構築・運用</span><span class="cc-tech">AI駆動開発・AI活用</span></div>
+          <div class="cc-thumb" style="--kv: #1a1a1a;">
+            <span class="cc-metric">AI駆動開発（Claude）</span>
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><path d="M50 16 L74 62 L64 62 L50 34 L36 62 L26 62 Z" fill="currentColor" opacity="0.85"/>
+            <circle cx="50" cy="40" r="26" fill="none" stroke="currentColor" stroke-width="2.5"/>
+            <line x1="40" y1="52" x2="60" y2="52" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">小売・EC・通販</span><span class="cc-direct">エンドユーザー直</span></div>
+            <div class="cc-name">株式会社アルマビアンカ</div>
+            <div class="cc-cat">ECサイト開発</div>
+            <div class="cc-techs"><span class="cc-tech">EC構築・運用</span><span class="cc-tech">AI駆動開発・AI活用</span></div>
+          </div>
         </button>
         <button class="case-card2 direct" data-target="case-interfactory" data-industry="IT・Web・広告" data-tech="SaaS開発,EC構築・運用">
-          <div class="cc-top"><span class="cc-industry">IT・Web・広告</span><span class="cc-direct">エンドユーザー直</span></div>
-          <div class="cc-name">株式会社インターファクトリー</div>
-          <div class="cc-cat">SaaS型ECプラットフォーム開発（機能開発・カスタマイズ）</div>
-          <div class="cc-techs"><span class="cc-tech">SaaS開発</span><span class="cc-tech">EC構築・運用</span></div>
+          <div class="cc-thumb" style="--kv: #E8552D;">
+            
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><rect x="26" y="30" width="48" height="30" rx="3" fill="none" stroke="currentColor" stroke-width="3"/>
+            <path d="M30 30 L36 20 L64 20 L70 30" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+            <circle cx="40" cy="66" r="3" fill="currentColor"/>
+            <circle cx="60" cy="66" r="3" fill="currentColor"/>
+            <line x1="34" y1="44" x2="66" y2="44" stroke="currentColor" stroke-width="2.5"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">IT・Web・広告</span><span class="cc-direct">エンドユーザー直</span></div>
+            <div class="cc-name">株式会社インターファクトリー</div>
+            <div class="cc-cat">SaaS型ECプラットフォーム開発（機能開発・カスタマイズ）</div>
+            <div class="cc-techs"><span class="cc-tech">SaaS開発</span><span class="cc-tech">EC構築・運用</span></div>
+          </div>
         </button>
         <button class="case-card2 direct" data-target="case-branding" data-industry="IT・Web・広告" data-tech="EC構築・運用,フロントエンド">
-          <div class="cc-top"><span class="cc-industry">IT・Web・広告</span><span class="cc-direct">エンドユーザー直</span></div>
-          <div class="cc-name">ブランディングテクノロジー株式会社</div>
-          <div class="cc-cat">医療業界向けDX支援（EC・ブランディング）／ラボ開発</div>
-          <div class="cc-techs"><span class="cc-tech">EC構築・運用</span><span class="cc-tech">フロントエンド</span></div>
+          <div class="cc-thumb" style="--kv: #F05A28;">
+            
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><rect x="24" y="22" width="52" height="38" rx="3" fill="none" stroke="currentColor" stroke-width="3"/><line x1="24" y1="32" x2="76" y2="32" stroke="currentColor" stroke-width="3"/><circle cx="30" cy="27" r="1.6" fill="currentColor"/><circle cx="35" cy="27" r="1.6" fill="currentColor"/><path d="M50 37 l2.6 5.3 5.8 .8 -4.2 4.1 1 5.8 -5.2-2.7 -5.2 2.7 1-5.8 -4.2-4.1 5.8-.8 Z" fill="currentColor" opacity="0.85"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">IT・Web・広告</span><span class="cc-direct">エンドユーザー直</span></div>
+            <div class="cc-name">ブランディングテクノロジー株式会社</div>
+            <div class="cc-cat">医療業界向けDX支援（EC・ブランディング）／ラボ開発</div>
+            <div class="cc-techs"><span class="cc-tech">EC構築・運用</span><span class="cc-tech">フロントエンド</span></div>
+          </div>
         </button>
         <button class="case-card2 direct" data-target="case-uluru" data-industry="IT・Web・広告" data-tech="UI/UXデザイン">
-          <div class="cc-top"><span class="cc-industry">IT・Web・広告</span><span class="cc-direct">エンドユーザー直</span></div>
-          <div class="cc-name">株式会社うるる</div>
-          <div class="cc-cat">クリエイティブ制作（ビジョン・カルチャーブック）</div>
-          <div class="cc-techs"><span class="cc-tech">UI/UXデザイン</span></div>
+          <div class="cc-thumb" style="--kv: #00A0C6;">
+            
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><path d="M50 24 C42 20 30 20 26 22 L26 58 C30 56 42 56 50 60 C58 56 70 56 74 58 L74 22 C70 20 58 20 50 24 Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><line x1="50" y1="24" x2="50" y2="60" stroke="currentColor" stroke-width="2.5"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">IT・Web・広告</span><span class="cc-direct">エンドユーザー直</span></div>
+            <div class="cc-name">株式会社うるる</div>
+            <div class="cc-cat">クリエイティブ制作（ビジョン・カルチャーブック）</div>
+            <div class="cc-techs"><span class="cc-tech">UI/UXデザイン</span></div>
+          </div>
         </button>
         <button class="case-card2" data-target="case-auto-ui" data-industry="製造・メーカー" data-tech="UI/UXデザイン">
-          <div class="cc-top"><span class="cc-industry">製造・メーカー</span></div>
-          <div class="cc-name">大手自動車メーカー</div>
-          <div class="cc-cat">UIデザイン・デザインシステム構築</div>
-          <div class="cc-techs"><span class="cc-tech">UI/UXデザイン</span></div>
+          <div class="cc-thumb" style="--kv: #D40511;">
+            
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><rect x="30" y="16" width="40" height="50" rx="3" fill="none" stroke="currentColor" stroke-width="3"/><line x1="38" y1="30" x2="62" y2="30" stroke="currentColor" stroke-width="2.5"/><line x1="38" y1="40" x2="62" y2="40" stroke="currentColor" stroke-width="2.5"/><path d="M40 50 L46 56 L60 42" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">製造・メーカー</span></div>
+            <div class="cc-name">大手自動車メーカー</div>
+            <div class="cc-cat">UIデザイン・デザインシステム構築</div>
+            <div class="cc-techs"><span class="cc-tech">UI/UXデザイン</span></div>
+          </div>
         </button>
         <button class="case-card2" data-target="case-01" data-industry="製造・メーカー" data-tech="モバイルアプリ">
-          <div class="cc-top"><span class="cc-industry">製造・メーカー</span></div>
-          <div class="cc-name">大手電機メーカー</div>
-          <div class="cc-cat">モバイルアプリ開発</div>
-          <div class="cc-techs"><span class="cc-tech">モバイルアプリ</span></div>
+          <div class="cc-thumb" style="--kv: #000000;">
+            
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><rect x="20" y="18" width="60" height="42" rx="3" fill="none" stroke="currentColor" stroke-width="3"/>
+            <rect x="26" y="24" width="48" height="30" fill="currentColor" opacity="0.15"/>
+            <line x1="40" y1="66" x2="60" y2="66" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            <line x1="50" y1="60" x2="50" y2="66" stroke="currentColor" stroke-width="3"/>
+            <circle cx="35" cy="39" r="2" fill="currentColor"/>
+            <circle cx="65" cy="39" r="2" fill="currentColor"/>
+            <line x1="42" y1="39" x2="58" y2="39" stroke="currentColor" stroke-width="1.5"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">製造・メーカー</span></div>
+            <div class="cc-name">大手電機メーカー</div>
+            <div class="cc-cat">モバイルアプリ開発</div>
+            <div class="cc-techs"><span class="cc-tech">モバイルアプリ</span></div>
+          </div>
         </button>
         <button class="case-card2" data-target="case-09" data-industry="金融・保険" data-tech="データ基盤・BI・分析">
-          <div class="cc-top"><span class="cc-industry">金融・保険</span></div>
-          <div class="cc-name">大手メガバンク</div>
-          <div class="cc-cat">金融システム/データ分析</div>
-          <div class="cc-techs"><span class="cc-tech">データ基盤・BI・分析</span></div>
+          <div class="cc-thumb" style="--kv: #00A0E9;">
+            
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><polygon points="50,18 20,32 80,32" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+            <rect x="25" y="36" width="6" height="24" fill="currentColor"/>
+            <rect x="38" y="36" width="6" height="24" fill="currentColor"/>
+            <rect x="56" y="36" width="6" height="24" fill="currentColor"/>
+            <rect x="69" y="36" width="6" height="24" fill="currentColor"/>
+            <rect x="18" y="62" width="64" height="5" fill="currentColor"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">金融・保険</span></div>
+            <div class="cc-name">大手メガバンク</div>
+            <div class="cc-cat">金融システム/データ分析</div>
+            <div class="cc-techs"><span class="cc-tech">データ基盤・BI・分析</span></div>
+          </div>
         </button>
         <button class="case-card2" data-target="case-10" data-industry="金融・保険" data-tech="業務システム・基幹">
-          <div class="cc-top"><span class="cc-industry">金融・保険</span></div>
-          <div class="cc-name">大手損害保険会社</div>
-          <div class="cc-cat">業務システム開発（Salesforce）</div>
-          <div class="cc-techs"><span class="cc-tech">業務システム・基幹</span></div>
+          <div class="cc-thumb" style="--kv: #00873C;">
+            
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><path d="M 50 18 L 24 28 L 24 44 Q 24 60 50 68 Q 76 60 76 44 L 76 28 Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+            <path d="M 50 28 L 34 34 L 34 44 Q 34 54 50 58 Q 66 54 66 44 L 66 34 Z" fill="currentColor" opacity="0.15"/>
+            <path d="M 40 44 L 47 51 L 60 36" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">金融・保険</span></div>
+            <div class="cc-name">大手損害保険会社</div>
+            <div class="cc-cat">業務システム開発（Salesforce）</div>
+            <div class="cc-techs"><span class="cc-tech">業務システム・基幹</span></div>
+          </div>
         </button>
         <button class="case-card2" data-target="case-web-promo" data-industry="IT・Web・広告" data-tech="フロントエンド">
-          <div class="cc-top"><span class="cc-industry">IT・Web・広告</span></div>
-          <div class="cc-name">大手インターネットサービス企業様（決済・販促領域）</div>
-          <div class="cc-cat">Web制作・FAQ運用（UI改善）</div>
-          <div class="cc-techs"><span class="cc-tech">フロントエンド</span></div>
+          <div class="cc-thumb" style="--kv: #EE7800;">
+            
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><rect x="30" y="16" width="40" height="50" rx="3" fill="none" stroke="currentColor" stroke-width="3"/><line x1="38" y1="30" x2="62" y2="30" stroke="currentColor" stroke-width="2.5"/><line x1="38" y1="40" x2="62" y2="40" stroke="currentColor" stroke-width="2.5"/><path d="M40 50 L46 56 L60 42" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">IT・Web・広告</span></div>
+            <div class="cc-name">大手インターネットサービス企業様（決済・販促領域）</div>
+            <div class="cc-cat">Web制作・FAQ運用（UI改善）</div>
+            <div class="cc-techs"><span class="cc-tech">フロントエンド</span></div>
+          </div>
         </button>
         <button class="case-card2" data-target="case-construction" data-industry="製造・メーカー" data-tech="組込み・車載">
-          <div class="cc-top"><span class="cc-industry">製造・メーカー</span></div>
-          <div class="cc-name">大手建設機械メーカー</div>
-          <div class="cc-cat">車載・自動走行システム開発（解析・改修）</div>
-          <div class="cc-techs"><span class="cc-tech">組込み・車載</span></div>
+          <div class="cc-thumb" style="--kv: #E08A00;">
+            
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="40" r="12" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="50" cy="40" r="4" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="50" y1="18" x2="50" y2="26"/><line x1="50" y1="54" x2="50" y2="62"/><line x1="28" y1="40" x2="36" y2="40"/><line x1="64" y1="40" x2="72" y2="40"/><line x1="34" y1="24" x2="40" y2="30"/><line x1="60" y1="50" x2="66" y2="56"/><line x1="66" y1="24" x2="60" y2="30"/><line x1="40" y1="50" x2="34" y2="56"/></g></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">製造・メーカー</span></div>
+            <div class="cc-name">大手建設機械メーカー</div>
+            <div class="cc-cat">車載・自動走行システム開発（解析・改修）</div>
+            <div class="cc-techs"><span class="cc-tech">組込み・車載</span></div>
+          </div>
         </button>
         <button class="case-card2" data-target="case-03" data-industry="通信・キャリア" data-tech="フロントエンド">
-          <div class="cc-top"><span class="cc-industry">通信・キャリア</span></div>
-          <div class="cc-name">大手通信キャリア</div>
-          <div class="cc-cat">Web/フロントエンドリプレイス</div>
-          <div class="cc-techs"><span class="cc-tech">フロントエンド</span></div>
+          <div class="cc-thumb" style="--kv: #CC0033;">
+            
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="52" r="4" fill="currentColor"/>
+            <path d="M 35 44 Q 50 30 65 44" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            <path d="M 27 38 Q 50 16 73 38" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+            <path d="M 20 32 Q 50 4 80 32" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity="0.3"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">通信・キャリア</span></div>
+            <div class="cc-name">大手通信キャリア</div>
+            <div class="cc-cat">Web/フロントエンドリプレイス</div>
+            <div class="cc-techs"><span class="cc-tech">フロントエンド</span></div>
+          </div>
         </button>
         <button class="case-card2" data-target="case-tel-mon" data-industry="通信・キャリア" data-tech="クラウド・インフラ運用">
-          <div class="cc-top"><span class="cc-industry">通信・キャリア</span></div>
-          <div class="cc-name">大手通信キャリア</div>
-          <div class="cc-cat">通信インフラ運用・監視基盤高度化</div>
-          <div class="cc-techs"><span class="cc-tech">クラウド・インフラ運用</span></div>
+          <div class="cc-thumb" style="--kv: #2AA9E0;">
+            
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="26" r="5" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="76" cy="26" r="5" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="50" cy="56" r="5" fill="none" stroke="currentColor" stroke-width="3"/><line x1="28" y1="30" x2="46" y2="52" stroke="currentColor" stroke-width="2.5"/><line x1="72" y1="30" x2="54" y2="52" stroke="currentColor" stroke-width="2.5"/><line x1="29" y1="26" x2="71" y2="26" stroke="currentColor" stroke-width="2.5"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">通信・キャリア</span></div>
+            <div class="cc-name">大手通信キャリア</div>
+            <div class="cc-cat">通信インフラ運用・監視基盤高度化</div>
+            <div class="cc-techs"><span class="cc-tech">クラウド・インフラ運用</span></div>
+          </div>
         </button>
         <button class="case-card2" data-target="case-tel-front" data-industry="通信・キャリア" data-tech="フロントエンド">
-          <div class="cc-top"><span class="cc-industry">通信・キャリア</span></div>
-          <div class="cc-name">大手通信キャリア</div>
-          <div class="cc-cat">フロントエンド開発（オンライン申込導線）</div>
-          <div class="cc-techs"><span class="cc-tech">フロントエンド</span></div>
+          <div class="cc-thumb" style="--kv: #E23744;">
+            
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><rect x="30" y="16" width="40" height="50" rx="3" fill="none" stroke="currentColor" stroke-width="3"/><line x1="38" y1="30" x2="62" y2="30" stroke="currentColor" stroke-width="2.5"/><line x1="38" y1="40" x2="62" y2="40" stroke="currentColor" stroke-width="2.5"/><path d="M40 50 L46 56 L60 42" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">通信・キャリア</span></div>
+            <div class="cc-name">大手通信キャリア</div>
+            <div class="cc-cat">フロントエンド開発（オンライン申込導線）</div>
+            <div class="cc-techs"><span class="cc-tech">フロントエンド</span></div>
+          </div>
         </button>
         <button class="case-card2" data-target="case-tel-store" data-industry="通信・キャリア" data-tech="モバイルアプリ">
-          <div class="cc-top"><span class="cc-industry">通信・キャリア</span></div>
-          <div class="cc-name">大手通信キャリア</div>
-          <div class="cc-cat">店頭タブレットアプリ開発（追加開発）</div>
-          <div class="cc-techs"><span class="cc-tech">モバイルアプリ</span></div>
+          <div class="cc-thumb" style="--kv: #B4005A;">
+            
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><rect x="30" y="14" width="40" height="52" rx="4" fill="none" stroke="currentColor" stroke-width="3"/><rect x="36" y="22" width="28" height="30" fill="currentColor" opacity="0.15"/><circle cx="50" cy="59" r="2.5" fill="currentColor"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">通信・キャリア</span></div>
+            <div class="cc-name">大手通信キャリア</div>
+            <div class="cc-cat">店頭タブレットアプリ開発（追加開発）</div>
+            <div class="cc-techs"><span class="cc-tech">モバイルアプリ</span></div>
+          </div>
         </button>
         <button class="case-card2" data-target="case-11" data-industry="小売・EC・通販" data-tech="クラウド・インフラ運用,データ基盤・BI・分析,AI駆動開発・AI活用">
-          <div class="cc-top"><span class="cc-industry">小売・EC・通販</span></div>
-          <div class="cc-name">大手アパレル小売グループ</div>
-          <div class="cc-cat">運用支援・データ分析・AI業務支援</div>
-          <div class="cc-techs"><span class="cc-tech">クラウド・インフラ運用</span><span class="cc-tech">データ基盤・BI・分析</span><span class="cc-tech">AI駆動開発・AI活用</span></div>
+          <div class="cc-thumb" style="--kv: #BF0000;">
+            
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="24" r="5" fill="none" stroke="currentColor" stroke-width="3"/>
+            <line x1="50" y1="29" x2="50" y2="36" stroke="currentColor" stroke-width="3"/>
+            <path d="M 20 60 L 50 36 L 80 60 Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+            <line x1="20" y1="60" x2="80" y2="60" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">小売・EC・通販</span></div>
+            <div class="cc-name">大手アパレル小売グループ</div>
+            <div class="cc-cat">運用支援・データ分析・AI業務支援</div>
+            <div class="cc-techs"><span class="cc-tech">クラウド・インフラ運用</span><span class="cc-tech">データ基盤・BI・分析</span><span class="cc-tech">AI駆動開発・AI活用</span></div>
+          </div>
         </button>
         <button class="case-card2" data-target="case-13" data-industry="金融・保険" data-tech="業務システム・基幹">
-          <div class="cc-top"><span class="cc-industry">金融・保険</span></div>
-          <div class="cc-name">流通系銀行</div>
-          <div class="cc-cat">金融システム運用・改修</div>
-          <div class="cc-techs"><span class="cc-tech">業務システム・基幹</span></div>
+          <div class="cc-thumb" style="--kv: #E4007F;">
+            
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><polygon points="50,16 25,26 75,26" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+            <rect x="28" y="30" width="4" height="18" fill="currentColor"/>
+            <rect x="40" y="30" width="4" height="18" fill="currentColor"/>
+            <rect x="56" y="30" width="4" height="18" fill="currentColor"/>
+            <rect x="68" y="30" width="4" height="18" fill="currentColor"/>
+            <rect x="22" y="50" width="56" height="4" fill="currentColor"/>
+            <circle cx="34" cy="66" r="3" fill="none" stroke="currentColor" stroke-width="2.5"/>
+            <circle cx="60" cy="66" r="3" fill="none" stroke="currentColor" stroke-width="2.5"/>
+            <path d="M 26 58 L 68 58 L 64 66 L 32 66 Z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">金融・保険</span></div>
+            <div class="cc-name">流通系銀行</div>
+            <div class="cc-cat">金融システム運用・改修</div>
+            <div class="cc-techs"><span class="cc-tech">業務システム・基幹</span></div>
+          </div>
         </button>
         <button class="case-card2" data-target="case-trust-bank" data-industry="金融・保険" data-tech="データ基盤・BI・分析">
-          <div class="cc-top"><span class="cc-industry">金融・保険</span></div>
-          <div class="cc-name">大手信託銀行</div>
-          <div class="cc-cat">データ基盤更改（Snowflake）</div>
-          <div class="cc-techs"><span class="cc-tech">データ基盤・BI・分析</span></div>
+          <div class="cc-thumb" style="--kv: #1F6F54;">
+            
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><line x1="22" y1="62" x2="78" y2="62" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><rect x="30" y="42" width="9" height="20" fill="currentColor" opacity="0.5"/><rect x="46" y="30" width="9" height="32" fill="currentColor" opacity="0.75"/><rect x="62" y="20" width="9" height="42" fill="currentColor"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">金融・保険</span></div>
+            <div class="cc-name">大手信託銀行</div>
+            <div class="cc-cat">データ基盤更改（Snowflake）</div>
+            <div class="cc-techs"><span class="cc-tech">データ基盤・BI・分析</span></div>
+          </div>
         </button>
         <button class="case-card2" data-target="case-servicenow" data-industry="食品・飲料" data-tech="ServiceNow">
-          <div class="cc-top"><span class="cc-industry">食品・飲料</span></div>
-          <div class="cc-name">大手飲料・食品グループ</div>
-          <div class="cc-cat">ServiceNow開発・運用（全社ポータル基盤）</div>
-          <div class="cc-techs"><span class="cc-tech">ServiceNow</span></div>
+          <div class="cc-thumb" style="--kv: #2E8B57;">
+            <span class="cc-metric">数万名規模の全社ポータル</span>
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="40" r="12" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="50" cy="40" r="4" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="50" y1="18" x2="50" y2="26"/><line x1="50" y1="54" x2="50" y2="62"/><line x1="28" y1="40" x2="36" y2="40"/><line x1="64" y1="40" x2="72" y2="40"/><line x1="34" y1="24" x2="40" y2="30"/><line x1="60" y1="50" x2="66" y2="56"/><line x1="66" y1="24" x2="60" y2="30"/><line x1="40" y1="50" x2="34" y2="56"/></g></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">食品・飲料</span></div>
+            <div class="cc-name">大手飲料・食品グループ</div>
+            <div class="cc-cat">ServiceNow開発・運用（全社ポータル基盤）</div>
+            <div class="cc-techs"><span class="cc-tech">ServiceNow</span></div>
+          </div>
         </button>
         <button class="case-card2" data-target="case-aviation" data-industry="旅行・運輸" data-tech="業務システム・基幹">
-          <div class="cc-top"><span class="cc-industry">旅行・運輸</span></div>
-          <div class="cc-name">大手航空会社</div>
-          <div class="cc-cat">システム内製化支援（API連携）</div>
-          <div class="cc-techs"><span class="cc-tech">業務システム・基幹</span></div>
+          <div class="cc-thumb" style="--kv: #13448A;">
+            
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><path d="M32 52 Q22 52 22 44 Q22 36 32 36 Q34 26 46 26 Q58 26 60 36 Q72 36 72 44 Q72 52 62 52 Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><line x1="40" y1="60" x2="60" y2="60" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">旅行・運輸</span></div>
+            <div class="cc-name">大手航空会社</div>
+            <div class="cc-cat">システム内製化支援（API連携）</div>
+            <div class="cc-techs"><span class="cc-tech">業務システム・基幹</span></div>
+          </div>
         </button>
         <button class="case-card2" data-target="case-ad-bi" data-industry="IT・Web・広告" data-tech="データ基盤・BI・分析">
-          <div class="cc-top"><span class="cc-industry">IT・Web・広告</span></div>
-          <div class="cc-name">大手広告・ITグループ</div>
-          <div class="cc-cat">BI・業務効率化（PowerBI／Power Platform）</div>
-          <div class="cc-techs"><span class="cc-tech">データ基盤・BI・分析</span></div>
+          <div class="cc-thumb" style="--kv: #C8102E;">
+            
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><line x1="22" y1="62" x2="78" y2="62" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><rect x="30" y="42" width="9" height="20" fill="currentColor" opacity="0.5"/><rect x="46" y="30" width="9" height="32" fill="currentColor" opacity="0.75"/><rect x="62" y="20" width="9" height="42" fill="currentColor"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">IT・Web・広告</span></div>
+            <div class="cc-name">大手広告・ITグループ</div>
+            <div class="cc-cat">BI・業務効率化（PowerBI／Power Platform）</div>
+            <div class="cc-techs"><span class="cc-tech">データ基盤・BI・分析</span></div>
+          </div>
         </button>
         <button class="case-card2" data-target="case-entertainment" data-industry="エンタメ・IP" data-tech="データ基盤・BI・分析,EC構築・運用">
-          <div class="cc-top"><span class="cc-industry">エンタメ・IP</span></div>
-          <div class="cc-name">大手エンタメ・IP企業</div>
-          <div class="cc-cat">データ分析システム／ECリニューアル</div>
-          <div class="cc-techs"><span class="cc-tech">データ基盤・BI・分析</span><span class="cc-tech">EC構築・運用</span></div>
+          <div class="cc-thumb" style="--kv: #7A3FBF;">
+            
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><line x1="22" y1="62" x2="78" y2="62" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><rect x="30" y="42" width="9" height="20" fill="currentColor" opacity="0.5"/><rect x="46" y="30" width="9" height="32" fill="currentColor" opacity="0.75"/><rect x="62" y="20" width="9" height="42" fill="currentColor"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">エンタメ・IP</span></div>
+            <div class="cc-name">大手エンタメ・IP企業</div>
+            <div class="cc-cat">データ分析システム／ECリニューアル</div>
+            <div class="cc-techs"><span class="cc-tech">データ基盤・BI・分析</span><span class="cc-tech">EC構築・運用</span></div>
+          </div>
         </button>
         <button class="case-card2" data-target="case-14" data-industry="公共・行政" data-tech="データ基盤・BI・分析">
-          <div class="cc-top"><span class="cc-industry">公共・行政</span></div>
-          <div class="cc-name">行政機関（税務領域）</div>
-          <div class="cc-cat">公共システム開発/データ基盤</div>
-          <div class="cc-techs"><span class="cc-tech">データ基盤・BI・分析</span></div>
+          <div class="cc-thumb" style="--kv: #7A6549;">
+            
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><polygon points="50,14 22,26 78,26" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>
+            <rect x="28" y="30" width="6" height="26" fill="currentColor"/>
+            <rect x="44" y="30" width="6" height="26" fill="currentColor"/>
+            <rect x="60" y="30" width="6" height="26" fill="currentColor"/>
+            <rect x="20" y="58" width="60" height="5" fill="currentColor"/>
+            <rect x="20" y="66" width="60" height="3" fill="currentColor" opacity="0.6"/>
+            <line x1="50" y1="14" x2="50" y2="6" stroke="currentColor" stroke-width="2"/>
+            <path d="M 50 6 L 62 8 L 50 12 Z" fill="currentColor"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">公共・行政</span></div>
+            <div class="cc-name">行政機関（税務領域）</div>
+            <div class="cc-cat">公共システム開発/データ基盤</div>
+            <div class="cc-techs"><span class="cc-tech">データ基盤・BI・分析</span></div>
+          </div>
         </button>
         <button class="case-card2" data-target="case-gov-apply" data-industry="公共・行政" data-tech="フロントエンド">
-          <div class="cc-top"><span class="cc-industry">公共・行政</span></div>
-          <div class="cc-name">行政機関様（自治体窓口・申請システム領域）</div>
-          <div class="cc-cat">公共システム開発（フロントエンドリプレイス）</div>
-          <div class="cc-techs"><span class="cc-tech">フロントエンド</span></div>
+          <div class="cc-thumb" style="--kv: #123A6B;">
+            
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><rect x="30" y="16" width="40" height="50" rx="3" fill="none" stroke="currentColor" stroke-width="3"/><line x1="38" y1="30" x2="62" y2="30" stroke="currentColor" stroke-width="2.5"/><line x1="38" y1="40" x2="62" y2="40" stroke="currentColor" stroke-width="2.5"/><path d="M40 50 L46 56 L60 42" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">公共・行政</span></div>
+            <div class="cc-name">行政機関様（自治体窓口・申請システム領域）</div>
+            <div class="cc-cat">公共システム開発（フロントエンドリプレイス）</div>
+            <div class="cc-techs"><span class="cc-tech">フロントエンド</span></div>
+          </div>
         </button>
         <button class="case-card2" data-target="case-02" data-industry="医療・ヘルスケア" data-tech="業務システム・基幹">
-          <div class="cc-top"><span class="cc-industry">医療・ヘルスケア</span></div>
-          <div class="cc-name">大手医療機器メーカー</div>
-          <div class="cc-cat">医療システム開発</div>
-          <div class="cc-techs"><span class="cc-tech">業務システム・基幹</span></div>
+          <div class="cc-thumb" style="--kv: #003087;">
+            
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="42" r="26" fill="none" stroke="currentColor" stroke-width="3"/>
+            <circle cx="50" cy="42" r="16" fill="currentColor" opacity="0.1"/>
+            <rect x="46" y="30" width="8" height="24" fill="currentColor"/>
+            <rect x="38" y="38" width="24" height="8" fill="currentColor"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">医療・ヘルスケア</span></div>
+            <div class="cc-name">大手医療機器メーカー</div>
+            <div class="cc-cat">医療システム開発</div>
+            <div class="cc-techs"><span class="cc-tech">業務システム・基幹</span></div>
+          </div>
         </button>
         <button class="case-card2" data-target="case-15" data-industry="製造・メーカー" data-tech="データ基盤・BI・分析">
-          <div class="cc-top"><span class="cc-industry">製造・メーカー</span></div>
-          <div class="cc-name">大手化学メーカー</div>
-          <div class="cc-cat">データ基盤構築（クラウド）</div>
-          <div class="cc-techs"><span class="cc-tech">データ基盤・BI・分析</span></div>
+          <div class="cc-thumb" style="--kv: #003F88;">
+            
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="22" r="6" fill="currentColor"/>
+            <circle cx="28" cy="50" r="6" fill="currentColor" opacity="0.7"/>
+            <circle cx="72" cy="50" r="6" fill="currentColor" opacity="0.7"/>
+            <circle cx="50" cy="68" r="6" fill="currentColor" opacity="0.5"/>
+            <line x1="50" y1="28" x2="28" y2="44" stroke="currentColor" stroke-width="2.5"/>
+            <line x1="50" y1="28" x2="72" y2="44" stroke="currentColor" stroke-width="2.5"/>
+            <line x1="28" y1="56" x2="50" y2="62" stroke="currentColor" stroke-width="2.5"/>
+            <line x1="72" y1="56" x2="50" y2="62" stroke="currentColor" stroke-width="2.5"/>
+            <line x1="34" y1="50" x2="66" y2="50" stroke="currentColor" stroke-width="2.5" opacity="0.5"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">製造・メーカー</span></div>
+            <div class="cc-name">大手化学メーカー</div>
+            <div class="cc-cat">データ基盤構築（クラウド）</div>
+            <div class="cc-techs"><span class="cc-tech">データ基盤・BI・分析</span></div>
+          </div>
         </button>
         <button class="case-card2" data-target="case-05" data-industry="製造・メーカー" data-tech="ServiceNow">
-          <div class="cc-top"><span class="cc-industry">製造・メーカー</span></div>
-          <div class="cc-name">大手計測・分析機器メーカー</div>
-          <div class="cc-cat">GRC・統制可視化基盤構築</div>
-          <div class="cc-techs"><span class="cc-tech">ServiceNow</span></div>
+          <div class="cc-thumb" style="--kv: #D50032;">
+            
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="45" r="26" fill="none" stroke="currentColor" stroke-width="3"/>
+            <line x1="50" y1="45" x2="66" y2="30" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="50" cy="45" r="4" fill="currentColor"/>
+            <line x1="50" y1="22" x2="50" y2="26" stroke="currentColor" stroke-width="2"/>
+            <line x1="73" y1="45" x2="69" y2="45" stroke="currentColor" stroke-width="2"/>
+            <line x1="27" y1="45" x2="31" y2="45" stroke="currentColor" stroke-width="2"/>
+            <line x1="34" y1="29" x2="37" y2="32" stroke="currentColor" stroke-width="2"/>
+            <line x1="66" y1="29" x2="63" y2="32" stroke="currentColor" stroke-width="2"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">製造・メーカー</span></div>
+            <div class="cc-name">大手計測・分析機器メーカー</div>
+            <div class="cc-cat">GRC・統制可視化基盤構築</div>
+            <div class="cc-techs"><span class="cc-tech">ServiceNow</span></div>
+          </div>
         </button>
         <button class="case-card2" data-target="case-06" data-industry="通信・キャリア" data-tech="SaaS開発">
-          <div class="cc-top"><span class="cc-industry">通信・キャリア</span></div>
-          <div class="cc-name">大手ISP・ネットワークサービス事業者</div>
-          <div class="cc-cat">SaaS品質管理・Webサイト制作</div>
-          <div class="cc-techs"><span class="cc-tech">SaaS開発</span></div>
+          <div class="cc-thumb" style="--kv: #E60012;">
+            
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="42" r="26" fill="none" stroke="currentColor" stroke-width="3"/>
+            <ellipse cx="50" cy="42" rx="26" ry="10" fill="none" stroke="currentColor" stroke-width="2"/>
+            <ellipse cx="50" cy="42" rx="10" ry="26" fill="none" stroke="currentColor" stroke-width="2"/>
+            <line x1="24" y1="42" x2="76" y2="42" stroke="currentColor" stroke-width="2"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">通信・キャリア</span></div>
+            <div class="cc-name">大手ISP・ネットワークサービス事業者</div>
+            <div class="cc-cat">SaaS品質管理・Webサイト制作</div>
+            <div class="cc-techs"><span class="cc-tech">SaaS開発</span></div>
+          </div>
         </button>
         <button class="case-card2" data-target="case-public-health" data-industry="医療・ヘルスケア" data-tech="業務システム・基幹,クラウド・インフラ運用">
-          <div class="cc-top"><span class="cc-industry">医療・ヘルスケア</span></div>
-          <div class="cc-name">独立行政法人様（医薬品・医療機器分野）</div>
-          <div class="cc-cat">医療系システム保守・基盤移行</div>
-          <div class="cc-techs"><span class="cc-tech">業務システム・基幹</span><span class="cc-tech">クラウド・インフラ運用</span></div>
+          <div class="cc-thumb" style="--kv: #0E7C7B;">
+            
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><path d="M50 16 L72 24 L72 40 Q72 58 50 66 Q28 58 28 40 L28 24 Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M42 40 L48 46 L60 32" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">医療・ヘルスケア</span></div>
+            <div class="cc-name">独立行政法人様（医薬品・医療機器分野）</div>
+            <div class="cc-cat">医療系システム保守・基盤移行</div>
+            <div class="cc-techs"><span class="cc-tech">業務システム・基幹</span><span class="cc-tech">クラウド・インフラ運用</span></div>
+          </div>
         </button>
         <button class="case-card2" data-target="case-realestate" data-industry="不動産" data-tech="データ基盤・BI・分析,AI駆動開発・AI活用">
-          <div class="cc-top"><span class="cc-industry">不動産</span></div>
-          <div class="cc-name">不動産投資会社</div>
-          <div class="cc-cat">不動産投資DX（データ活用｜AI活用）</div>
-          <div class="cc-techs"><span class="cc-tech">データ基盤・BI・分析</span><span class="cc-tech">AI駆動開発・AI活用</span></div>
+          <div class="cc-thumb" style="--kv: #6E5849;">
+            <span class="cc-metric">AI活用（Tableau×Claude）</span>
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><line x1="22" y1="62" x2="78" y2="62" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><rect x="30" y="42" width="9" height="20" fill="currentColor" opacity="0.5"/><rect x="46" y="30" width="9" height="32" fill="currentColor" opacity="0.75"/><rect x="62" y="20" width="9" height="42" fill="currentColor"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">不動産</span></div>
+            <div class="cc-name">不動産投資会社</div>
+            <div class="cc-cat">不動産投資DX（データ活用｜AI活用）</div>
+            <div class="cc-techs"><span class="cc-tech">データ基盤・BI・分析</span><span class="cc-tech">AI駆動開発・AI活用</span></div>
+          </div>
         </button>
         <button class="case-card2" data-target="case-bengoshi" data-industry="リーガルテック" data-tech="フロントエンド">
-          <div class="cc-top"><span class="cc-industry">リーガルテック</span></div>
-          <div class="cc-name">弁護士ドットコム株式会社</div>
-          <div class="cc-cat">フロントエンド開発（電子契約／リーガルテックSaaS）</div>
-          <div class="cc-techs"><span class="cc-tech">フロントエンド</span></div>
+          <div class="cc-thumb" style="--kv: #1B3A5B;">
+            
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><line x1="50" y1="18" x2="50" y2="60" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            <line x1="30" y1="26" x2="70" y2="26" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="50" cy="18" r="3" fill="currentColor"/>
+            <path d="M30 26 L22 44 L38 44 Z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+            <path d="M70 26 L62 44 L78 44 Z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+            <rect x="40" y="60" width="20" height="4" rx="2" fill="currentColor"/>
+            <path d="M56 34 L60 38 L68 30" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">リーガルテック</span></div>
+            <div class="cc-name">弁護士ドットコム株式会社</div>
+            <div class="cc-cat">フロントエンド開発（電子契約／リーガルテックSaaS）</div>
+            <div class="cc-techs"><span class="cc-tech">フロントエンド</span></div>
+          </div>
         </button>
         <button class="case-card2" data-target="case-field-saas" data-industry="建設・現場DX" data-tech="モバイルアプリ,AI駆動開発・AI活用">
-          <div class="cc-top"><span class="cc-industry">建設・現場DX</span></div>
-          <div class="cc-name">建設DX・現場管理SaaS企業</div>
-          <div class="cc-cat">モバイルアプリ開発（Flutterリプレイス｜AI駆動開発）</div>
-          <div class="cc-techs"><span class="cc-tech">モバイルアプリ</span><span class="cc-tech">AI駆動開発・AI活用</span></div>
+          <div class="cc-thumb" style="--kv: #0F9D58;">
+            <span class="cc-metric">AI駆動開発（Claude Code）</span>
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><rect x="30" y="14" width="40" height="52" rx="4" fill="none" stroke="currentColor" stroke-width="3"/><rect x="36" y="22" width="28" height="30" fill="currentColor" opacity="0.15"/><circle cx="50" cy="59" r="2.5" fill="currentColor"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">建設・現場DX</span></div>
+            <div class="cc-name">建設DX・現場管理SaaS企業</div>
+            <div class="cc-cat">モバイルアプリ開発（Flutterリプレイス｜AI駆動開発）</div>
+            <div class="cc-techs"><span class="cc-tech">モバイルアプリ</span><span class="cc-tech">AI駆動開発・AI活用</span></div>
+          </div>
         </button>
         <button class="case-card2" data-target="case-12" data-industry="金融・保険" data-tech="フロントエンド">
-          <div class="cc-top"><span class="cc-industry">金融・保険</span></div>
-          <div class="cc-name">大手FinTech・資産運用サービス</div>
-          <div class="cc-cat">フロントエンド開発（マーケティング領域）</div>
-          <div class="cc-techs"><span class="cc-tech">フロントエンド</span></div>
+          <div class="cc-thumb" style="--kv: #0060FF;">
+            
+            <svg class="cc-thumb-icon" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg"><line x1="20" y1="66" x2="80" y2="66" stroke="currentColor" stroke-width="3"/>
+            <line x1="20" y1="18" x2="20" y2="66" stroke="currentColor" stroke-width="3"/>
+            <rect x="28" y="54" width="8" height="12" fill="currentColor" opacity="0.4"/>
+            <rect x="42" y="44" width="8" height="22" fill="currentColor" opacity="0.6"/>
+            <rect x="56" y="34" width="8" height="32" fill="currentColor" opacity="0.8"/>
+            <path d="M 26 46 L 40 36 L 54 26 L 72 16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <polygon points="72,16 66,18 70,24" fill="currentColor"/></svg>
+          </div>
+          <div class="cc-body">
+            <div class="cc-top"><span class="cc-industry">金融・保険</span></div>
+            <div class="cc-name">大手FinTech・資産運用サービス</div>
+            <div class="cc-cat">フロントエンド開発（マーケティング領域）</div>
+            <div class="cc-techs"><span class="cc-tech">フロントエンド</span></div>
+          </div>
         </button>
       </div>
       <p style="font-size:12px;color:var(--text-mute);margin-top:14px;">※ 並び順は<strong>エンドユーザー直取引を上位</strong>に、以降は取引先の売上規模が大きい順（概算・調整可）。カードをクリックすると各事例へ移動します。上部のタブからも切り替えできます。</p>
+      <div class="cta-band"><a href="https://webedge.jp/" target="_blank" rel="noopener">開発について相談する（お問い合わせ）→</a></div>
     </div>
   </section>
 
