@@ -536,6 +536,8 @@
   .cc-techs { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 2px; }
   .cc-tech { font-size: 10.5px; background: #eef3f7; color: var(--text-sub); border-radius: 4px; padding: 2px 7px; }
   .case-card2.hide { display: none; }
+  .cc-direct { font-size: 10.5px; font-weight: 700; color: #fff; background: #0EA371; border-radius: 4px; padding: 2px 7px; }
+  .case-card2.direct { border-left-color: #0EA371; }
 </style>
 </head>
 <body>
@@ -661,6 +663,42 @@
       </div>
       <div class="cards-count" id="cards-count"></div>
       <div class="case-cards" id="case-cards">
+        <button class="case-card2 direct" data-target="case-his" data-industry="旅行・運輸" data-tech="業務システム・基幹,AI駆動開発・AI活用">
+          <div class="cc-top"><span class="cc-industry">旅行・運輸</span><span class="cc-direct">エンドユーザー直</span></div>
+          <div class="cc-name">株式会社エイチ・アイ・エス</div>
+          <div class="cc-cat">基幹システム開発／データ活用基盤構築</div>
+          <div class="cc-techs"><span class="cc-tech">業務システム・基幹</span><span class="cc-tech">AI駆動開発・AI活用</span></div>
+        </button>
+        <button class="case-card2 direct" data-target="case-japanet" data-industry="小売・EC・通販" data-tech="EC構築・運用,フロントエンド">
+          <div class="cc-top"><span class="cc-industry">小売・EC・通販</span><span class="cc-direct">エンドユーザー直</span></div>
+          <div class="cc-name">株式会社ジャパネットたかた</div>
+          <div class="cc-cat">ECサイト制作・運用支援（デザイン／コーディング）</div>
+          <div class="cc-techs"><span class="cc-tech">EC構築・運用</span><span class="cc-tech">フロントエンド</span></div>
+        </button>
+        <button class="case-card2 direct" data-target="case-coop-design" data-industry="金融・保険" data-tech="UI/UXデザイン">
+          <div class="cc-top"><span class="cc-industry">金融・保険</span><span class="cc-direct">エンドユーザー直</span></div>
+          <div class="cc-name">大手共済団体</div>
+          <div class="cc-cat">UI/UXデザイン内製化支援</div>
+          <div class="cc-techs"><span class="cc-tech">UI/UXデザイン</span></div>
+        </button>
+        <button class="case-card2 direct" data-target="case-mfs" data-industry="金融・保険" data-tech="フロントエンド">
+          <div class="cc-top"><span class="cc-industry">金融・保険</span><span class="cc-direct">エンドユーザー直</span></div>
+          <div class="cc-name">株式会社MFS</div>
+          <div class="cc-cat">SaaS開発（FinTech／フロントエンド）</div>
+          <div class="cc-techs"><span class="cc-tech">フロントエンド</span></div>
+        </button>
+        <button class="case-card2 direct" data-target="case-inventit" data-industry="IT・Web・広告" data-tech="SaaS開発,AI駆動開発・AI活用">
+          <div class="cc-top"><span class="cc-industry">IT・Web・広告</span><span class="cc-direct">エンドユーザー直</span></div>
+          <div class="cc-name">インヴェンティット株式会社</div>
+          <div class="cc-cat">SaaS開発（MDM／モバイル端末管理）＋AI活用開発</div>
+          <div class="cc-techs"><span class="cc-tech">SaaS開発</span><span class="cc-tech">AI駆動開発・AI活用</span></div>
+        </button>
+        <button class="case-card2 direct" data-target="case-arma" data-industry="小売・EC・通販" data-tech="EC構築・運用,AI駆動開発・AI活用">
+          <div class="cc-top"><span class="cc-industry">小売・EC・通販</span><span class="cc-direct">エンドユーザー直</span></div>
+          <div class="cc-name">株式会社アルマビアンカ</div>
+          <div class="cc-cat">ECサイト開発</div>
+          <div class="cc-techs"><span class="cc-tech">EC構築・運用</span><span class="cc-tech">AI駆動開発・AI活用</span></div>
+        </button>
         <button class="case-card2" data-target="case-auto-ui" data-industry="製造・メーカー" data-tech="UI/UXデザイン">
           <div class="cc-top"><span class="cc-industry">製造・メーカー</span></div>
           <div class="cc-name">大手自動車メーカー</div>
@@ -799,29 +837,11 @@
           <div class="cc-cat">SaaS品質管理・Webサイト制作</div>
           <div class="cc-techs"><span class="cc-tech">SaaS開発</span></div>
         </button>
-        <button class="case-card2" data-target="case-his" data-industry="旅行・運輸" data-tech="業務システム・基幹,AI駆動開発・AI活用">
-          <div class="cc-top"><span class="cc-industry">旅行・運輸</span></div>
-          <div class="cc-name">株式会社エイチ・アイ・エス</div>
-          <div class="cc-cat">基幹システム開発／データ活用基盤構築</div>
-          <div class="cc-techs"><span class="cc-tech">業務システム・基幹</span><span class="cc-tech">AI駆動開発・AI活用</span></div>
-        </button>
-        <button class="case-card2" data-target="case-japanet" data-industry="小売・EC・通販" data-tech="EC構築・運用,フロントエンド">
-          <div class="cc-top"><span class="cc-industry">小売・EC・通販</span></div>
-          <div class="cc-name">株式会社ジャパネットたかた</div>
-          <div class="cc-cat">ECサイト制作・運用支援（デザイン／コーディング）</div>
-          <div class="cc-techs"><span class="cc-tech">EC構築・運用</span><span class="cc-tech">フロントエンド</span></div>
-        </button>
         <button class="case-card2" data-target="case-public-health" data-industry="医療・ヘルスケア" data-tech="業務システム・基幹,クラウド・インフラ運用">
           <div class="cc-top"><span class="cc-industry">医療・ヘルスケア</span></div>
           <div class="cc-name">独立行政法人様（医薬品・医療機器分野）</div>
           <div class="cc-cat">医療系システム保守・基盤移行</div>
           <div class="cc-techs"><span class="cc-tech">業務システム・基幹</span><span class="cc-tech">クラウド・インフラ運用</span></div>
-        </button>
-        <button class="case-card2" data-target="case-coop-design" data-industry="金融・保険" data-tech="UI/UXデザイン">
-          <div class="cc-top"><span class="cc-industry">金融・保険</span></div>
-          <div class="cc-name">大手共済団体</div>
-          <div class="cc-cat">UI/UXデザイン内製化支援</div>
-          <div class="cc-techs"><span class="cc-tech">UI/UXデザイン</span></div>
         </button>
         <button class="case-card2" data-target="case-realestate" data-industry="不動産" data-tech="データ基盤・BI・分析,AI駆動開発・AI活用">
           <div class="cc-top"><span class="cc-industry">不動産</span></div>
@@ -835,23 +855,11 @@
           <div class="cc-cat">フロントエンド開発（電子契約／リーガルテックSaaS）</div>
           <div class="cc-techs"><span class="cc-tech">フロントエンド</span></div>
         </button>
-        <button class="case-card2" data-target="case-inventit" data-industry="IT・Web・広告" data-tech="SaaS開発,AI駆動開発・AI活用">
-          <div class="cc-top"><span class="cc-industry">IT・Web・広告</span></div>
-          <div class="cc-name">インヴェンティット株式会社</div>
-          <div class="cc-cat">SaaS開発（MDM／モバイル端末管理）＋AI活用開発</div>
-          <div class="cc-techs"><span class="cc-tech">SaaS開発</span><span class="cc-tech">AI駆動開発・AI活用</span></div>
-        </button>
         <button class="case-card2" data-target="case-field-saas" data-industry="建設・現場DX" data-tech="モバイルアプリ,AI駆動開発・AI活用">
           <div class="cc-top"><span class="cc-industry">建設・現場DX</span></div>
           <div class="cc-name">建設DX・現場管理SaaS企業</div>
           <div class="cc-cat">モバイルアプリ開発（Flutterリプレイス｜AI駆動開発）</div>
           <div class="cc-techs"><span class="cc-tech">モバイルアプリ</span><span class="cc-tech">AI駆動開発・AI活用</span></div>
-        </button>
-        <button class="case-card2" data-target="case-mfs" data-industry="金融・保険" data-tech="フロントエンド">
-          <div class="cc-top"><span class="cc-industry">金融・保険</span></div>
-          <div class="cc-name">株式会社MFS</div>
-          <div class="cc-cat">SaaS開発（FinTech／フロントエンド）</div>
-          <div class="cc-techs"><span class="cc-tech">フロントエンド</span></div>
         </button>
         <button class="case-card2" data-target="case-12" data-industry="金融・保険" data-tech="フロントエンド">
           <div class="cc-top"><span class="cc-industry">金融・保険</span></div>
@@ -859,14 +867,8 @@
           <div class="cc-cat">フロントエンド開発（マーケティング領域）</div>
           <div class="cc-techs"><span class="cc-tech">フロントエンド</span></div>
         </button>
-        <button class="case-card2" data-target="case-arma" data-industry="小売・EC・通販" data-tech="EC構築・運用,AI駆動開発・AI活用">
-          <div class="cc-top"><span class="cc-industry">小売・EC・通販</span></div>
-          <div class="cc-name">株式会社アルマビアンカ</div>
-          <div class="cc-cat">ECサイト開発</div>
-          <div class="cc-techs"><span class="cc-tech">EC構築・運用</span><span class="cc-tech">AI駆動開発・AI活用</span></div>
-        </button>
       </div>
-      <p style="font-size:12px;color:var(--text-mute);margin-top:14px;">※ 並び順は取引先の売上規模が大きい順（概算・調整可）。カードをクリックすると各事例へ移動します。上部のタブからも切り替えできます。</p>
+      <p style="font-size:12px;color:var(--text-mute);margin-top:14px;">※ 並び順は<strong>エンドユーザー直（元請直）取引を上位</strong>に、以降は取引先の売上規模が大きい順（概算・調整可）。カードをクリックすると各事例へ移動します。上部のタブからも切り替えできます。</p>
     </div>
   </section>
 
