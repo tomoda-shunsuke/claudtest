@@ -516,6 +516,26 @@
     line-height: 1.4;
   }
 
+
+  /* ===== トップ 分類カード ===== */
+  .top-filter { margin-top: 26px; }
+  .filter-group { margin-bottom: 14px; }
+  .filter-group-label { font-size: 13px; font-weight: 700; color: var(--text-sub); margin-bottom: 8px; }
+  .filter-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .filter-chip { border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 6px 14px; font-size: 13px; cursor: pointer; color: var(--text); transition: all .12s; }
+  .filter-chip:hover { border-color: var(--brand-dark); }
+  .filter-chip.active { background: var(--brand-dark); border-color: var(--brand-dark); color: #fff; }
+  .cards-count { font-size: 12px; color: var(--text-mute); margin: 18px 0 6px; }
+  .case-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 16px; }
+  .case-card2 { text-align: left; background: #fff; border: 1px solid var(--line); border-left: 4px solid var(--brand-dark); border-radius: 10px; padding: 15px 17px; cursor: pointer; transition: box-shadow .15s, transform .15s; display: flex; flex-direction: column; gap: 7px; font-family: inherit; }
+  .case-card2:hover { box-shadow: 0 6px 20px rgba(0,0,0,.08); transform: translateY(-2px); }
+  .cc-top { display: flex; align-items: center; gap: 8px; }
+  .cc-industry { font-size: 11px; font-weight: 700; color: var(--brand-dark); background: var(--bg-soft); border-radius: 4px; padding: 2px 8px; }
+  .cc-name { font-size: 15px; font-weight: 700; color: var(--text); line-height: 1.4; }
+  .cc-cat { font-size: 12px; color: var(--text-sub); }
+  .cc-techs { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 2px; }
+  .cc-tech { font-size: 10.5px; background: #eef3f7; color: var(--text-sub); border-radius: 4px; padding: 2px 7px; }
+  .case-card2.hide { display: none; }
 </style>
 </head>
 <body>
@@ -601,6 +621,253 @@
       </div>
     </div>
 
+  
+    <div class="top-filter">
+      <div class="filter-group">
+        <div class="filter-group-label">🏷 業種で絞り込む</div>
+        <div class="filter-chips" id="filter-industry">
+        <button class="filter-chip active" data-group="industry" data-val="all">すべて</button>
+        <button class="filter-chip" data-group="industry" data-val="通信・キャリア">通信・キャリア</button>
+        <button class="filter-chip" data-group="industry" data-val="金融・保険">金融・保険</button>
+        <button class="filter-chip" data-group="industry" data-val="製造・メーカー">製造・メーカー</button>
+        <button class="filter-chip" data-group="industry" data-val="公共・行政">公共・行政</button>
+        <button class="filter-chip" data-group="industry" data-val="医療・ヘルスケア">医療・ヘルスケア</button>
+        <button class="filter-chip" data-group="industry" data-val="小売・EC・通販">小売・EC・通販</button>
+        <button class="filter-chip" data-group="industry" data-val="IT・Web・広告">IT・Web・広告</button>
+        <button class="filter-chip" data-group="industry" data-val="エンタメ・IP">エンタメ・IP</button>
+        <button class="filter-chip" data-group="industry" data-val="旅行・運輸">旅行・運輸</button>
+        <button class="filter-chip" data-group="industry" data-val="食品・飲料">食品・飲料</button>
+        <button class="filter-chip" data-group="industry" data-val="建設・現場DX">建設・現場DX</button>
+        <button class="filter-chip" data-group="industry" data-val="不動産">不動産</button>
+        <button class="filter-chip" data-group="industry" data-val="リーガルテック">リーガルテック</button>
+        </div>
+      </div>
+      <div class="filter-group">
+        <div class="filter-group-label">🛠 技術・領域で絞り込む</div>
+        <div class="filter-chips" id="filter-tech">
+        <button class="filter-chip active" data-group="tech" data-val="all">すべて</button>
+        <button class="filter-chip" data-group="tech" data-val="フロントエンド">フロントエンド</button>
+        <button class="filter-chip" data-group="tech" data-val="AI駆動開発・AI活用">AI駆動開発・AI活用</button>
+        <button class="filter-chip" data-group="tech" data-val="データ基盤・BI・分析">データ基盤・BI・分析</button>
+        <button class="filter-chip" data-group="tech" data-val="業務システム・基幹">業務システム・基幹</button>
+        <button class="filter-chip" data-group="tech" data-val="ServiceNow">ServiceNow</button>
+        <button class="filter-chip" data-group="tech" data-val="モバイルアプリ">モバイルアプリ</button>
+        <button class="filter-chip" data-group="tech" data-val="UI/UXデザイン">UI/UXデザイン</button>
+        <button class="filter-chip" data-group="tech" data-val="クラウド・インフラ運用">クラウド・インフラ運用</button>
+        <button class="filter-chip" data-group="tech" data-val="SaaS開発">SaaS開発</button>
+        <button class="filter-chip" data-group="tech" data-val="EC構築・運用">EC構築・運用</button>
+        <button class="filter-chip" data-group="tech" data-val="組込み・車載">組込み・車載</button>
+        </div>
+      </div>
+      <div class="cards-count" id="cards-count"></div>
+      <div class="case-cards" id="case-cards">
+        <button class="case-card2" data-target="case-auto-ui" data-industry="製造・メーカー" data-tech="UI/UXデザイン">
+          <div class="cc-top"><span class="cc-industry">製造・メーカー</span></div>
+          <div class="cc-name">大手自動車メーカー</div>
+          <div class="cc-cat">UIデザイン・デザインシステム構築</div>
+          <div class="cc-techs"><span class="cc-tech">UI/UXデザイン</span></div>
+        </button>
+        <button class="case-card2" data-target="case-01" data-industry="製造・メーカー" data-tech="モバイルアプリ">
+          <div class="cc-top"><span class="cc-industry">製造・メーカー</span></div>
+          <div class="cc-name">大手電機メーカー</div>
+          <div class="cc-cat">モバイルアプリ開発</div>
+          <div class="cc-techs"><span class="cc-tech">モバイルアプリ</span></div>
+        </button>
+        <button class="case-card2" data-target="case-09" data-industry="金融・保険" data-tech="データ基盤・BI・分析">
+          <div class="cc-top"><span class="cc-industry">金融・保険</span></div>
+          <div class="cc-name">大手メガバンク</div>
+          <div class="cc-cat">金融システム/データ分析</div>
+          <div class="cc-techs"><span class="cc-tech">データ基盤・BI・分析</span></div>
+        </button>
+        <button class="case-card2" data-target="case-10" data-industry="金融・保険" data-tech="業務システム・基幹">
+          <div class="cc-top"><span class="cc-industry">金融・保険</span></div>
+          <div class="cc-name">大手損害保険会社</div>
+          <div class="cc-cat">業務システム開発（Salesforce）</div>
+          <div class="cc-techs"><span class="cc-tech">業務システム・基幹</span></div>
+        </button>
+        <button class="case-card2" data-target="case-web-promo" data-industry="IT・Web・広告" data-tech="フロントエンド">
+          <div class="cc-top"><span class="cc-industry">IT・Web・広告</span></div>
+          <div class="cc-name">大手インターネットサービス企業様（決済・販促領域）</div>
+          <div class="cc-cat">Web制作・FAQ運用（UI改善）</div>
+          <div class="cc-techs"><span class="cc-tech">フロントエンド</span></div>
+        </button>
+        <button class="case-card2" data-target="case-construction" data-industry="製造・メーカー" data-tech="組込み・車載">
+          <div class="cc-top"><span class="cc-industry">製造・メーカー</span></div>
+          <div class="cc-name">大手建設機械メーカー</div>
+          <div class="cc-cat">車載・自動走行システム開発（解析・改修）</div>
+          <div class="cc-techs"><span class="cc-tech">組込み・車載</span></div>
+        </button>
+        <button class="case-card2" data-target="case-03" data-industry="通信・キャリア" data-tech="フロントエンド">
+          <div class="cc-top"><span class="cc-industry">通信・キャリア</span></div>
+          <div class="cc-name">大手通信キャリア</div>
+          <div class="cc-cat">Web/フロントエンドリプレイス</div>
+          <div class="cc-techs"><span class="cc-tech">フロントエンド</span></div>
+        </button>
+        <button class="case-card2" data-target="case-tel-mon" data-industry="通信・キャリア" data-tech="クラウド・インフラ運用">
+          <div class="cc-top"><span class="cc-industry">通信・キャリア</span></div>
+          <div class="cc-name">大手通信キャリア</div>
+          <div class="cc-cat">通信インフラ運用・監視基盤高度化</div>
+          <div class="cc-techs"><span class="cc-tech">クラウド・インフラ運用</span></div>
+        </button>
+        <button class="case-card2" data-target="case-tel-front" data-industry="通信・キャリア" data-tech="フロントエンド">
+          <div class="cc-top"><span class="cc-industry">通信・キャリア</span></div>
+          <div class="cc-name">大手通信キャリア</div>
+          <div class="cc-cat">フロントエンド開発（オンライン申込導線）</div>
+          <div class="cc-techs"><span class="cc-tech">フロントエンド</span></div>
+        </button>
+        <button class="case-card2" data-target="case-tel-store" data-industry="通信・キャリア" data-tech="モバイルアプリ">
+          <div class="cc-top"><span class="cc-industry">通信・キャリア</span></div>
+          <div class="cc-name">大手通信キャリア</div>
+          <div class="cc-cat">店頭タブレットアプリ開発（追加開発）</div>
+          <div class="cc-techs"><span class="cc-tech">モバイルアプリ</span></div>
+        </button>
+        <button class="case-card2" data-target="case-11" data-industry="小売・EC・通販" data-tech="クラウド・インフラ運用,データ基盤・BI・分析,AI駆動開発・AI活用">
+          <div class="cc-top"><span class="cc-industry">小売・EC・通販</span></div>
+          <div class="cc-name">大手アパレル小売グループ</div>
+          <div class="cc-cat">運用支援・データ分析・AI業務支援</div>
+          <div class="cc-techs"><span class="cc-tech">クラウド・インフラ運用</span><span class="cc-tech">データ基盤・BI・分析</span><span class="cc-tech">AI駆動開発・AI活用</span></div>
+        </button>
+        <button class="case-card2" data-target="case-13" data-industry="金融・保険" data-tech="業務システム・基幹">
+          <div class="cc-top"><span class="cc-industry">金融・保険</span></div>
+          <div class="cc-name">流通系銀行</div>
+          <div class="cc-cat">金融システム運用・改修</div>
+          <div class="cc-techs"><span class="cc-tech">業務システム・基幹</span></div>
+        </button>
+        <button class="case-card2" data-target="case-trust-bank" data-industry="金融・保険" data-tech="データ基盤・BI・分析">
+          <div class="cc-top"><span class="cc-industry">金融・保険</span></div>
+          <div class="cc-name">大手信託銀行</div>
+          <div class="cc-cat">データ基盤更改（Snowflake）</div>
+          <div class="cc-techs"><span class="cc-tech">データ基盤・BI・分析</span></div>
+        </button>
+        <button class="case-card2" data-target="case-servicenow" data-industry="食品・飲料" data-tech="ServiceNow">
+          <div class="cc-top"><span class="cc-industry">食品・飲料</span></div>
+          <div class="cc-name">大手飲料・食品グループ</div>
+          <div class="cc-cat">ServiceNow開発・運用（全社ポータル基盤）</div>
+          <div class="cc-techs"><span class="cc-tech">ServiceNow</span></div>
+        </button>
+        <button class="case-card2" data-target="case-aviation" data-industry="旅行・運輸" data-tech="業務システム・基幹">
+          <div class="cc-top"><span class="cc-industry">旅行・運輸</span></div>
+          <div class="cc-name">大手航空会社</div>
+          <div class="cc-cat">システム内製化支援（API連携）</div>
+          <div class="cc-techs"><span class="cc-tech">業務システム・基幹</span></div>
+        </button>
+        <button class="case-card2" data-target="case-ad-bi" data-industry="IT・Web・広告" data-tech="データ基盤・BI・分析">
+          <div class="cc-top"><span class="cc-industry">IT・Web・広告</span></div>
+          <div class="cc-name">大手広告・ITグループ</div>
+          <div class="cc-cat">BI・業務効率化（PowerBI／Power Platform）</div>
+          <div class="cc-techs"><span class="cc-tech">データ基盤・BI・分析</span></div>
+        </button>
+        <button class="case-card2" data-target="case-entertainment" data-industry="エンタメ・IP" data-tech="データ基盤・BI・分析,EC構築・運用">
+          <div class="cc-top"><span class="cc-industry">エンタメ・IP</span></div>
+          <div class="cc-name">大手エンタメ・IP企業</div>
+          <div class="cc-cat">データ分析システム／ECリニューアル</div>
+          <div class="cc-techs"><span class="cc-tech">データ基盤・BI・分析</span><span class="cc-tech">EC構築・運用</span></div>
+        </button>
+        <button class="case-card2" data-target="case-14" data-industry="公共・行政" data-tech="データ基盤・BI・分析">
+          <div class="cc-top"><span class="cc-industry">公共・行政</span></div>
+          <div class="cc-name">行政機関（税務領域）</div>
+          <div class="cc-cat">公共システム開発/データ基盤</div>
+          <div class="cc-techs"><span class="cc-tech">データ基盤・BI・分析</span></div>
+        </button>
+        <button class="case-card2" data-target="case-gov-apply" data-industry="公共・行政" data-tech="フロントエンド">
+          <div class="cc-top"><span class="cc-industry">公共・行政</span></div>
+          <div class="cc-name">行政機関様（自治体窓口・申請システム領域）</div>
+          <div class="cc-cat">公共システム開発（フロントエンドリプレイス）</div>
+          <div class="cc-techs"><span class="cc-tech">フロントエンド</span></div>
+        </button>
+        <button class="case-card2" data-target="case-02" data-industry="医療・ヘルスケア" data-tech="業務システム・基幹">
+          <div class="cc-top"><span class="cc-industry">医療・ヘルスケア</span></div>
+          <div class="cc-name">大手医療機器メーカー</div>
+          <div class="cc-cat">医療システム開発</div>
+          <div class="cc-techs"><span class="cc-tech">業務システム・基幹</span></div>
+        </button>
+        <button class="case-card2" data-target="case-15" data-industry="製造・メーカー" data-tech="データ基盤・BI・分析">
+          <div class="cc-top"><span class="cc-industry">製造・メーカー</span></div>
+          <div class="cc-name">大手化学メーカー</div>
+          <div class="cc-cat">データ基盤構築（クラウド）</div>
+          <div class="cc-techs"><span class="cc-tech">データ基盤・BI・分析</span></div>
+        </button>
+        <button class="case-card2" data-target="case-05" data-industry="製造・メーカー" data-tech="ServiceNow">
+          <div class="cc-top"><span class="cc-industry">製造・メーカー</span></div>
+          <div class="cc-name">大手計測・分析機器メーカー</div>
+          <div class="cc-cat">GRC・統制可視化基盤構築</div>
+          <div class="cc-techs"><span class="cc-tech">ServiceNow</span></div>
+        </button>
+        <button class="case-card2" data-target="case-06" data-industry="通信・キャリア" data-tech="SaaS開発">
+          <div class="cc-top"><span class="cc-industry">通信・キャリア</span></div>
+          <div class="cc-name">大手ISP・ネットワークサービス事業者</div>
+          <div class="cc-cat">SaaS品質管理・Webサイト制作</div>
+          <div class="cc-techs"><span class="cc-tech">SaaS開発</span></div>
+        </button>
+        <button class="case-card2" data-target="case-his" data-industry="旅行・運輸" data-tech="業務システム・基幹,AI駆動開発・AI活用">
+          <div class="cc-top"><span class="cc-industry">旅行・運輸</span></div>
+          <div class="cc-name">株式会社エイチ・アイ・エス</div>
+          <div class="cc-cat">基幹システム開発／データ活用基盤構築</div>
+          <div class="cc-techs"><span class="cc-tech">業務システム・基幹</span><span class="cc-tech">AI駆動開発・AI活用</span></div>
+        </button>
+        <button class="case-card2" data-target="case-japanet" data-industry="小売・EC・通販" data-tech="EC構築・運用,フロントエンド">
+          <div class="cc-top"><span class="cc-industry">小売・EC・通販</span></div>
+          <div class="cc-name">株式会社ジャパネットたかた</div>
+          <div class="cc-cat">ECサイト制作・運用支援（デザイン／コーディング）</div>
+          <div class="cc-techs"><span class="cc-tech">EC構築・運用</span><span class="cc-tech">フロントエンド</span></div>
+        </button>
+        <button class="case-card2" data-target="case-public-health" data-industry="医療・ヘルスケア" data-tech="業務システム・基幹,クラウド・インフラ運用">
+          <div class="cc-top"><span class="cc-industry">医療・ヘルスケア</span></div>
+          <div class="cc-name">独立行政法人様（医薬品・医療機器分野）</div>
+          <div class="cc-cat">医療系システム保守・基盤移行</div>
+          <div class="cc-techs"><span class="cc-tech">業務システム・基幹</span><span class="cc-tech">クラウド・インフラ運用</span></div>
+        </button>
+        <button class="case-card2" data-target="case-coop-design" data-industry="金融・保険" data-tech="UI/UXデザイン">
+          <div class="cc-top"><span class="cc-industry">金融・保険</span></div>
+          <div class="cc-name">大手共済団体</div>
+          <div class="cc-cat">UI/UXデザイン内製化支援</div>
+          <div class="cc-techs"><span class="cc-tech">UI/UXデザイン</span></div>
+        </button>
+        <button class="case-card2" data-target="case-realestate" data-industry="不動産" data-tech="データ基盤・BI・分析,AI駆動開発・AI活用">
+          <div class="cc-top"><span class="cc-industry">不動産</span></div>
+          <div class="cc-name">不動産投資会社</div>
+          <div class="cc-cat">不動産投資DX（データ活用｜AI活用）</div>
+          <div class="cc-techs"><span class="cc-tech">データ基盤・BI・分析</span><span class="cc-tech">AI駆動開発・AI活用</span></div>
+        </button>
+        <button class="case-card2" data-target="case-bengoshi" data-industry="リーガルテック" data-tech="フロントエンド">
+          <div class="cc-top"><span class="cc-industry">リーガルテック</span></div>
+          <div class="cc-name">弁護士ドットコム株式会社</div>
+          <div class="cc-cat">フロントエンド開発（電子契約／リーガルテックSaaS）</div>
+          <div class="cc-techs"><span class="cc-tech">フロントエンド</span></div>
+        </button>
+        <button class="case-card2" data-target="case-inventit" data-industry="IT・Web・広告" data-tech="SaaS開発,AI駆動開発・AI活用">
+          <div class="cc-top"><span class="cc-industry">IT・Web・広告</span></div>
+          <div class="cc-name">インヴェンティット株式会社</div>
+          <div class="cc-cat">SaaS開発（MDM／モバイル端末管理）＋AI活用開発</div>
+          <div class="cc-techs"><span class="cc-tech">SaaS開発</span><span class="cc-tech">AI駆動開発・AI活用</span></div>
+        </button>
+        <button class="case-card2" data-target="case-field-saas" data-industry="建設・現場DX" data-tech="モバイルアプリ,AI駆動開発・AI活用">
+          <div class="cc-top"><span class="cc-industry">建設・現場DX</span></div>
+          <div class="cc-name">建設DX・現場管理SaaS企業</div>
+          <div class="cc-cat">モバイルアプリ開発（Flutterリプレイス｜AI駆動開発）</div>
+          <div class="cc-techs"><span class="cc-tech">モバイルアプリ</span><span class="cc-tech">AI駆動開発・AI活用</span></div>
+        </button>
+        <button class="case-card2" data-target="case-mfs" data-industry="金融・保険" data-tech="フロントエンド">
+          <div class="cc-top"><span class="cc-industry">金融・保険</span></div>
+          <div class="cc-name">株式会社MFS</div>
+          <div class="cc-cat">SaaS開発（FinTech／フロントエンド）</div>
+          <div class="cc-techs"><span class="cc-tech">フロントエンド</span></div>
+        </button>
+        <button class="case-card2" data-target="case-12" data-industry="金融・保険" data-tech="フロントエンド">
+          <div class="cc-top"><span class="cc-industry">金融・保険</span></div>
+          <div class="cc-name">大手FinTech・資産運用サービス</div>
+          <div class="cc-cat">フロントエンド開発（マーケティング領域）</div>
+          <div class="cc-techs"><span class="cc-tech">フロントエンド</span></div>
+        </button>
+        <button class="case-card2" data-target="case-arma" data-industry="小売・EC・通販" data-tech="EC構築・運用,AI駆動開発・AI活用">
+          <div class="cc-top"><span class="cc-industry">小売・EC・通販</span></div>
+          <div class="cc-name">株式会社アルマビアンカ</div>
+          <div class="cc-cat">ECサイト開発</div>
+          <div class="cc-techs"><span class="cc-tech">EC構築・運用</span><span class="cc-tech">AI駆動開発・AI活用</span></div>
+        </button>
+      </div>
+      <p style="font-size:12px;color:var(--text-mute);margin-top:14px;">※ 並び順は取引先の売上規模が大きい順（概算・調整可）。カードをクリックすると各事例へ移動します。上部のタブからも切り替えできます。</p>
+    </div>
   </section>
 
   
@@ -4668,6 +4935,40 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });
+
+  // --- top page: card click -> open case ---
+  document.querySelectorAll('.case-card2').forEach(card => {
+    card.addEventListener('click', () => {
+      const t = card.dataset.target;
+      const tab = document.querySelector('.nav-tab[data-target="'+t+'"]');
+      if (tab) tab.click();
+    });
+  });
+  // --- top page: industry/tech filters ---
+  const selected = { industry: 'all', tech: 'all' };
+  function applyFilters() {
+    let shown = 0;
+    document.querySelectorAll('.case-card2').forEach(card => {
+      const ind = card.dataset.industry;
+      const techs = (card.dataset.tech || '').split(',');
+      const okI = selected.industry === 'all' || ind === selected.industry;
+      const okT = selected.tech === 'all' || techs.includes(selected.tech);
+      if (okI && okT) { card.classList.remove('hide'); shown++; }
+      else { card.classList.add('hide'); }
+    });
+    const cc = document.getElementById('cards-count');
+    if (cc) cc.textContent = shown + ' 件の事例';
+  }
+  document.querySelectorAll('.filter-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const g = chip.dataset.group;
+      selected[g] = chip.dataset.val;
+      document.querySelectorAll('.filter-chip[data-group="'+g+'"]').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      applyFilters();
+    });
+  });
+  applyFilters();
 </script>
 
 </body>
