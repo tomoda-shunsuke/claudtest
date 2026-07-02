@@ -576,6 +576,12 @@
       <p>マーケチームが作成した事例記事について、2次請け以下の顧客企業11社を秘密保持の観点でマスキング処理したプレビュー版です。上のタブから各事例をご確認ください。</p>
       <p>各ページ内の<span class="masked">黄色ハイライト箇所</span>がマスキング処理を施した部分です。</p>
       <p>末尾の <strong>🔵 エンド直（社名公開）事例5社</strong>（HIS／インヴェンティット／ジャパネットたかた／アルマビアンカ／MFS）は、当社が直接取引する元請け（エンド直）案件のため社名を掲載しています。これらのページでは<strong>個人名・体制人数・取引額などの数値情報は記載せず、「何をして何に貢献したか」に絞って</strong>記載しています。</p>
+
+      <div style="margin-top:20px; padding:20px 22px; background:var(--bg-soft); border-left:4px solid var(--brand-dark); border-radius:8px;">
+        <div style="font-weight:700; font-size:16px; margin-bottom:8px;">🤖 AI駆動開発（AIネイティブ開発）への取り組み</div>
+        <p style="margin:0;">ウェブエッジは、<strong>AIエージェントを開発の中核に据えたAI駆動型開発</strong>を実践しています。プロジェクトに応じて <strong>Claude / Codex / GitHub Copilot</strong> などを活用し、設計・実装・テスト・レビュー・デバッグの各工程で生産性と品質を両立。AGENT.md＋ルールファイルによる「AIが自走できる開発基盤」の構築や、自動テスト（Rspec）カバレッジの大幅改善、「AI＋人間」による超高速デバッグなど、<strong>実プロジェクトでのAI活用実績</strong>を積み重ねています。</p>
+        <p style="margin:8px 0 0;">具体例 ▶ <strong>インヴェンティット</strong>（Codex／Claudeを本格導入・AI開発基盤構築・Rspec 約43%→約98%）／<strong>アルマビアンカ</strong>（Claudeを用いたAI駆動開発へ移行）／<strong>HIS</strong>（GitHub Copilot活用で開発工数を約半分に圧縮）</p>
+      </div>
     </div>
 
   </section>
@@ -2559,7 +2565,7 @@
             <line x1="40" y1="52" x2="60" y2="52" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
       </svg>
       <div class="logo-text">
-        <div class="logo-text-sub">EC / SCRATCH</div>
+        <div class="logo-text-sub">EC / SCRATCH / AI</div>
         <div class="logo-text-main">株式会社アルマビアンカ</div>
       </div>
     </div>
@@ -2581,6 +2587,8 @@
 <span class="case-tag">Laravel</span>
 <span class="case-tag">Vue.js</span>
 <span class="case-tag">サブカルチャー</span>
+<span class="case-tag">Claude</span>
+<span class="case-tag">AI駆動開発</span>
     </div>
     <div class="case-problems">
       <div class="problems-label">解決した課題</div>
@@ -2601,6 +2609,7 @@
     <p>アニメグッズ・自社IPグッズを展開する株式会社アルマビアンカ様より、ECサイトのフルリプレイスをご依頼いただきました。本案件は、ウェブエッジの自社問い合わせフォーム経由でいただいたエンド直案件です。</p>
 <p>既存のEC基盤はカスタム性が低く、ビジネスの拡張に追従できないこと、加えてサーバ運用コストの高さが経営課題となっていました。</p>
 <p>ウェブエッジは、PHP/Laravel（Nova）+Vue.js+MySQLの構成でフルスクラッチ開発を実施。決済・工場管理を含む管理画面の刷新により、サブカル特化EC事業者特有の業務フロー（自社生産・受注・出荷）を統合的に運用できる柔軟なシステムを構築しています。</p>
+<p>本プロジェクトでは、<strong>Claudeを活用したAI駆動開発</strong>へ移行。設計・実装・レビューの各工程でAIエージェントを活用し、スクラッチ開発でありながら開発スピードと品質を両立しています。</p>
   </div>
 
   <table class="summary-table">
@@ -2616,7 +2625,7 @@
 
   <table class="summary-table">
     <tr><th>誰に（対象）</th><td>アニメグッズ・自社IPグッズを展開する株式会社アルマビアンカ様、および同社ECを利用するファン・ユーザー</td></tr>
-<tr><th>提供した価値</th><td>カスタム性の低い旧ECをフルスクラッチでリプレイスし、ビジネス変化への追従性を確保。決済・工場管理・在庫を含む統合管理画面を構築し、サーバ運用コストも削減しました。</td></tr>
+<tr><th>提供した価値</th><td>カスタム性の低い旧ECをフルスクラッチでリプレイスし、ビジネス変化への追従性を確保。決済・工場管理・在庫を含む統合管理画面を構築し、サーバ運用コストも削減しました。開発はClaudeを活用したAI駆動開発へ移行し、スピードと品質を両立しています。</td></tr>
 <tr><th>喜ばれたポイント</th><td>自社問い合わせから直接ご相談いただいた案件で、ビジネス側と密に連携。カスタム性とコストという経営課題を解決し、在庫システムの将来的なプロダクト化まで一緒に検討する関係へと発展しています。</td></tr>
   </table>
 
@@ -2642,6 +2651,10 @@
               <h4 class="feature-title">アジャイル開発で<br>変化に追従</h4>
               <p class="feature-body">スプリント単位での開発・レビューを通じて、ビジネス要望の変化に柔軟に対応。外部APIとの連携も含め、運用環境全体を最適化しています。</p>
             </div>
+<div class="feature-card">
+              <h4 class="feature-title">Claudeを活用した<br>AI駆動開発への移行</h4>
+              <p class="feature-body">本プロジェクトはClaudeを活用したAI駆動開発へ移行。設計・実装・コードレビューの各工程でAIエージェントを取り入れ、フルスクラッチ開発でありながら開発スピードと品質を両立しています。AIネイティブな開発体制で、機能追加・改善のリードタイム短縮にも貢献しています。</p>
+            </div>
   </div>
 
   <div class="section-heading">
@@ -2652,6 +2665,7 @@
   <div class="services-chips">
     <span class="service-chip">ECサイトのフルスクラッチ開発</span>
 <span class="service-chip">業務システム（決済・工場管理・在庫）統合</span>
+<span class="service-chip">AI駆動開発（Claude活用）</span>
 <span class="service-chip">アジャイル開発</span>
 <span class="service-chip">モダンWeb技術（Laravel/Vue.js）導入</span>
 <span class="service-chip">エンド直契約での伴走型支援</span>
