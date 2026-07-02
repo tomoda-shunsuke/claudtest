@@ -605,6 +605,9 @@
 <button class="nav-tab" data-target="case-mfs">🔵 MFS（エンド直）</button>
 <button class="nav-tab" data-target="case-bengoshi">🔵 弁護士ドットコム（社名公開）</button>
 <button class="nav-tab" data-target="case-interfactory">🔵 インターファクトリー（エンド直）</button>
+<button class="nav-tab" data-target="case-tokyoto">🔵 東京都（研修・エンド直）</button>
+<button class="nav-tab" data-target="case-branding">🔵 ブランディングテクノロジー（エンド直）</button>
+<button class="nav-tab" data-target="case-uluru">🔵 うるる（エンド直）</button>
   </div>
 </div>
 
@@ -615,7 +618,7 @@
     <div class="index-intro">
       <p>マーケチームが作成した事例記事について、2次請け以下の顧客企業11社を秘密保持の観点でマスキング処理したプレビュー版です。上のタブから各事例をご確認ください。</p>
       <p>各ページ内の<span class="masked">黄色ハイライト箇所</span>がマスキング処理を施した部分です。</p>
-      <p>末尾の <strong>🔵 社名公開事例7社</strong>（HIS／インヴェンティット／ジャパネットたかた／アルマビアンカ／MFS／インターファクトリー／弁護士ドットコム）は、社名掲載の許諾がある案件として社名を掲載しています。これらのページでは<strong>個人名・体制人数・取引額などの数値情報は記載せず、「何をして何に貢献したか」に絞って</strong>記載しています。</p>
+      <p>末尾の <strong>🔵 社名公開事例10社</strong>（HIS／インヴェンティット／ジャパネットたかた／アルマビアンカ／MFS／インターファクトリー／東京都／ブランディングテクノロジー／うるる／弁護士ドットコム）は、社名掲載の許諾がある案件として社名を掲載しています。これらのページでは<strong>個人名・体制人数・取引額などの数値情報は記載せず、「何をして何に貢献したか」に絞って</strong>記載しています。</p>
 
       <div style="margin-top:20px; padding:20px 22px; background:var(--bg-soft); border-left:4px solid var(--brand-dark); border-radius:8px;">
         <div style="font-weight:700; font-size:16px; margin-bottom:8px;">🤖 AI駆動開発（AIネイティブ開発）への取り組み</div>
@@ -660,6 +663,8 @@
         <button class="filter-chip" data-group="tech" data-val="SaaS開発">SaaS開発</button>
         <button class="filter-chip" data-group="tech" data-val="EC構築・運用">EC構築・運用</button>
         <button class="filter-chip" data-group="tech" data-val="組込み・車載">組込み・車載</button>
+        
+        <button class="filter-chip" data-group="tech" data-val="研修・人材育成">研修・人材育成</button>
         </div>
       </div>
       <div class="cards-count" id="cards-count"></div>
@@ -675,6 +680,12 @@
           <div class="cc-name">株式会社ジャパネットたかた</div>
           <div class="cc-cat">ECサイト制作・運用支援（デザイン／コーディング）</div>
           <div class="cc-techs"><span class="cc-tech">EC構築・運用</span><span class="cc-tech">フロントエンド</span></div>
+        </button>
+        <button class="case-card2 direct" data-target="case-tokyoto" data-industry="公共・行政" data-tech="研修・人材育成">
+          <div class="cc-top"><span class="cc-industry">公共・行政</span><span class="cc-direct">エンドユーザー直</span></div>
+          <div class="cc-name">東京都</div>
+          <div class="cc-cat">プログラミング研修（カリキュラム設計〜企画〜実施）</div>
+          <div class="cc-techs"><span class="cc-tech">研修・人材育成</span></div>
         </button>
         <button class="case-card2 direct" data-target="case-coop-design" data-industry="金融・保険" data-tech="UI/UXデザイン">
           <div class="cc-top"><span class="cc-industry">金融・保険</span><span class="cc-direct">エンドユーザー直</span></div>
@@ -705,6 +716,18 @@
           <div class="cc-name">株式会社インターファクトリー</div>
           <div class="cc-cat">SaaS型ECプラットフォーム開発（機能開発・カスタマイズ）</div>
           <div class="cc-techs"><span class="cc-tech">SaaS開発</span><span class="cc-tech">EC構築・運用</span></div>
+        </button>
+        <button class="case-card2 direct" data-target="case-branding" data-industry="IT・Web・広告" data-tech="EC構築・運用,フロントエンド">
+          <div class="cc-top"><span class="cc-industry">IT・Web・広告</span><span class="cc-direct">エンドユーザー直</span></div>
+          <div class="cc-name">ブランディングテクノロジー株式会社</div>
+          <div class="cc-cat">医療業界向けDX支援（EC・ブランディング）／ラボ開発</div>
+          <div class="cc-techs"><span class="cc-tech">EC構築・運用</span><span class="cc-tech">フロントエンド</span></div>
+        </button>
+        <button class="case-card2 direct" data-target="case-uluru" data-industry="IT・Web・広告" data-tech="UI/UXデザイン">
+          <div class="cc-top"><span class="cc-industry">IT・Web・広告</span><span class="cc-direct">エンドユーザー直</span></div>
+          <div class="cc-name">株式会社うるる</div>
+          <div class="cc-cat">クリエイティブ制作（ビジョン・カルチャーブック）</div>
+          <div class="cc-techs"><span class="cc-tech">UI/UXデザイン</span></div>
         </button>
         <button class="case-card2" data-target="case-auto-ui" data-industry="製造・メーカー" data-tech="UI/UXデザイン">
           <div class="cc-top"><span class="cc-industry">製造・メーカー</span></div>
@@ -5020,6 +5043,343 @@
 <span class="service-chip">EC顧客向けカスタマイズ開発</span>
 <span class="service-chip">機能追加・改修</span>
 <span class="service-chip">Java / AWS 開発</span>
+  </div>
+</section>
+
+
+<section class="case-page" id="case-tokyoto">
+  <div class="breadcrumb">
+    <a href="#">TOP</a> ＞ <a href="#">Works</a> ＞ 🔵 東京都（エンド直）
+  </div>
+
+  <div class="main-visual" style="--brand: #008542;">
+    <div class="main-visual-band"></div>
+    <div class="main-visual-body">
+      <div class="client-logo-mask">
+        <div class="logo-svg-wrap" style="color: #008542;">
+      <svg viewBox="0 0 100 80" width="140" height="112" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 24 L80 34 L50 44 L20 34 Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M34 39 L34 52 Q50 60 66 52 L66 39" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><line x1="80" y1="34" x2="80" y2="50" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+      <div class="logo-text">
+        <div class="logo-text-sub">TRAINING / CURRICULUM</div>
+        <div class="logo-text-main">東京都</div>
+      </div>
+    </div>
+      </div>
+    </div>
+    <div class="main-visual-band"></div>
+  </div>
+
+  <div class="case-info-card">
+    <div class="case-category">プログラミング研修（カリキュラム設計〜研修企画〜実施）</div>
+    <h1 class="case-title">
+      東京都様<br>カリキュラム設計から研修企画・実施まで一気通貫のプログラミング研修
+    </h1>
+    <div class="case-tags">
+      <span class="case-tag">研修</span>
+<span class="case-tag">人材育成</span>
+<span class="case-tag">カリキュラム設計</span>
+<span class="case-tag">研修企画</span>
+<span class="case-tag">Java</span>
+<span class="case-tag">Spring</span>
+<span class="case-tag">MySQL</span>
+<span class="case-tag">Linux</span>
+    </div>
+    <div class="case-problems">
+      <div class="problems-label">解決した課題</div>
+      <ul class="problems-list">
+        <li>実務で通用するエンジニアを育成するため、体系的なプログラミング研修が必要だった</li>
+<li>単なる講師派遣にとどまらず、カリキュラム設計から研修企画・運営・実施まで一貫して任せられるパートナーが求められていた</li>
+<li>現場で使われる技術（Java/Spring/JavaScript/MySQL/Linux）を網羅した実践的な研修内容が必要だった</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-heading">
+    <span class="heading-text">概要</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="overview-body">
+    <p>東京都のプログラミング研修において、講師派遣にとどまらず、カリキュラム設計から研修企画・運営・実施までを一気通貫で担当しています。</p>
+<p>Java（Spring）／JavaScript／MySQL／Linuxといった実務で使われる技術を体系的に学べる実践的なカリキュラムを設計し、現場を想定した研修を提供。受講者が実務レベルの力を身につけられる教育を実現しています。</p>
+<p>「教える」だけでなく「学びを設計する」ところから関与することで、研修の効果と定着を高めています。</p>
+  </div>
+
+  <table class="summary-table">
+    <tr><th>対応領域</th><td>カリキュラム設計 / 研修企画・運営 / 講師（研修実施） / 教材作成</td></tr>
+<tr><th>研修分野</th><td>Java（Spring） / JavaScript / MySQL / Linux</td></tr>
+<tr><th>提供形態</th><td>一気通貫（企画〜設計〜実施）</td></tr>
+  </table>
+
+  <div class="section-heading">
+    <span class="heading-text">誰に・どんな価値を提供したか</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <table class="summary-table">
+    <tr><th>誰に（対象）</th><td>東京都様（研修事業）、および研修を受講しITエンジニアを目指す受講者</td></tr>
+<tr><th>提供した価値</th><td>カリキュラム設計から研修企画・実施まで一気通貫で担い、Java/Spring等の実務技術を体系的に学べる実践的な研修を提供しました。</td></tr>
+<tr><th>喜ばれたポイント</th><td>単なる講師派遣ではなく「学びの設計」から関与する一気通貫の体制で、受講者が実務レベルの力を身につけられる研修を実現した点が評価されています。</td></tr>
+  </table>
+
+  <div class="section-heading">
+    <span class="heading-text">プロジェクトの特徴</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card">
+              <h4 class="feature-title">カリキュラム設計から一気通貫</h4>
+              <p class="feature-body">講師派遣にとどまらず、カリキュラム設計・研修企画・運営・実施までを一貫して担当。「教える」だけでなく「学びを設計する」ところから関与しています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">実務直結の実践的カリキュラム</h4>
+              <p class="feature-body">Java（Spring）/JavaScript/MySQL/Linuxなど現場で使われる技術を体系的に学べるカリキュラムを設計し、実務レベルの力を養成しています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">現場経験を活かした研修</h4>
+              <p class="feature-body">開発現場での実績を持つエンジニアが講師を務め、現場を想定した実践的な指導を提供しています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">受講者の定着・成長を重視</h4>
+              <p class="feature-body">学びの設計から関与することで、研修効果と知識定着を高め、受講者の成長を支えています。</p>
+            </div>
+  </div>
+
+  <div class="section-heading">
+    <span class="heading-text">提供サービス</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="services-chips">
+    <span class="service-chip">プログラミング研修（企画〜実施）</span>
+<span class="service-chip">カリキュラム設計</span>
+<span class="service-chip">研修企画・運営</span>
+<span class="service-chip">IT人材育成</span>
+<span class="service-chip">講師派遣</span>
+  </div>
+</section>
+
+
+<section class="case-page" id="case-branding">
+  <div class="breadcrumb">
+    <a href="#">TOP</a> ＞ <a href="#">Works</a> ＞ 🔵 ブランディングテクノロジー株式会社（エンド直）
+  </div>
+
+  <div class="main-visual" style="--brand: #F05A28;">
+    <div class="main-visual-band"></div>
+    <div class="main-visual-body">
+      <div class="client-logo-mask">
+        <div class="logo-svg-wrap" style="color: #F05A28;">
+      <svg viewBox="0 0 100 80" width="140" height="112" xmlns="http://www.w3.org/2000/svg">
+            <rect x="24" y="22" width="52" height="38" rx="3" fill="none" stroke="currentColor" stroke-width="3"/><line x1="24" y1="32" x2="76" y2="32" stroke="currentColor" stroke-width="3"/><circle cx="30" cy="27" r="1.6" fill="currentColor"/><circle cx="35" cy="27" r="1.6" fill="currentColor"/><path d="M50 37 l2.6 5.3 5.8 .8 -4.2 4.1 1 5.8 -5.2-2.7 -5.2 2.7 1-5.8 -4.2-4.1 5.8-.8 Z" fill="currentColor" opacity="0.85"/>
+      </svg>
+      <div class="logo-text">
+        <div class="logo-text-sub">DX / EC・BRANDING</div>
+        <div class="logo-text-main">ブランディングテクノロジー株式会社</div>
+      </div>
+    </div>
+      </div>
+    </div>
+    <div class="main-visual-band"></div>
+  </div>
+
+  <div class="case-info-card">
+    <div class="case-category">医療業界向けDX支援（EC・ブランディングサイト）／ラボ開発</div>
+    <h1 class="case-title">
+      ブランディングテクノロジー株式会社様<br>医療業界向けDXを支えるEC・ブランディングサイトの企画・制作・運用（ラボ開発）
+    </h1>
+    <div class="case-tags">
+      <span class="case-tag">DX</span>
+<span class="case-tag">EC</span>
+<span class="case-tag">ブランディング</span>
+<span class="case-tag">EC-CUBE</span>
+<span class="case-tag">WordPress</span>
+<span class="case-tag">ラボ開発</span>
+<span class="case-tag">医療業界</span>
+    </div>
+    <div class="case-problems">
+      <div class="problems-label">解決した課題</div>
+      <ul class="problems-list">
+        <li>医療業界向けDXとして、ECサイトと集客用ブランディングサイトを継続的に企画・制作・運用できる体制が必要だった</li>
+<li>案件ごとに変動する制作ニーズに、柔軟かつ安定的に対応できるパートナーが求められていた</li>
+<li>企画から制作・運用までワンストップで任せられる開発リソースが必要だった</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-heading">
+    <span class="heading-text">概要</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="overview-body">
+    <p>ブランディングテクノロジー株式会社が手がける医療業界向けDXにおいて、ECサイトと集客用ブランディングサイトの企画・制作・運用を支援しています。</p>
+<p>EC-CUBE・WordPress等を活用し、企画から制作・運用まで一貫して対応。ラボ開発型の体制で、継続的な制作ニーズに柔軟に応えています。</p>
+  </div>
+
+  <table class="summary-table">
+    <tr><th>技術スタック</th><td>EC-CUBE / WordPress ほか</td></tr>
+<tr><th>対応領域</th><td>ECサイト・ブランディングサイトの企画・制作・運用</td></tr>
+<tr><th>開発体制</th><td>ラボ開発型（継続的な制作支援）</td></tr>
+  </table>
+
+  <div class="section-heading">
+    <span class="heading-text">誰に・どんな価値を提供したか</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <table class="summary-table">
+    <tr><th>誰に（対象）</th><td>医療業界向けDXを手がけるブランディングテクノロジー株式会社様、およびその先の医療業界の事業者</td></tr>
+<tr><th>提供した価値</th><td>EC・ブランディングサイトの企画・制作・運用をワンストップで担い、医療業界向けDXを継続的に支援しました。</td></tr>
+<tr><th>喜ばれたポイント</th><td>企画から運用まで一貫して対応できる柔軟なラボ開発体制で、変動する制作ニーズに安定的に応え、継続的なパートナーとして評価されています。</td></tr>
+  </table>
+
+  <div class="section-heading">
+    <span class="heading-text">プロジェクトの特徴</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card">
+              <h4 class="feature-title">医療業界向けDXの制作支援</h4>
+              <p class="feature-body">医療業界に特化したECサイト・ブランディングサイトの制作を通じて、業界特有のDXを技術・クリエイティブの両面から支援しています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">企画〜制作〜運用のワンストップ対応</h4>
+              <p class="feature-body">企画・制作・運用まで一貫して対応することで、施策のスピードと一貫性を確保しています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">ラボ開発型の柔軟な体制</h4>
+              <p class="feature-body">ラボ開発型の体制で、案件ごとに変動する制作ニーズに柔軟かつ安定的に対応しています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">EC-CUBE・WordPress活用</h4>
+              <p class="feature-body">EC-CUBE・WordPress等を活用し、EC構築からブランディングサイトまで幅広い制作要件に対応しています。</p>
+            </div>
+  </div>
+
+  <div class="section-heading">
+    <span class="heading-text">提供サービス</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="services-chips">
+    <span class="service-chip">EC構築（EC-CUBE）</span>
+<span class="service-chip">ブランディングサイト制作（WordPress）</span>
+<span class="service-chip">企画・制作・運用支援</span>
+<span class="service-chip">ラボ開発</span>
+  </div>
+</section>
+
+
+<section class="case-page" id="case-uluru">
+  <div class="breadcrumb">
+    <a href="#">TOP</a> ＞ <a href="#">Works</a> ＞ 🔵 株式会社うるる（エンド直）
+  </div>
+
+  <div class="main-visual" style="--brand: #00A0C6;">
+    <div class="main-visual-band"></div>
+    <div class="main-visual-body">
+      <div class="client-logo-mask">
+        <div class="logo-svg-wrap" style="color: #00A0C6;">
+      <svg viewBox="0 0 100 80" width="140" height="112" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 24 C42 20 30 20 26 22 L26 58 C30 56 42 56 50 60 C58 56 70 56 74 58 L74 22 C70 20 58 20 50 24 Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><line x1="50" y1="24" x2="50" y2="60" stroke="currentColor" stroke-width="2.5"/>
+      </svg>
+      <div class="logo-text">
+        <div class="logo-text-sub">DESIGN / CULTURE BOOK</div>
+        <div class="logo-text-main">株式会社うるる</div>
+      </div>
+    </div>
+      </div>
+    </div>
+    <div class="main-visual-band"></div>
+  </div>
+
+  <div class="case-info-card">
+    <div class="case-category">クリエイティブ制作（ビジョンブック・カルチャーブック）</div>
+    <h1 class="case-title">
+      株式会社うるる様<br>組織へのビジョン・カルチャー浸透を支えるビジョンブック／カルチャーブック制作
+    </h1>
+    <div class="case-tags">
+      <span class="case-tag">デザイン</span>
+<span class="case-tag">カルチャーブック</span>
+<span class="case-tag">ビジョンブック</span>
+<span class="case-tag">電子ブック</span>
+<span class="case-tag">インナーブランディング</span>
+<span class="case-tag">キャラクターデザイン</span>
+    </div>
+    <div class="case-problems">
+      <div class="problems-label">解決した課題</div>
+      <ul class="problems-list">
+        <li>全社員へビジョン・カルチャーを浸透させ、価値観を共有する必要があった</li>
+<li>冊子のデザインからキャラクターデザイン、電子ブック納品までワンストップで任せられるパートナーが必要だった</li>
+<li>組織全体に伝わる、親しみやすく分かりやすいクリエイティブが求められていた</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-heading">
+    <span class="heading-text">概要</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="overview-body">
+    <p>株式会社うるるのビジョンブック・カルチャーブック制作を支援しています。全社員へのビジョン・カルチャー浸透という目的に対し、要件ヒアリング・デジタル冊子デザイン・キャラクターデザイン・電子ブック納品までワンストップで対応。</p>
+<p>組織全体への価値観共有を、デザインの力で実現しています。</p>
+  </div>
+
+  <table class="summary-table">
+    <tr><th>対応領域</th><td>要件ヒアリング / デジタル冊子デザイン / キャラクターデザイン / 電子ブック納品</td></tr>
+<tr><th>成果物</th><td>ビジョンブック / カルチャーブック（電子ブック）</td></tr>
+  </table>
+
+  <div class="section-heading">
+    <span class="heading-text">誰に・どんな価値を提供したか</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <table class="summary-table">
+    <tr><th>誰に（対象）</th><td>株式会社うるる様の経営・人事／広報部門、および同社の全社員</td></tr>
+<tr><th>提供した価値</th><td>要件ヒアリングからデジタル冊子・キャラクターデザイン、電子ブック納品までワンストップで制作し、ビジョン・カルチャーの浸透を支援しました。</td></tr>
+<tr><th>喜ばれたポイント</th><td>デザイン案からキャラクター案、電子ブック納品まで一括対応する統合的アプローチで、組織全体への価値観共有を実現した点が評価されています。</td></tr>
+  </table>
+
+  <div class="section-heading">
+    <span class="heading-text">プロジェクトの特徴</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card">
+              <h4 class="feature-title">ビジョン・カルチャー浸透のデザイン</h4>
+              <p class="feature-body">全社員に価値観が伝わるよう、ビジョン・カルチャーを分かりやすくデザインに落とし込んでいます。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">ワンストップのクリエイティブ制作</h4>
+              <p class="feature-body">要件ヒアリングからデザイン・キャラクター制作・電子ブック納品まで一括対応し、制作の手間と品質のブレを抑えています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">キャラクターデザインで親しみやすく</h4>
+              <p class="feature-body">オリジナルのキャラクターデザインを取り入れ、社員が親しみを持って受け取れる冊子を実現しています。</p>
+            </div>
+<div class="feature-card">
+              <h4 class="feature-title">電子ブックでの全社展開</h4>
+              <p class="feature-body">電子ブックとして納品することで、全社員がいつでも閲覧できる形での価値観共有を可能にしています。</p>
+            </div>
+  </div>
+
+  <div class="section-heading">
+    <span class="heading-text">提供サービス</span>
+    <span class="heading-icon">🏔</span>
+  </div>
+
+  <div class="services-chips">
+    <span class="service-chip">ビジョンブック・カルチャーブック制作</span>
+<span class="service-chip">デジタル冊子デザイン</span>
+<span class="service-chip">キャラクターデザイン</span>
+<span class="service-chip">インナーブランディング支援</span>
   </div>
 </section>
 
