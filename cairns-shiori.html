@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ケアンズ 家族旅行のしおり</title>
+<meta name="description" content="2026年8月 パームコーブ／ケアンズ 家族旅行のしおり・日程表・準備リスト">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sand:#FBF7F1; --sand-2:#F3EBDD; --card:#FFFFFF;
+    --ink:#1C3A38; --ink-soft:#48605D; --muted:#7C8B88;
+    --line:#E8DDCB; --line-soft:#F0E7D8;
+    --coral:#E9633B; --coral-deep:#C24A28;
+    --teal:#0E9AA7; --teal-deep:#0A7C87;
+    --gold:#E5A32F;
+    --shadow:rgba(28,58,56,.10); --shadow-lg:rgba(28,58,56,.16);
+    --hero-1:#F7C97D; --hero-2:#EE8A56; --hero-3:#159AA6;
+  }
+  :root:not([data-theme="light"]){
+    @media (prefers-color-scheme: dark){
+      --sand:#0C1E23; --sand-2:#102A30; --card:#142A31;
+      --ink:#EAF3F1; --ink-soft:#B6C8C4; --muted:#7E938F;
+      --line:#26424A; --line-soft:#1B353C;
+      --coral:#FF7C4F; --coral-deep:#FF9068;
+      --teal:#39C4D0; --teal-deep:#54D3DD;
+      --gold:#F0C15C;
+      --shadow:rgba(0,0,0,.35); --shadow-lg:rgba(0,0,0,.45);
+      --hero-1:#2A4A44; --hero-2:#8A4530; --hero-3:#0C5A63;
+    }
+  }
+  :root[data-theme="dark"]{
+    --sand:#0C1E23; --sand-2:#102A30; --card:#142A31;
+    --ink:#EAF3F1; --ink-soft:#B6C8C4; --muted:#7E938F;
+    --line:#26424A; --line-soft:#1B353C;
+    --coral:#FF7C4F; --coral-deep:#FF9068;
+    --teal:#39C4D0; --teal-deep:#54D3DD;
+    --gold:#F0C15C;
+    --shadow:rgba(0,0,0,.35); --shadow-lg:rgba(0,0,0,.45);
+    --hero-1:#2A4A44; --hero-2:#8A4530; --hero-3:#0C5A63;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+  body{
+    background:var(--sand);
+    color:var(--ink);
+    font-family:"Zen Kaku Gothic New",system-ui,sans-serif;
+    line-height:1.85;
+    font-weight:400;
+    -webkit-font-smoothing:antialiased;
+    text-underline-offset:3px;
+    overflow-x:hidden;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px}
+
+  /* ---------- top nav ---------- */
+  header.nav{
+    position:sticky;top:0;z-index:50;
+    background:color-mix(in srgb,var(--sand) 88%,transparent);
+    backdrop-filter:saturate(1.4) blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{max-width:760px;margin:0 auto;display:flex;align-items:center;gap:14px;padding:10px 20px}
+  .brand{font-family:"Zen Maru Gothic",sans-serif;font-weight:900;font-size:15px;letter-spacing:.02em;white-space:nowrap;color:var(--ink)}
+  .brand span{color:var(--coral)}
+  .nav-links{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+  .nav-links::-webkit-scrollbar{display:none}
+  .nav-links a{
+    font-size:12.5px;font-weight:500;color:var(--ink-soft);text-decoration:none;
+    padding:6px 10px;border-radius:999px;white-space:nowrap;transition:background .18s,color .18s;
+  }
+  .nav-links a:hover{background:var(--sand-2);color:var(--coral)}
+  .theme-btn{
+    flex:none;background:var(--sand-2);border:1px solid var(--line);color:var(--ink);
+    width:34px;height:34px;border-radius:999px;cursor:pointer;font-size:15px;line-height:1;
+    display:grid;place-items:center;transition:transform .2s;
+  }
+  .theme-btn:hover{transform:rotate(20deg)}
+  .theme-btn:focus-visible,.nav-links a:focus-visible{outline:2px solid var(--coral);outline-offset:2px}
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;overflow:hidden;
+    padding:64px 20px 56px;text-align:center;
+    background:
+      radial-gradient(120% 90% at 50% -10%, var(--hero-1) 0%, var(--hero-2) 42%, var(--hero-3) 100%);
+    color:#fff;
+  }
+  :root[data-theme="dark"] .hero, :root:not([data-theme="light"]) .hero{color:#F4EFE7}
+  .hero .sun{
+    position:absolute;top:-70px;left:50%;transform:translateX(-50%);
+    width:220px;height:220px;border-radius:50%;
+    background:radial-gradient(circle, rgba(255,255,255,.55), rgba(255,255,255,0) 70%);
+    pointer-events:none;
+  }
+  .waves{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:46px;display:block}
+  .hero-eyebrow{
+    font-family:"Fraunces",serif;font-style:italic;font-weight:500;
+    letter-spacing:.06em;font-size:15px;opacity:.95;margin-bottom:10px;
+  }
+  .hero h1{
+    font-family:"Zen Maru Gothic",sans-serif;font-weight:900;
+    font-size:clamp(30px,8vw,50px);line-height:1.18;text-wrap:balance;
+    text-shadow:0 2px 18px rgba(0,0,0,.18);
+  }
+  .hero .sub{margin-top:16px;font-weight:500;font-size:15px;opacity:.96}
+  .hero .dates{
+    margin-top:22px;display:inline-flex;align-items:center;gap:14px;
+    font-family:"Fraunces",serif;font-weight:600;font-size:clamp(17px,4.4vw,22px);
+    background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);
+    padding:9px 20px;border-radius:999px;backdrop-filter:blur(4px);
+  }
+  .hero .dates .dot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.7}
+
+  .countdown{
+    position:relative;margin:-26px auto 0;max-width:340px;
+    background:var(--card);border:1px solid var(--line);border-radius:18px;
+    box-shadow:0 12px 30px var(--shadow-lg);
+    padding:16px 22px;text-align:center;z-index:3;
+  }
+  .countdown .num{font-family:"Fraunces",serif;font-weight:600;font-size:40px;color:var(--coral);line-height:1;font-variant-numeric:tabular-nums}
+  .countdown .lbl{font-size:12.5px;color:var(--muted);margin-top:4px;letter-spacing:.04em}
+
+  /* ---------- sections ---------- */
+  section{padding:44px 0 8px}
+  .eyebrow{
+    font-family:"Fraunces",serif;font-style:italic;font-weight:500;
+    color:var(--coral);font-size:14px;letter-spacing:.05em;
+    display:flex;align-items:center;gap:10px;margin-bottom:6px;
+  }
+  .eyebrow::before{content:"";width:26px;height:2px;background:var(--coral);border-radius:2px;display:inline-block}
+  h2{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:clamp(23px,5.5vw,30px);line-height:1.3;text-wrap:balance;letter-spacing:.01em}
+  .lead{color:var(--ink-soft);margin-top:10px;font-size:15px;max-width:60ch}
+
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:16px;
+    box-shadow:0 4px 16px var(--shadow);padding:22px 22px;
+  }
+  .grid-2{display:grid;gap:14px;margin-top:22px}
+  @media(min-width:560px){.grid-2{grid-template-columns:1fr 1fr}}
+
+  /* info rows */
+  .info-card h3{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:16px;display:flex;align-items:center;gap:9px;margin-bottom:12px}
+  .info-card .ic{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;flex:none;background:var(--sand-2);font-size:16px}
+  .kv{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-top:1px dashed var(--line);font-size:14.5px}
+  .kv:first-of-type{border-top:none}
+  .kv .k{color:var(--muted);white-space:nowrap}
+  .kv .v{text-align:right;font-weight:500}
+  .kv .v .en{font-family:"Fraunces",serif;font-variant-numeric:tabular-nums}
+  .tag{display:inline-block;background:var(--sand-2);color:var(--teal-deep);font-size:12px;font-weight:700;padding:2px 9px;border-radius:999px;border:1px solid var(--line)}
+
+  /* flight visual */
+  .flight-card{margin-top:14px;padding:18px 20px}
+  .flight-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px}
+  .flight-row + .flight-row{margin-top:16px;padding-top:16px;border-top:1px dashed var(--line)}
+  .fp{display:flex;flex-direction:column}
+  .fp.right{text-align:right;align-items:flex-end}
+  .fp .time{font-family:"Fraunces",serif;font-weight:600;font-size:26px;line-height:1;font-variant-numeric:tabular-nums}
+  .fp .code{font-size:12px;color:var(--muted);margin-top:5px;letter-spacing:.06em}
+  .fp .plus{color:var(--coral);font-weight:700}
+  .fmid{display:flex;flex-direction:column;align-items:center;color:var(--teal);min-width:78px}
+  .fmid .dur{font-size:11.5px;color:var(--muted);margin-bottom:3px}
+  .fmid svg{width:100%}
+  .flight-meta{margin-top:14px;font-size:12.5px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 16px}
+
+  /* ETA alert */
+  .alert{
+    margin-top:22px;border-radius:16px;overflow:hidden;border:1px solid var(--coral);
+    background:linear-gradient(180deg,color-mix(in srgb,var(--coral) 12%,var(--card)),var(--card));
+  }
+  .alert .ah{display:flex;align-items:center;gap:12px;padding:16px 20px 12px}
+  .alert .badge{background:var(--coral);color:#fff;font-weight:700;font-size:12px;padding:4px 11px;border-radius:999px;flex:none}
+  .alert .ah strong{font-family:"Zen Maru Gothic",sans-serif;font-size:17px}
+  .alert .ab{padding:0 20px 18px;font-size:14.5px;color:var(--ink-soft)}
+  .alert ol{margin:10px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+  .alert .who{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
+  .alert .who .chip{background:var(--card);border:1px solid var(--coral);color:var(--coral-deep);font-weight:700;font-size:13px;padding:6px 13px;border-radius:999px}
+  .alert .who .chip small{font-weight:400;color:var(--muted)}
+
+  /* checklist */
+  .chk-group{margin-top:20px}
+  .chk-group > h3{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:15.5px;margin:20px 0 8px;display:flex;align-items:center;gap:9px}
+  .chk-group > h3 .n{font-family:"Fraunces",serif;color:var(--teal);font-size:14px}
+  ul.chk{list-style:none;display:flex;flex-direction:column;gap:2px}
+  ul.chk li{margin:0}
+  ul.chk label{
+    display:flex;align-items:flex-start;gap:11px;padding:9px 12px;border-radius:11px;cursor:pointer;
+    font-size:14.5px;transition:background .15s;
+  }
+  ul.chk label:hover{background:var(--sand-2)}
+  ul.chk input{
+    appearance:none;-webkit-appearance:none;margin:0;flex:none;
+    width:20px;height:20px;border:2px solid var(--muted);border-radius:6px;margin-top:2px;
+    cursor:pointer;position:relative;transition:.15s;
+  }
+  ul.chk input:checked{background:var(--teal);border-color:var(--teal)}
+  ul.chk input:checked::after{content:"";position:absolute;left:5px;top:1px;width:6px;height:11px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(43deg)}
+  ul.chk input:focus-visible{outline:2px solid var(--coral);outline-offset:2px}
+  ul.chk input:checked + span{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--teal)}
+  ul.chk .must{color:var(--coral-deep);font-weight:700}
+  .chk-note{font-size:12.5px;color:var(--muted);padding:2px 12px 0}
+
+  /* timeline / days */
+  .day{margin-top:16px;border:1px solid var(--line);border-radius:16px;background:var(--card);box-shadow:0 4px 16px var(--shadow);overflow:hidden}
+  .day-head{
+    display:flex;align-items:center;gap:14px;padding:16px 18px;cursor:pointer;
+    background:linear-gradient(90deg,var(--sand-2),transparent);
+    -webkit-tap-highlight-color:transparent;
+  }
+  .day-head:focus-visible{outline:2px solid var(--coral);outline-offset:-2px}
+  .day-no{font-family:"Fraunces",serif;font-weight:600;line-height:1;text-align:center;flex:none}
+  .day-no .d{font-size:11px;color:var(--muted);letter-spacing:.08em}
+  .day-no .n{font-size:30px;color:var(--coral)}
+  .day-title{flex:1;min-width:0}
+  .day-title .date{font-size:12.5px;color:var(--muted);font-family:"Fraunces",serif}
+  .day-title h3{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:17px;line-height:1.35}
+  .day-title .theme{font-size:12.5px;color:var(--teal-deep);font-weight:500;margin-top:2px}
+  .chev{flex:none;color:var(--muted);transition:transform .3s;font-size:13px}
+  .day.open .chev{transform:rotate(180deg)}
+  .day-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s ease}
+  .day.open .day-body{grid-template-rows:1fr}
+  .day-body > div{overflow:hidden}
+  .timeline{padding:6px 18px 20px}
+  .tl{position:relative;padding:12px 0 12px 26px}
+  .tl::before{content:"";position:absolute;left:6px;top:0;bottom:0;width:2px;background:var(--line)}
+  .tl:last-child::before{bottom:auto;height:20px}
+  .tl::after{content:"";position:absolute;left:1px;top:16px;width:12px;height:12px;border-radius:50%;background:var(--card);border:3px solid var(--teal)}
+  .tl.sun::after{border-color:var(--gold)}
+  .tl.food::after{border-color:var(--coral)}
+  .tl .t{font-family:"Fraunces",serif;font-weight:600;font-size:13.5px;color:var(--teal-deep);font-variant-numeric:tabular-nums}
+  .tl .h{font-weight:700;font-size:15px;margin:1px 0 3px}
+  .tl .d{font-size:13.5px;color:var(--ink-soft)}
+  .tl .d .pin{color:var(--coral);font-weight:700;font-size:12px}
+
+  /* generic list cards */
+  .facts{display:grid;gap:12px;margin-top:20px}
+  @media(min-width:560px){.facts{grid-template-columns:1fr 1fr}}
+  .fact{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:15px 17px;box-shadow:0 3px 12px var(--shadow)}
+  .fact .ft{font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:7px;margin-bottom:5px;font-weight:500}
+  .fact .fv{font-size:14.5px;font-weight:500;line-height:1.6}
+  .fact .fv b{color:var(--coral-deep)}
+
+  /* emergency */
+  .em{margin-top:20px}
+  .em .kv .v{font-family:"Fraunces",serif;font-variant-numeric:tabular-nums;font-weight:600}
+  .em-000{background:linear-gradient(90deg,color-mix(in srgb,var(--coral) 14%,var(--card)),var(--card));border-color:var(--coral)}
+
+  /* friends banner */
+  .friends{margin-top:22px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+    background:linear-gradient(120deg,color-mix(in srgb,var(--teal) 12%,var(--card)),var(--card));
+    border:1px solid var(--teal);border-radius:16px;padding:18px 20px}
+  .friends .ftxt{flex:1;min-width:200px}
+  .friends h3{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:16px}
+  .friends p{font-size:13.5px;color:var(--ink-soft);margin-top:4px}
+  .friends a.btn{
+    background:var(--teal);color:#fff;text-decoration:none;font-weight:700;font-size:14px;
+    padding:11px 20px;border-radius:999px;white-space:nowrap;transition:transform .15s,box-shadow .15s;
+    box-shadow:0 6px 16px color-mix(in srgb,var(--teal) 40%,transparent);
+  }
+  .friends a.btn:hover{transform:translateY(-2px)}
+  .friends a.btn:focus-visible{outline:2px solid var(--coral);outline-offset:2px}
+
+  .note-box{margin-top:20px;background:var(--sand-2);border:1px dashed var(--line);border-radius:13px;padding:14px 18px;font-size:13.5px;color:var(--ink-soft)}
+  .note-box b{color:var(--coral-deep)}
+
+  footer{text-align:center;padding:48px 20px 40px;color:var(--muted);font-size:12.5px}
+  footer .fr{font-family:"Fraunces",serif;font-style:italic;font-size:15px;color:var(--ink-soft);margin-bottom:8px}
+
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion: reduce){.reveal{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand">Cairns <span>✦</span> 2026</div>
+    <nav class="nav-links">
+      <a href="#overview">概要</a>
+      <a href="#flight">フライト</a>
+      <a href="#stay">宿泊</a>
+      <a href="#prep">準備</a>
+      <a href="#plan">日程表</a>
+      <a href="#info">現地情報</a>
+      <a href="#sos">緊急</a>
+    </nav>
+    <button class="theme-btn" id="themeBtn" aria-label="ダークモード切替" title="テーマ切替">◐</button>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="sun"></div>
+  <div class="hero-eyebrow">Palm Cove &amp; Cairns · Tropical North Queensland</div>
+  <h1>ケアンズ<br>家族旅行のしおり</h1>
+  <div class="sub">大人2名 ＋ お子さま1名 ／ 田邊ご一家と一緒に</div>
+  <div class="dates">
+    <span>2026.08.26</span><span class="dot"></span><span>09.03</span>
+  </div>
+  <svg class="waves" viewBox="0 0 1200 46" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,24 C150,44 300,4 450,20 C600,36 750,6 900,20 C1050,34 1150,24 1200,20 L1200,46 L0,46 Z" fill="var(--sand)"></path>
+  </svg>
+</div>
+
+<div class="wrap">
+  <div class="countdown reveal" id="cd">
+    <div class="num" id="cdNum">–</div>
+    <div class="lbl" id="cdLbl">出発までカウントダウン</div>
+  </div>
+
+  <!-- OVERVIEW -->
+  <section id="overview">
+    <div class="eyebrow reveal">Trip Overview</div>
+    <h2 class="reveal">旅の概要</h2>
+    <p class="lead reveal">南半球は乾季でいちばん過ごしやすい季節。世界遺産のグレートバリアリーフと熱帯雨林に囲まれたビーチリゾート、パームコーブを拠点に、詰め込みすぎず大人も子どもも楽しめる7泊の旅です。</p>
+    <div class="grid-2">
+      <div class="card info-card reveal">
+        <h3><span class="ic">🗓️</span>日程</h3>
+        <div class="kv"><span class="k">期間</span><span class="v">2026/8/26（水)〜9/3（木)</span></div>
+        <div class="kv"><span class="k">泊数</span><span class="v">現地7泊（機中1泊）</span></div>
+        <div class="kv"><span class="k">拠点</span><span class="v">パームコーブ（ケアンズ北）</span></div>
+        <div class="kv"><span class="k">時差</span><span class="v">日本 +1時間<span class="tag" style="margin-left:6px">サマータイム無</span></span></div>
+      </div>
+      <div class="card info-card reveal">
+        <h3><span class="ic">👪</span>メンバー</h3>
+        <div class="kv"><span class="k">ご家族</span><span class="v">大人2名・お子さま1名</span></div>
+        <div class="kv"><span class="k">同行</span><span class="v">田邊ご一家</span></div>
+        <div class="kv"><span class="k">田邊家 宿</span><span class="v">Crystalbrook Riley<br>（ケアンズ市街）</span></div>
+        <div class="kv"><span class="k">移動</span><span class="v">パームコーブ↔市街 車で約25分</span></div>
+      </div>
+    </div>
+    <div class="note-box reveal">📝 <b>宿は別々です。</b>ご家族はパームコーブの Peppers、田邊家はケアンズ市街の Crystalbrook Riley。車で約25分の距離なので、リーフツアーやキュランダなど<b>合流したいアクティビティは事前に日にちを合わせて予約</b>しておくとスムーズです。</div>
+  </section>
+
+  <!-- FLIGHT -->
+  <section id="flight">
+    <div class="eyebrow reveal">Flights</div>
+    <h2 class="reveal">フライト</h2>
+    <p class="lead reveal">成田⇄ケアンズの直行便。往路は夜発の機内泊で、早朝4:30にケアンズ着です。</p>
+
+    <div class="card flight-card reveal">
+      <div style="font-size:12.5px;color:var(--muted);margin-bottom:12px;font-weight:700;letter-spacing:.05em">往路 · 8月26日（水）→ 27日（木）</div>
+      <div class="flight-row">
+        <div class="fp"><span class="time">20:05</span><span class="code">NRT 東京・成田</span></div>
+        <div class="fmid">
+          <span class="dur">7時間25分</span>
+          <svg viewBox="0 0 80 16" aria-hidden="true"><line x1="2" y1="8" x2="78" y2="8" stroke="var(--teal)" stroke-width="1.5" stroke-dasharray="3 3"/><path d="M52 3 L64 8 L52 13 L56 8 Z" fill="var(--teal)"/></svg>
+        </div>
+        <div class="fp right"><span class="time">04:30<span class="plus"> +1</span></span><span class="code">CNS ケアンズ</span></div>
+      </div>
+      <div class="flight-meta"><span>✈︎ 直行便（Jetstar JQ26 想定）</span><span>🕐 現地4:30着 = 日本時間3:30</span></div>
+    </div>
+
+    <div class="card flight-card reveal">
+      <div style="font-size:12.5px;color:var(--muted);margin-bottom:12px;font-weight:700;letter-spacing:.05em">復路 · 9月3日（木）</div>
+      <div class="flight-row">
+        <div class="fp"><span class="time">11:40</span><span class="code">CNS ケアンズ</span></div>
+        <div class="fmid">
+          <span class="dur">7時間25分</span>
+          <svg viewBox="0 0 80 16" aria-hidden="true"><line x1="2" y1="8" x2="78" y2="8" stroke="var(--coral)" stroke-width="1.5" stroke-dasharray="3 3"/><path d="M52 3 L64 8 L52 13 L56 8 Z" fill="var(--coral)"/></svg>
+        </div>
+        <div class="fp right"><span class="time">18:05</span><span class="code">NRT 東京・成田</span></div>
+      </div>
+      <div class="flight-meta"><span>✈︎ 当日チェックアウト → そのまま空港へ</span><span>🧳 出発2.5〜3h前に空港着が安心</span></div>
+    </div>
+    <div class="note-box reveal">📝 便名（往路 JQ26 など）と座席は<b>e-チケットで最終確認</b>を。田邊家のしおりでは往路 JQ26 表記のため、<b>同じ便かどうか一度すり合わせ</b>ておくと合流がラクです。</div>
+  </section>
+
+  <!-- STAY -->
+  <section id="stay">
+    <div class="eyebrow reveal">Accommodation</div>
+    <h2 class="reveal">宿泊</h2>
+    <div class="card info-card reveal" style="margin-top:22px">
+      <h3><span class="ic">🏝️</span>Peppers Beach Club &amp; Spa, Palm Cove</h3>
+      <div class="kv"><span class="k">予約番号</span><span class="v"><span class="en">QDVHBCXC</span></span></div>
+      <div class="kv"><span class="k">チェックイン</span><span class="v">8/27（木）</span></div>
+      <div class="kv"><span class="k">チェックアウト</span><span class="v">9/3（木）</span></div>
+      <div class="kv"><span class="k">泊数 / 部屋</span><span class="v">7泊 ／ 1室</span></div>
+      <div class="kv"><span class="k">人数</span><span class="v">大人2・子ども1</span></div>
+      <div class="kv"><span class="k">立地</span><span class="v">Williams Esplanade 沿い<br>ビーチフロント・空港から約25分</span></div>
+    </div>
+    <div class="note-box reveal">📝 到着は<b>27日の早朝4:30</b>。通常チェックインは14〜15時なので、<b>アーリーチェックイン／荷物預かり</b>を事前にホテルへメール依頼しておくと、初日の午前が快適に過ごせます。</div>
+  </section>
+
+  <!-- PREP -->
+  <section id="prep">
+    <div class="eyebrow reveal">Get Ready</div>
+    <h2 class="reveal">準備すること</h2>
+    <p class="lead reveal">タップでチェック。状態はこの端末に自動保存されます。まずは <b>ETA（全員分）</b> から。</p>
+
+    <!-- ETA alert -->
+    <div class="alert reveal">
+      <div class="ah"><span class="badge">最重要</span><strong>ETA（電子渡航認証・subclass 601）を全員分</strong></div>
+      <div class="ab">
+        オーストラリア入国には、日本のパスポートでも <b>ETA が必須</b>。<b>年齢に関係なく渡航者1人につき1件</b>の申請が必要なので、<b>お子さま（娘さん）も本人名義のパスポートで必ず取得</b>します。ご家族の分は下記のとおり。
+        <div class="who">
+          <span class="chip">大人① <small>ETA要</small></span>
+          <span class="chip">大人② <small>ETA要</small></span>
+          <span class="chip">お子さま <small>ETA要 ←忘れずに！</small></span>
+        </div>
+        <ol>
+          <li>公式アプリ <b>「Australian ETA」</b>（豪州内務省）をスマホにインストール。※申請はこのアプリのみ</li>
+          <li>各自のパスポートを1冊ずつスキャン＆顔認証 → <b>1人 AUD $20</b> のサービス料を支払い</li>
+          <li>多くは即日〜数日で承認。<b>有効期限12か月・1回の滞在は最長3か月</b>。パスポートに電子的に紐づくので印刷不要（控えは保存推奨）</li>
+        </ol>
+        <div style="margin-top:10px;font-size:12.5px;color:var(--muted)">👉 出発直前は混みがち。<b>今のうちに家族全員分まとめて申請</b>しておくと安心です。</div>
+      </div>
+    </div>
+
+    <div class="card chk-group reveal" style="margin-top:20px">
+      <h3><span class="n">01</span>書類・手続き</h3>
+      <ul class="chk">
+        <li><label><input type="checkbox" data-k="doc1"><span class="must">ETA を家族全員分 取得（娘さんも！）</span></label></li>
+        <li><label><input type="checkbox" data-k="doc2"><span>パスポート（残存期間を確認。滞在期間＋αを推奨）</span></label></li>
+        <li><label><input type="checkbox" data-k="doc3"><span>航空券 e-チケット控え（往復）</span></label></li>
+        <li><label><input type="checkbox" data-k="doc4"><span>ホテル予約確認書（QDVHBCXC）</span></label></li>
+        <li><label><input type="checkbox" data-k="doc5"><span>海外旅行保険（子ども含む・付帯 or 加入）</span></label></li>
+        <li><label><input type="checkbox" data-k="doc6"><span>レンタカー予約＋国際運転免許証（借りる場合）</span></label></li>
+        <li><label><input type="checkbox" data-k="doc7"><span>各種予約バウチャー（ツアー・鉄道など）</span></label></li>
+      </ul>
+      <p class="chk-note">※レンタカーは7歳未満のチャイルドシートが法律で必須。年齢に合わせて予約時に手配を。</p>
+
+      <h3><span class="n">02</span>お金・スマホ</h3>
+      <ul class="chk">
+        <li><label><input type="checkbox" data-k="mon1"><span>タッチ決済対応クレジットカード（現地はほぼキャッシュレス）</span></label></li>
+        <li><label><input type="checkbox" data-k="mon2"><span>豪ドル現金 少額（チップ不要なので予備程度でOK）</span></label></li>
+        <li><label><input type="checkbox" data-k="mon3"><span>eSIM／SIM／ポケットWi-Fi の準備</span></label></li>
+        <li><label><input type="checkbox" data-k="mon4"><span>変換プラグ（豪州は Oタイプ・八の字）</span></label></li>
+        <li><label><input type="checkbox" data-k="mon5"><span>モバイルバッテリー・充電器一式</span></label></li>
+        <li><label><input type="checkbox" data-k="mon6"><span>Google/オフラインマップ・翻訳アプリ</span></label></li>
+      </ul>
+
+      <h3><span class="n">03</span>健康・薬</h3>
+      <ul class="chk">
+        <li><label><input type="checkbox" data-k="hlt1"><span>常備薬・子どもの薬・解熱剤</span></label></li>
+        <li><label><input type="checkbox" data-k="hlt2"><span>酔い止め（リーフツアーの船・車移動に）</span></label></li>
+        <li><label><input type="checkbox" data-k="hlt3"><span class="must">日焼け止め（南半球は紫外線が強力！SPF高め）</span></label></li>
+        <li><label><input type="checkbox" data-k="hlt4"><span>虫除け（熱帯雨林エリア用）・虫刺され薬</span></label></li>
+        <li><label><input type="checkbox" data-k="hlt5"><span>保険証・母子手帳のコピー、絆創膏</span></label></li>
+      </ul>
+
+      <h3><span class="n">04</span>服装・ビーチ</h3>
+      <ul class="chk">
+        <li><label><input type="checkbox" data-k="wr1"><span>日中は半袖（24〜26℃）＋ 朝晩・レストラン用の羽織り（17〜19℃）</span></label></li>
+        <li><label><input type="checkbox" data-k="wr2"><span>水着・ラッシュガード（家族全員分）</span></label></li>
+        <li><label><input type="checkbox" data-k="wr3"><span>帽子・サングラス（日差し対策）</span></label></li>
+        <li><label><input type="checkbox" data-k="wr4"><span>ビーチサンダル＋スニーカー（雨林ウォーク用）</span></label></li>
+        <li><label><input type="checkbox" data-k="wr5"><span>速乾タオル・エコバッグ</span></label></li>
+      </ul>
+
+      <h3><span class="n">05</span>お子さま・機内</h3>
+      <ul class="chk">
+        <li><label><input type="checkbox" data-k="kid1"><span>機内の暇つぶし（タブレット・お絵かき・小さめおもちゃ）</span></label></li>
+        <li><label><input type="checkbox" data-k="kid2"><span>おやつ・こぼれにくい水筒</span></label></li>
+        <li><label><input type="checkbox" data-k="kid3"><span>着替え多め・上着（機内は冷える）</span></label></li>
+        <li><label><input type="checkbox" data-k="kid4"><span>抱っこ紐／ベビーカー（年齢に応じて）</span></label></li>
+      </ul>
+
+      <h3><span class="n">06</span>出発までに予約（早いほど安心）</h3>
+      <ul class="chk">
+        <li><label><input type="checkbox" data-k="bk1"><span>グレートバリアリーフ ツアー（グリーン島 or 外洋ポンツーン）</span></label></li>
+        <li><label><input type="checkbox" data-k="bk2"><span>スカイレール＋キュランダ観光列車</span></label></li>
+        <li><label><input type="checkbox" data-k="bk3"><span>ハートリーズ クロコダイル アドベンチャー</span></label></li>
+        <li><label><input type="checkbox" data-k="bk4"><span>人気レストランのディナー（田邊家と合流日）</span></label></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PLAN -->
+  <section id="plan">
+    <div class="eyebrow reveal">Day by Day</div>
+    <h2 class="reveal">日程表</h2>
+    <p class="lead reveal">各日をタップで開閉。時刻はあくまで目安です。無理のないペースで、ビーチとリゾートを満喫する構成にしています。</p>
+
+    <!-- DAY 1 -->
+    <div class="day reveal">
+      <div class="day-head" role="button" tabindex="0" aria-expanded="false">
+        <div class="day-no"><div class="d">DAY</div><div class="n">1</div></div>
+        <div class="day-title"><div class="date">8/27 Thu</div><h3>ケアンズ到着 &amp; パームコーブへ</h3><div class="theme">☀︎ 到着日はのんびり・体を慣らす</div></div>
+        <div class="chev">▼</div>
+      </div>
+      <div class="day-body"><div><div class="timeline">
+        <div class="tl"><div class="t">04:30</div><div class="h">ケアンズ空港 着 · 入国審査</div><div class="d">ETAは自動化ゲートで。荷物受取後、レンタカーを受取り。</div></div>
+        <div class="tl food"><div class="t">06:30</div><div class="h">早めの朝食 / カフェ</div><div class="d">ケアンズ or パームコーブのカフェで軽く。<span class="pin">📍 Palm Cove</span></div></div>
+        <div class="tl"><div class="t">08:00</div><div class="h">ホテルに荷物預け・アーリーチェックイン交渉</div><div class="d">部屋が空いていれば早めに入室。無理ならビーチ側で休憩。</div></div>
+        <div class="tl sun"><div class="t">10:00</div><div class="h">パームコーブ散策 &amp; ビーチ</div><div class="d">ヤシ並木のエスプラネードをのんびり。ムリせず昼寝も。</div></div>
+        <div class="tl food"><div class="t">18:00</div><div class="h">ビーチ沿いレストランで夕食</div><div class="d">初日は近場で。時差ボケ対策に早めの就寝を。</div></div>
+      </div></div></div>
+    </div>
+
+    <!-- DAY 2 -->
+    <div class="day reveal">
+      <div class="day-head" role="button" tabindex="0" aria-expanded="false">
+        <div class="day-no"><div class="d">DAY</div><div class="n">2</div></div>
+        <div class="day-title"><div class="date">8/28 Fri</div><h3>キュランダ 熱帯雨林</h3><div class="theme">🚡 スカイレール &amp; 観光列車</div></div>
+        <div class="chev">▼</div>
+      </div>
+      <div class="day-body"><div><div class="timeline">
+        <div class="tl"><div class="t">08:30</div><div class="h">スカイレール乗り場へ</div><div class="d">世界遺産の熱帯雨林の上を空中散歩。<span class="pin">📍 Smithfield</span></div></div>
+        <div class="tl sun"><div class="t">10:00</div><div class="h">キュランダ村 散策</div><div class="d">コアラガーデン・蝶園・レインフォレステーション。お子さまも大喜び。</div></div>
+        <div class="tl food"><div class="t">12:30</div><div class="h">村でランチ &amp; マーケット</div><div class="d">ハンドメイド雑貨のお土産探しにも。</div></div>
+        <div class="tl"><div class="t">14:30</div><div class="h">キュランダ観光列車で下山</div><div class="d">渓谷と滝を眺めるレトロな鉄道旅。</div></div>
+        <div class="tl food"><div class="t">18:30</div><div class="h">パームコーブで夕食</div><div class="d">田邊家と合流もおすすめの1日。</div></div>
+      </div></div></div>
+    </div>
+
+    <!-- DAY 3 -->
+    <div class="day reveal">
+      <div class="day-head" role="button" tabindex="0" aria-expanded="false">
+        <div class="day-no"><div class="d">DAY</div><div class="n">3</div></div>
+        <div class="day-title"><div class="date">8/29 Sat</div><h3>グレートバリアリーフ</h3><div class="theme">🐠 世界遺産の海へ・1日ツアー</div></div>
+        <div class="chev">▼</div>
+      </div>
+      <div class="day-body"><div><div class="timeline">
+        <div class="tl"><div class="t">07:30</div><div class="h">ケアンズ埠頭 集合</div><div class="d">クルーズ受付。酔い止めは早めに服用を。<span class="pin">📍 Reef Fleet Terminal</span></div></div>
+        <div class="tl sun"><div class="t">09:00</div><div class="h">グリーン島 or 外洋リーフ ポンツーン</div><div class="d">お子さま連れはグリーン島が安心。シュノーケル・グラスボトムボート・砂浜遊び。</div></div>
+        <div class="tl food"><div class="t">12:30</div><div class="h">船上 or 島でランチ</div><div class="d">熱帯魚とサンゴの海を満喫。ライフジャケット必須。</div></div>
+        <div class="tl"><div class="t">16:30</div><div class="h">ケアンズ帰港</div><div class="d">乾季はスティンガー（クラゲ）の心配はほぼなし。</div></div>
+        <div class="tl food"><div class="t">18:30</div><div class="h">ケアンズ市街で夕食</div><div class="d">ナイトマーケットを覗いてパームコーブへ。</div></div>
+      </div></div></div>
+    </div>
+
+    <!-- DAY 4 -->
+    <div class="day reveal">
+      <div class="day-head" role="button" tabindex="0" aria-expanded="false">
+        <div class="day-no"><div class="d">DAY</div><div class="n">4</div></div>
+        <div class="day-title"><div class="date">8/30 Sun</div><h3>リゾート&amp;スパ でゆったり</h3><div class="theme">🌴 何もしない贅沢な1日</div></div>
+        <div class="chev">▼</div>
+      </div>
+      <div class="day-body"><div><div class="timeline">
+        <div class="tl sun"><div class="t">午前</div><div class="h">ホテルのプール・ビーチでのんびり</div><div class="d">旅の中日はあえて予定を入れず休息。</div></div>
+        <div class="tl"><div class="t">午後</div><div class="h">スパ or パームコーブ散歩</div><div class="d">大人はスパ、お子さまはプール、と分担も。</div></div>
+        <div class="tl"><div class="t">夕方</div><div class="h">ケアンズ エスプラネード ラグーン</div><div class="d">海沿いの無料人工プール。夕景がきれい。<span class="pin">📍 Cairns Esplanade</span></div></div>
+        <div class="tl food"><div class="t">夜</div><div class="h">お気に入りのレストランで夕食</div></div>
+      </div></div></div>
+    </div>
+
+    <!-- DAY 5 -->
+    <div class="day reveal">
+      <div class="day-head" role="button" tabindex="0" aria-expanded="false">
+        <div class="day-no"><div class="d">DAY</div><div class="n">5</div></div>
+        <div class="day-title"><div class="date">8/31 Mon</div><h3>動物ふれあい &amp; ポートダグラス</h3><div class="theme">🐊 ハートリーズ &amp; 4マイルビーチ</div></div>
+        <div class="chev">▼</div>
+      </div>
+      <div class="day-body"><div><div class="timeline">
+        <div class="tl"><div class="t">09:00</div><div class="h">ハートリーズ クロコダイル アドベンチャー</div><div class="d">クロコダイルクルーズ、コアラ抱っこ、餌やり。子どもに大人気。<span class="pin">📍 Wangetti</span></div></div>
+        <div class="tl food"><div class="t">12:30</div><div class="h">ポートダグラスでランチ</div><div class="d">おしゃれな港町。マカロッサ通りを散策。</div></div>
+        <div class="tl sun"><div class="t">14:30</div><div class="h">フォーマイル ビーチ</div><div class="d">広々としたビーチでのんびり。</div></div>
+        <div class="tl food"><div class="t">18:30</div><div class="h">パームコーブへ戻り夕食</div></div>
+      </div></div></div>
+    </div>
+
+    <!-- DAY 6 -->
+    <div class="day reveal">
+      <div class="day-head" role="button" tabindex="0" aria-expanded="false">
+        <div class="day-no"><div class="d">DAY</div><div class="n">6</div></div>
+        <div class="day-title"><div class="date">9/1 Tue</div><h3>予備日 / お土産 &amp; ビーチ</h3><div class="theme">🛍️ 自由に・体力と相談</div></div>
+        <div class="chev">▼</div>
+      </div>
+      <div class="day-body"><div><div class="timeline">
+        <div class="tl sun"><div class="t">午前</div><div class="h">ビーチ or デインツリー方面へ（元気なら）</div><div class="d">世界最古の熱帯雨林モスマン渓谷は片道約1時間。ムリなければビーチでゆっくり。</div></div>
+        <div class="tl food"><div class="t">昼</div><div class="h">お気に入りカフェでランチ</div></div>
+        <div class="tl"><div class="t">午後</div><div class="h">ケアンズ市街でお土産</div><div class="d">DFO・スーパー（Woolworths等）でばらまき土産。</div></div>
+        <div class="tl food"><div class="t">夜</div><div class="h">田邊家と合流ディナー（最後の夜前）</div></div>
+      </div></div></div>
+    </div>
+
+    <!-- DAY 7 -->
+    <div class="day reveal">
+      <div class="day-head" role="button" tabindex="0" aria-expanded="false">
+        <div class="day-no"><div class="d">DAY</div><div class="n">7</div></div>
+        <div class="day-title"><div class="date">9/2 Wed</div><h3>リゾート最終日</h3><div class="theme">🌅 名残を惜しんで・荷造り</div></div>
+        <div class="chev">▼</div>
+      </div>
+      <div class="day-body"><div><div class="timeline">
+        <div class="tl sun"><div class="t">午前</div><div class="h">最後のビーチ &amp; プール</div><div class="d">お気に入りの場所をもう一度。</div></div>
+        <div class="tl"><div class="t">午後</div><div class="h">荷造り・お土産の仕分け</div><div class="d">液体物・機内持込を整理。</div></div>
+        <div class="tl"><div class="t">夕方</div><div class="h">レンタカー給油（返却前）</div><div class="d">満タン返しの条件を確認。</div></div>
+        <div class="tl food"><div class="t">夜</div><div class="h">お別れディナー</div><div class="d">思い出を振り返りながら。</div></div>
+      </div></div></div>
+    </div>
+
+    <!-- DAY 8 -->
+    <div class="day reveal">
+      <div class="day-head" role="button" tabindex="0" aria-expanded="false">
+        <div class="day-no"><div class="d">DAY</div><div class="n">8</div></div>
+        <div class="day-title"><div class="date">9/3 Thu</div><h3>チェックアウト &amp; 帰国</h3><div class="theme">✈︎ ケアンズ 11:40 → 成田 18:05</div></div>
+        <div class="chev">▼</div>
+      </div>
+      <div class="day-body"><div><div class="timeline">
+        <div class="tl"><div class="t">08:00</div><div class="h">朝食・最終チェック</div><div class="d">忘れ物・貴重品・充電器を確認。</div></div>
+        <div class="tl"><div class="t">08:45</div><div class="h">チェックアウト → 空港へ</div><div class="d">レンタカー返却（返却場所と時間に余裕を）。</div></div>
+        <div class="tl"><div class="t">09:15</div><div class="h">ケアンズ空港 到着・搭乗手続き</div><div class="d">国際線は早めに。免税店でお土産最終調達も。</div></div>
+        <div class="tl sun"><div class="t">11:40</div><div class="h">ケアンズ 出発 ✈︎</div><div class="d">お疲れさまでした！</div></div>
+        <div class="tl"><div class="t">18:05</div><div class="h">成田 到着</div><div class="d">日本時間。おかえりなさい 🇯🇵</div></div>
+      </div></div></div>
+    </div>
+
+    <!-- friends -->
+    <div class="friends reveal">
+      <div class="ftxt">
+        <h3>🧭 田邊家のしおりも見る</h3>
+        <p>一緒に行く田邊ご一家の日程・宿・レンタカー情報はこちら。合流日の調整に。</p>
+      </div>
+      <a class="btn" href="https://nabe246jp-ux.github.io/cairns-shiori/" target="_blank" rel="noopener">開く →</a>
+    </div>
+  </section>
+
+  <!-- LOCAL INFO -->
+  <section id="info">
+    <div class="eyebrow reveal">Good to Know</div>
+    <h2 class="reveal">現地情報</h2>
+    <div class="facts">
+      <div class="fact reveal"><div class="ft">🕐 時差</div><div class="fv">日本より <b>+1時間</b>。クイーンズランド州はサマータイムなし。</div></div>
+      <div class="fact reveal"><div class="ft">🌤️ 気候（8〜9月）</div><div class="fv">乾季で快適。日中 <b>24〜26℃</b>／朝晩 17〜19℃。羽織り物を。</div></div>
+      <div class="fact reveal"><div class="ft">💳 お金</div><div class="fv">通貨は <b>豪ドル(AUD)</b>。ほぼキャッシュレス、タッチ決済が主流。</div></div>
+      <div class="fact reveal"><div class="ft">🔌 電源</div><div class="fv"><b>230V / Oタイプ</b>（八の字プラグ）。変換プラグ必須。</div></div>
+      <div class="fact reveal"><div class="ft">🚗 運転</div><div class="fv"><b>左側通行</b>（日本と同じ）。市街 50km/h。7歳未満チャイルドシート必須。</div></div>
+      <div class="fact reveal"><div class="ft">💧 水・チップ</div><div class="fv">水道水は<b>飲用可</b>。チップは基本<b>不要</b>。</div></div>
+      <div class="fact reveal"><div class="ft">🪼 海の安全</div><div class="fv">スティンガー（毒クラゲ）は主に11〜5月。<b>乾季の8〜9月はほぼ問題なし</b>。</div></div>
+      <div class="fact reveal"><div class="ft">☀️ 紫外線</div><div class="fv">南半球は非常に強い。<b>日焼け止め・帽子</b>をこまめに。</div></div>
+    </div>
+  </section>
+
+  <!-- SOS -->
+  <section id="sos">
+    <div class="eyebrow reveal">Emergency</div>
+    <h2 class="reveal">緊急連絡先</h2>
+    <div class="card em em-000 reveal">
+      <div class="kv"><span class="k">警察・消防・救急（共通）</span><span class="v">000</span></div>
+    </div>
+    <div class="card em reveal" style="margin-top:12px">
+      <div class="kv"><span class="k">在ブリスベン日本国総領事館</span><span class="v">+61 7 3221 5188</span></div>
+      <div class="kv"><span class="k">Peppers Palm Cove（宿）</span><span class="v">要記入</span></div>
+      <div class="kv"><span class="k">海外旅行保険 事故受付</span><span class="v">要記入</span></div>
+      <div class="kv"><span class="k">クレジットカード紛失窓口</span><span class="v">要記入</span></div>
+      <div class="kv"><span class="k">レンタカー会社</span><span class="v">要記入</span></div>
+    </div>
+    <div class="note-box reveal">📝 「要記入」欄は、保険証券・カード裏面・予約確認メールの番号を出発前に書き込んでおきましょう。スマホにも控えを。</div>
+  </section>
+</div>
+
+<footer>
+  <div class="fr">Have a wonderful trip! ✦</div>
+  ケアンズ 家族旅行のしおり · 2026.08.26 – 09.03<br>
+  ※日程・時刻・便名・料金は目安です。最新情報は各予約でご確認ください。
+</footer>
+
+<script>
+(function(){
+  // ---- theme toggle ----
+  var root=document.documentElement, btn=document.getElementById('themeBtn');
+  try{var saved=localStorage.getItem('cns-theme'); if(saved) root.setAttribute('data-theme',saved);}catch(e){}
+  btn.addEventListener('click',function(){
+    var cur=root.getAttribute('data-theme');
+    var isDark = cur ? cur==='dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    var next=isDark?'light':'dark';
+    root.setAttribute('data-theme',next);
+    try{localStorage.setItem('cns-theme',next);}catch(e){}
+  });
+
+  // ---- countdown ----
+  try{
+    var dep=new Date('2026-08-26T20:05:00+09:00');
+    var now=new Date();
+    var diff=Math.ceil((dep-now)/86400000);
+    var num=document.getElementById('cdNum'), lbl=document.getElementById('cdLbl');
+    if(diff>0){num.textContent=diff; lbl.textContent='日後に出発！';}
+    else if(diff===0){num.textContent='今日'; lbl.textContent='いよいよ出発！';}
+    else if(diff>=-8){num.textContent='旅行中'; lbl.textContent='ケアンズを満喫中 🐠';}
+    else{num.textContent='またね'; lbl.textContent='おかえりなさい ✈︎';}
+  }catch(e){}
+
+  // ---- checklist persist ----
+  try{
+    var store=JSON.parse(localStorage.getItem('cns-chk')||'{}');
+    document.querySelectorAll('ul.chk input[data-k]').forEach(function(cb){
+      var k=cb.getAttribute('data-k');
+      if(store[k]) cb.checked=true;
+      cb.addEventListener('change',function(){
+        store[k]=cb.checked;
+        localStorage.setItem('cns-chk',JSON.stringify(store));
+      });
+    });
+  }catch(e){}
+
+  // ---- day accordion ----
+  document.querySelectorAll('.day-head').forEach(function(h,i){
+    function toggle(){
+      var d=h.parentElement, open=d.classList.toggle('open');
+      h.setAttribute('aria-expanded',open?'true':'false');
+    }
+    if(i===0){h.parentElement.classList.add('open');h.setAttribute('aria-expanded','true');}
+    h.addEventListener('click',toggle);
+    h.addEventListener('keydown',function(e){
+      if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle();}
+    });
+  });
+
+  // ---- reveal on scroll ----
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(en){ if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);} });
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+})();
+</script>
+</body>
+</html>
