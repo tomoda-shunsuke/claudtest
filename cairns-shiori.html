@@ -278,6 +278,24 @@
   .kids ul{list-style:none;margin-top:14px;display:flex;flex-direction:column;gap:11px}
   .kids li{display:flex;align-items:flex-start;gap:12px;font-size:15.5px;font-weight:500;line-height:1.7}
   .kids li .emo{font-size:24px;flex:none;line-height:1.25}
+  .kids.blue{border-color:var(--teal);background:linear-gradient(125deg,color-mix(in srgb,var(--teal) 16%,var(--card)),color-mix(in srgb,var(--teal) 4%,var(--card)))}
+  .kids.blue h3{color:var(--teal-deep)}
+  .phrases{margin-top:6px}
+  .phrases .p{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-top:1px dashed var(--line);align-items:baseline}
+  .phrases .p:first-child{border-top:none}
+  .phrases .en2{font-weight:700;font-size:15px}
+  .phrases .en2 small{color:var(--muted);font-weight:400;font-size:12px;margin-left:4px}
+  .phrases .jp{color:var(--ink-soft);font-size:14px;flex:none;text-align:right}
+  .phrases .lbl-k{color:var(--coral-deep);font-size:12px;font-weight:700;margin:14px 0 2px;letter-spacing:.03em}
+  .dream{margin-top:24px;border-radius:20px;padding:28px 24px;color:#fff;position:relative;overflow:hidden;
+    background:radial-gradient(130% 130% at 15% 0%, #F7B85E 0%, #EE7B4E 45%, #B24E8C 100%);box-shadow:0 14px 34px var(--shadow-lg)}
+  .dream h3{font-family:"Zen Maru Gothic",sans-serif;font-weight:900;font-size:clamp(19px,5vw,23px);text-wrap:balance;text-shadow:0 2px 12px rgba(0,0,0,.2)}
+  .dream .dlead{margin-top:10px;font-size:14px;opacity:.96;max-width:60ch}
+  .dream ul{list-style:none;margin-top:18px;display:grid;gap:13px}
+  .dream li{display:flex;gap:12px;align-items:flex-start;font-size:14.5px;font-weight:500;line-height:1.65}
+  .dream li .emo{font-size:21px;flex:none;line-height:1.2}
+  .dream .real{margin-top:18px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.32);border-radius:13px;padding:13px 16px;font-size:12.5px;line-height:1.7}
+  .dream .real b{color:#fff}
 
   footer{text-align:center;padding:48px 20px 40px;color:var(--muted);font-size:12.5px}
   footer .fr{font-family:"Fraunces",serif;font-style:italic;font-size:15px;color:var(--ink-soft);margin-bottom:8px}
@@ -295,11 +313,13 @@
     <nav class="nav-links">
       <a href="#overview">概要</a>
       <a href="#about">みどころ</a>
+      <a href="#enjoy">たのしむ</a>
       <a href="#flight">フライト</a>
       <a href="#stay">宿泊</a>
       <a href="#prep">準備</a>
       <a href="#plan">日程表</a>
       <a href="#info">現地情報</a>
+      <a href="#live">移住</a>
       <a href="#sos">緊急</a>
     </nav>
     <button class="theme-btn" id="themeBtn" aria-label="ダークモード切替" title="テーマ切替">◐</button>
@@ -385,6 +405,65 @@
         <li><span class="emo">🌈</span>もりの うえを <b>ロープウェイ</b>で おさんぽ できるよ。</li>
         <li><span class="emo">🧴</span>おひさまが つよいから、<b>ぼうし</b>と <b>ひやけどめ</b>で バッチリ しようね。</li>
       </ul>
+    </div>
+
+    <div class="kids blue reveal">
+      <h3>🐶 だいすきな「ブルーイ」も オーストラリア生まれ！</h3>
+      <p class="k-lead">ユイちゃんへ</p>
+      <ul>
+        <li><span class="emo">📺</span>ブルーイは <b>オーストラリアの クイーンズランドしゅう</b>で うまれた アニメだよ。</li>
+        <li><span class="emo">📍</span>いく <b>ケアンズも おなじ クイーンズランドしゅう</b>！ ブルーイと おなじ ところに いくんだね。</li>
+        <li><span class="emo">🐕</span>ブルーイは「<b>ブルーヒーラー</b>」っていう オーストラリアの わんちゃん。にてる ワンちゃんに あえるかも。</li>
+        <li><span class="emo">🗣️</span>「<b>G'day!（グダイ）</b>」って いってみよう。ブルーイたちも つかう ごあいさつだよ。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ENJOY -->
+  <section id="enjoy">
+    <div class="eyebrow reveal">Taste, Talk &amp; Wildlife</div>
+    <h2 class="reveal">旅がもっと楽しくなる</h2>
+    <p class="lead reveal">食べたいもの、使ってみたいひとこと英語、会える動物たち。出発前にみんなでチェックしておくと、現地でのワクワクが倍増します。</p>
+
+    <div class="subhead reveal"><span class="fl">🍽️</span>食べてみよう</div>
+    <div class="facts">
+      <div class="fact reveal"><div class="ft">🐟 バラマンディ</div><div class="fv">豪州を代表する白身魚。クセがなく、<b>フィッシュ＆チップスは子どもにも◎</b>。</div></div>
+      <div class="fact reveal"><div class="ft">🥩 オージービーフ</div><div class="fv">広大な大地で育った牛肉。<b>ステーキやハンバーガー</b>が絶品。</div></div>
+      <div class="fact reveal"><div class="ft">🦐 シーフード</div><div class="fv">熱帯の海の幸。エビ・マッドクラブ・生牡蠣など贅沢に。</div></div>
+      <div class="fact reveal"><div class="ft">🥭 トロピカルフルーツ</div><div class="fv"><b>マンゴー・パパイヤ・パッションフルーツ</b>。スムージーやジェラートで。</div></div>
+      <div class="fact reveal"><div class="ft">🍰 オージースイーツ</div><div class="fv">ラミントン（チョコ×ココナッツ）やパブロバ（メレンゲケーキ）。</div></div>
+      <div class="fact reveal"><div class="ft">☕ フラットホワイト</div><div class="fv"><b>オーストラリア発祥のカフェ</b>文化。ミートパイも国民食。</div></div>
+    </div>
+    <div class="note-box reveal">🦘 ちょっと冒険したい人は<b>カンガルー肉</b>（ヘルシーな赤身）も名物。娘さんは<b>パンケーキ・フルーツ・ジェラート</b>が安心で喜びます。</div>
+
+    <div class="subhead reveal"><span class="fl">🗣️</span>親子でつかえる かんたん英語</div>
+    <div class="card reveal" style="margin-top:8px">
+      <div class="phrases">
+        <div class="lbl-k">まずはこれだけ</div>
+        <div class="p"><span class="en2">G'day! / Hello <small>グダイ／ハロー</small></span><span class="jp">こんにちは</span></div>
+        <div class="p"><span class="en2">Thank you! / Cheers! <small>チアーズ</small></span><span class="jp">ありがとう</span></div>
+        <div class="p"><span class="en2">Please <small>プリーズ</small></span><span class="jp">おねがいします</span></div>
+        <div class="p"><span class="en2">Excuse me <small>イクスキューズミー</small></span><span class="jp">すみません</span></div>
+        <div class="lbl-k">お店・レストランで</div>
+        <div class="p"><span class="en2">Can I have this, please? </span><span class="jp">これください</span></div>
+        <div class="p"><span class="en2">How much is it? </span><span class="jp">いくらですか？</span></div>
+        <div class="p"><span class="en2">Where is the toilet? </span><span class="jp">トイレはどこ？</span></div>
+        <div class="p"><span class="en2">It was delicious! </span><span class="jp">おいしかった！</span></div>
+        <div class="lbl-k">ユイちゃんも言ってみよう</div>
+        <div class="p"><span class="en2">Look, a koala! </span><span class="jp">見て、コアラ！</span></div>
+        <div class="p"><span class="en2">Yummy! </span><span class="jp">おいしい！</span></div>
+        <div class="p"><span class="en2">So pretty! </span><span class="jp">きれい！</span></div>
+      </div>
+    </div>
+
+    <div class="subhead reveal"><span class="fl">🐨</span>オーストラリア動物ずかん</div>
+    <div class="facts">
+      <div class="fact reveal"><div class="ft">🐨 コアラ</div><div class="fv">ユーカリを食べて<b>1日20時間おねんね</b>。抱っこ体験できる場所も。</div></div>
+      <div class="fact reveal"><div class="ft">🦘 カンガルー／ワラビー</div><div class="fv">ピョンピョン跳ねる人気者。<b>餌やり</b>できる施設も。</div></div>
+      <div class="fact reveal"><div class="ft">🐊 クロコダイル</div><div class="fv">世界最大級のワニ。クルーズで観察（<b>近づかないでね</b>）。</div></div>
+      <div class="fact reveal"><div class="ft">🐠 ニモ＆熱帯魚</div><div class="fv">カクレクマノミやウミガメ🐢。リーフのシュノーケルで会える。</div></div>
+      <div class="fact reveal"><div class="ft">🦤 カソワリ（ヒクイドリ）</div><div class="fv">熱帯雨林の<b>恐竜みたいな大きな鳥</b>。カラフルで迫力満点。</div></div>
+      <div class="fact reveal"><div class="ft">🐕 ブルーヒーラー</div><div class="fv"><b>ブルーイのモデル犬</b>。豪州原産の賢い牧畜犬。</div></div>
     </div>
   </section>
 
@@ -693,6 +772,27 @@
       <div class="fact reveal"><div class="ft">⛳ ゴルフ（早朝・任意）</div><div class="fv"><b>Half Moon Bay G.C.</b>（約20分・海際18H）と<b>Cairns Golf Club</b>（約30分・18H）。どちらも<b>レンタルクラブ有り・早朝スルーOK</b>。豪州は昼休憩なしの連続プレーが基本。要予約。</div></div>
       <div class="fact reveal"><div class="ft">🏊 4歳とプール</div><div class="fv">水遊び用おむつ・アームリング持参。日差しが強いので<b>午前と夕方中心</b>、日中はパラソル下で休憩を。</div></div>
     </div>
+  </section>
+
+  <!-- LIVE / DREAM -->
+  <section id="live">
+    <div class="eyebrow reveal">A Little Daydream</div>
+    <h2 class="reveal">もし、ここに住んだら？</h2>
+    <p class="lead reveal">きっと旅の途中で「ずっといたいね」と言いたくなるはず。そんな気分をちょっと先取り。ケアンズで暮らしたら、こんな毎日かも——。</p>
+    <div class="dream reveal">
+      <h3>🌴 ケアンズ暮らしの、想像</h3>
+      <p class="dlead">一年じゅう夏。世界遺産の海と森が、生活のすぐそばにある街。</p>
+      <ul>
+        <li><span class="emo">🌅</span>朝は<b>ビーチ散歩</b>ではじまり、週末は<b>リーフや雨林</b>へ。休日の選択肢が自然そのもの。</li>
+        <li><span class="emo">⏳</span><b>ゆったりした時間の流れ</b>。仕事も暮らしも欲張らない、ワークライフバランスの国。</li>
+        <li><span class="emo">🏫</span>子どもは<b>自然の中でのびのび</b>。屋外教育や多文化・英語環境で、ユイちゃんの世界が広がる。</li>
+        <li><span class="emo">🏡</span>広い家と庭、<b>週末はBBQ</b>、フレンドリーなご近所づきあい。</li>
+        <li><span class="emo">🥭</span><b>新鮮なシーフードとトロピカルフルーツ</b>が日常のごちそう。</li>
+        <li><span class="emo">🐨</span>コアラや野鳥が身近にいて、<b>生き物と暮らす</b>感覚が当たり前に。</li>
+      </ul>
+      <div class="real">💡 <b>現実メモ：</b>オーストラリアは移住先として世界的に人気。観光で気に入ったら、<b>ロングステイ・ワーキングホリデー・親子留学・技術移住</b>など段階的な選択肢があります。まずは「長めの滞在」で暮らすように過ごしてみるのが第一歩。今回の旅も、<b>“住むように”のんびり</b>過ごしてみては？</div>
+    </div>
+    <div class="note-box reveal">📝 とはいえ、まずは<b>7泊の休日を思いっきり満喫</b>することから。気に入ったお店や場所は、しおりの余白にメモしておくと、次の「もう一度行きたい」につながります。</div>
   </section>
 
   <!-- SOS -->
