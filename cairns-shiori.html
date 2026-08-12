@@ -231,6 +231,9 @@
   .tl::after{content:"";position:absolute;left:1px;top:16px;width:12px;height:12px;border-radius:50%;background:var(--card);border:3px solid var(--teal)}
   .tl.sun::after{border-color:var(--gold)}
   .tl.food::after{border-color:var(--coral)}
+  .tl.golf::after{border-color:#3FA46A}
+  .tl.pool::after{border-color:var(--teal)}
+  .tl .t.allday{color:var(--coral)}
   .tl .t{font-family:"Fraunces",serif;font-weight:600;font-size:13.5px;color:var(--teal-deep);font-variant-numeric:tabular-nums}
   .tl .h{font-weight:700;font-size:15px;margin:1px 0 3px}
   .tl .d{font-size:13.5px;color:var(--ink-soft)}
@@ -297,7 +300,7 @@
   <div class="sun"></div>
   <div class="hero-eyebrow">Palm Cove &amp; Cairns · Tropical North Queensland</div>
   <h1>ケアンズ<br>家族旅行のしおり</h1>
-  <div class="sub">大人2名 ＋ お子さま1名 ／ 田邊ご一家と一緒に</div>
+  <div class="sub">大人2名 ＋ 娘4歳 ／ 田邊ご一家と一緒に</div>
   <div class="dates">
     <span>2026.08.26</span><span class="dot"></span><span>09.03</span>
   </div>
@@ -316,7 +319,7 @@
   <section id="overview">
     <div class="eyebrow reveal">Trip Overview</div>
     <h2 class="reveal">旅の概要</h2>
-    <p class="lead reveal">南半球は乾季でいちばん過ごしやすい季節。世界遺産のグレートバリアリーフと熱帯雨林に囲まれたビーチリゾート、パームコーブを拠点に、詰め込みすぎず大人も子どもも楽しめる7泊の旅です。</p>
+    <p class="lead reveal">南半球は乾季でいちばん過ごしやすい季節。世界遺産のグレートバリアリーフと熱帯雨林に囲まれたビーチリゾート、パームコーブを拠点に、<b>4歳の娘さんもママも楽しめるゆったりプラン</b>。充実したホテルのプールを軸に、大きな観光は田邊家と一緒の2日間（リーフ＆キュランダ）に絞り、空いた早朝はパパたちのゴルフも。</p>
     <div class="grid-2">
       <div class="card info-card reveal">
         <h3><span class="ic">🗓️</span>日程</h3>
@@ -327,13 +330,13 @@
       </div>
       <div class="card info-card reveal">
         <h3><span class="ic">👪</span>メンバー</h3>
-        <div class="kv"><span class="k">ご家族</span><span class="v">大人2名・お子さま1名</span></div>
-        <div class="kv"><span class="k">同行</span><span class="v">田邊ご一家</span></div>
+        <div class="kv"><span class="k">ご家族</span><span class="v">大人2名・娘さん（4歳）</span></div>
+        <div class="kv"><span class="k">合流</span><span class="v">田邊家と 8/29・8/30</span></div>
         <div class="kv"><span class="k">田邊家 宿</span><span class="v">Crystalbrook Riley<br>（ケアンズ市街）</span></div>
         <div class="kv"><span class="k">移動</span><span class="v">パームコーブ↔市街 車で約25分</span></div>
       </div>
     </div>
-    <div class="note-box reveal">📝 <b>宿は別々です。</b>ご家族はパームコーブの Peppers、田邊家はケアンズ市街の Crystalbrook Riley。車で約25分の距離なので、リーフツアーやキュランダなど<b>合流したいアクティビティは事前に日にちを合わせて予約</b>しておくとスムーズです。</div>
+    <div class="note-box reveal">📝 <b>宿は別々です。</b>ご家族はパームコーブの Peppers、田邊家はケアンズ市街の Crystalbrook Riley（車で約25分）。<b>8/29 グレートバリアリーフ・8/30 キュランダは田邊家と一緒</b>に行動。ツアーは<b>両家まとめて同じ便・同じ時間で予約</b>しておくと当日スムーズです。パパたちの<b>早朝ゴルフも田邊家男性陣と</b>。</div>
   </section>
 
   <!-- FLIGHT -->
@@ -422,7 +425,7 @@
         <li><label><input type="checkbox" data-k="doc6"><span>レンタカー予約＋国際運転免許証（借りる場合）</span></label></li>
         <li><label><input type="checkbox" data-k="doc7"><span>各種予約バウチャー（ツアー・鉄道など）</span></label></li>
       </ul>
-      <p class="chk-note">※レンタカーは7歳未満のチャイルドシートが法律で必須。年齢に合わせて予約時に手配を。</p>
+      <p class="chk-note">※豪州は7歳未満チャイルドシート必須。<b>4歳は前向きチャイルドシート／ブースター</b>が必要。レンタカー予約時にレンタル手配を。</p>
 
       <h3><span class="n">02</span>お金・スマホ</h3>
       <ul class="chk">
@@ -452,20 +455,22 @@
         <li><label><input type="checkbox" data-k="wr5"><span>速乾タオル・エコバッグ</span></label></li>
       </ul>
 
-      <h3><span class="n">05</span>お子さま・機内</h3>
+      <h3><span class="n">05</span>娘さん（4歳）・機内</h3>
       <ul class="chk">
-        <li><label><input type="checkbox" data-k="kid1"><span>機内の暇つぶし（タブレット・お絵かき・小さめおもちゃ）</span></label></li>
+        <li><label><input type="checkbox" data-k="kid1"><span>機内の暇つぶし（タブレット・お絵かき・シールブック・小さめおもちゃ）</span></label></li>
         <li><label><input type="checkbox" data-k="kid2"><span>おやつ・こぼれにくい水筒</span></label></li>
-        <li><label><input type="checkbox" data-k="kid3"><span>着替え多め・上着（機内は冷える）</span></label></li>
-        <li><label><input type="checkbox" data-k="kid4"><span>抱っこ紐／ベビーカー（年齢に応じて）</span></label></li>
+        <li><label><input type="checkbox" data-k="kid3"><span>着替え多め・上着（機内・館内は冷える）</span></label></li>
+        <li><label><input type="checkbox" data-k="kid4"><span>プール用：アームリング／浮き輪・水遊び用おむつ・ラッシュガード</span></label></li>
+        <li><label><input type="checkbox" data-k="kid5"><span>4歳用の日焼け止め・帽子・サンダル</span></label></li>
       </ul>
 
       <h3><span class="n">06</span>出発までに予約（早いほど安心）</h3>
       <ul class="chk">
-        <li><label><input type="checkbox" data-k="bk1"><span>グレートバリアリーフ ツアー（グリーン島 or 外洋ポンツーン）</span></label></li>
-        <li><label><input type="checkbox" data-k="bk2"><span>スカイレール＋キュランダ観光列車</span></label></li>
-        <li><label><input type="checkbox" data-k="bk3"><span>ハートリーズ クロコダイル アドベンチャー</span></label></li>
-        <li><label><input type="checkbox" data-k="bk4"><span>人気レストランのディナー（田邊家と合流日）</span></label></li>
+        <li><label><input type="checkbox" data-k="bk1"><span class="must">8/29 グレートバリアリーフ（グリーン島・田邊家と）※人数まとめて</span></label></li>
+        <li><label><input type="checkbox" data-k="bk2"><span class="must">8/30 スカイレール＋キュランダ観光列車（田邊家と）</span></label></li>
+        <li><label><input type="checkbox" data-k="bk3"><span>ハートリーズ クロコダイル アドベンチャー（8/28 午後）</span></label></li>
+        <li><label><input type="checkbox" data-k="bk4"><span>早朝ゴルフのスタート時間（パパたち・田邊家男性陣と）</span></label></li>
+        <li><label><input type="checkbox" data-k="bk5"><span>人気レストランのディナー（田邊家と合流日）</span></label></li>
       </ul>
     </div>
   </section>
@@ -474,21 +479,21 @@
   <section id="plan">
     <div class="eyebrow reveal">Day by Day</div>
     <h2 class="reveal">日程表</h2>
-    <p class="lead reveal">各日をタップで開閉。時刻はあくまで目安です。無理のないペースで、ビーチとリゾートを満喫する構成にしています。</p>
+    <p class="lead reveal">各日をタップで開閉。時刻は目安です。大きな観光は<b>田邊家と一緒の8/29（リーフ）・8/30（キュランダ）</b>に集中させ、他の日は<b>ホテルのプール中心のゆったりペース</b>。空いた早朝はパパたちのゴルフ枠に。<span style="white-space:nowrap">🟢ゴルフ</span> / <span style="white-space:nowrap">🔵プール</span> / <span style="white-space:nowrap">🟡おでかけ</span> / <span style="white-space:nowrap">🟠食事</span></p>
 
     <!-- DAY 1 -->
     <div class="day reveal">
       <div class="day-head" role="button" tabindex="0" aria-expanded="false">
         <div class="day-no"><div class="d">DAY</div><div class="n">1</div></div>
-        <div class="day-title"><div class="date">8/27 Thu</div><h3>ケアンズ到着 &amp; パームコーブへ</h3><div class="theme">☀︎ 到着日はのんびり・体を慣らす</div></div>
+        <div class="day-title"><div class="date">8/27 Thu</div><h3>ケアンズ到着 &amp; プールでのんびり</h3><div class="theme">☀︎ 到着日は無理せず・体を慣らす</div></div>
         <div class="chev">▼</div>
       </div>
       <div class="day-body"><div><div class="timeline">
-        <div class="tl"><div class="t">04:30</div><div class="h">ケアンズ空港 着 · 入国審査</div><div class="d">ETAは自動化ゲートで。荷物受取後、レンタカーを受取り。</div></div>
-        <div class="tl food"><div class="t">06:30</div><div class="h">早めの朝食 / カフェ</div><div class="d">ケアンズ or パームコーブのカフェで軽く。<span class="pin">📍 Palm Cove</span></div></div>
-        <div class="tl"><div class="t">08:00</div><div class="h">ホテルに荷物預け・アーリーチェックイン交渉</div><div class="d">部屋が空いていれば早めに入室。無理ならビーチ側で休憩。</div></div>
-        <div class="tl sun"><div class="t">10:00</div><div class="h">パームコーブ散策 &amp; ビーチ</div><div class="d">ヤシ並木のエスプラネードをのんびり。ムリせず昼寝も。</div></div>
-        <div class="tl food"><div class="t">18:00</div><div class="h">ビーチ沿いレストランで夕食</div><div class="d">初日は近場で。時差ボケ対策に早めの就寝を。</div></div>
+        <div class="tl"><div class="t">04:30</div><div class="h">ケアンズ空港 着 · 入国審査</div><div class="d">ETAは自動化ゲートで。荷物受取後、レンタカー受取り（4歳用チャイルドシートを確認）。</div></div>
+        <div class="tl food"><div class="t">06:30</div><div class="h">早めの朝食 / カフェ</div><div class="d">パームコーブのカフェで軽く。<span class="pin">📍 Palm Cove</span></div></div>
+        <div class="tl"><div class="t">08:00</div><div class="h">ホテルへ・荷物預け＆アーリーチェックイン交渉</div><div class="d">入室できなければプールサイドで休憩。娘さんもお昼寝を。</div></div>
+        <div class="tl pool"><div class="t">午後</div><div class="h">ホテルのプールデビュー 🏊</div><div class="d">初日は移動なしでプール＆ビーチだけ。ママもデッキでのんびり。</div></div>
+        <div class="tl food"><div class="t">18:00</div><div class="h">ビーチ沿いレストランで夕食</div><div class="d">近場で軽く。時差ボケ対策に早めの就寝を。</div></div>
       </div></div></div>
     </div>
 
@@ -496,15 +501,15 @@
     <div class="day reveal">
       <div class="day-head" role="button" tabindex="0" aria-expanded="false">
         <div class="day-no"><div class="d">DAY</div><div class="n">2</div></div>
-        <div class="day-title"><div class="date">8/28 Fri</div><h3>キュランダ 熱帯雨林</h3><div class="theme">🚡 スカイレール &amp; 観光列車</div></div>
+        <div class="day-title"><div class="date">8/28 Fri</div><h3>早朝ゴルフ &amp; 動物ふれあい</h3><div class="theme">⛳ パパはゴルフ／ママ&amp;娘はプール → 午後ハートリーズ</div></div>
         <div class="chev">▼</div>
       </div>
       <div class="day-body"><div><div class="timeline">
-        <div class="tl"><div class="t">08:30</div><div class="h">スカイレール乗り場へ</div><div class="d">世界遺産の熱帯雨林の上を空中散歩。<span class="pin">📍 Smithfield</span></div></div>
-        <div class="tl sun"><div class="t">10:00</div><div class="h">キュランダ村 散策</div><div class="d">コアラガーデン・蝶園・レインフォレステーション。お子さまも大喜び。</div></div>
-        <div class="tl food"><div class="t">12:30</div><div class="h">村でランチ &amp; マーケット</div><div class="d">ハンドメイド雑貨のお土産探しにも。</div></div>
-        <div class="tl"><div class="t">14:30</div><div class="h">キュランダ観光列車で下山</div><div class="d">渓谷と滝を眺めるレトロな鉄道旅。</div></div>
-        <div class="tl food"><div class="t">18:30</div><div class="h">パームコーブで夕食</div><div class="d">田邊家と合流もおすすめの1日。</div></div>
+        <div class="tl golf"><div class="t">06:30</div><div class="h">パパたち 早朝ゴルフ ⛳</div><div class="d">田邊家男性陣と。Paradise Palms や Half Moon Bay など近隣コースで9〜18H。<span class="pin">📍 Palm Cove周辺</span></div></div>
+        <div class="tl pool"><div class="t">07:00</div><div class="h">ママ&amp;娘は のんびり朝＆プール 🏊</div><div class="d">朝食後そのままプールへ。無理のないペースで。</div></div>
+        <div class="tl"><div class="t">11:30</div><div class="h">合流・軽くランチ</div></div>
+        <div class="tl sun"><div class="t">13:30</div><div class="h">ハートリーズ クロコダイル アドベンチャー</div><div class="d">コアラ・カンガルー・クロコダイルクルーズ。4歳が一番喜ぶ定番。パームコーブから車で約15分。<span class="pin">📍 Wangetti</span></div></div>
+        <div class="tl food"><div class="t">18:00</div><div class="h">パームコーブで夕食</div><div class="d">夜は早めに休んで翌日のリーフに備えて。</div></div>
       </div></div></div>
     </div>
 
@@ -512,15 +517,15 @@
     <div class="day reveal">
       <div class="day-head" role="button" tabindex="0" aria-expanded="false">
         <div class="day-no"><div class="d">DAY</div><div class="n">3</div></div>
-        <div class="day-title"><div class="date">8/29 Sat</div><h3>グレートバリアリーフ</h3><div class="theme">🐠 世界遺産の海へ・1日ツアー</div></div>
+        <div class="day-title"><div class="date">8/29 Sat</div><h3>グレートバリアリーフ 🐠</h3><div class="theme">👨‍👩‍👧 田邊家と一緒に・グリーン島1日</div></div>
         <div class="chev">▼</div>
       </div>
       <div class="day-body"><div><div class="timeline">
-        <div class="tl"><div class="t">07:30</div><div class="h">ケアンズ埠頭 集合</div><div class="d">クルーズ受付。酔い止めは早めに服用を。<span class="pin">📍 Reef Fleet Terminal</span></div></div>
-        <div class="tl sun"><div class="t">09:00</div><div class="h">グリーン島 or 外洋リーフ ポンツーン</div><div class="d">お子さま連れはグリーン島が安心。シュノーケル・グラスボトムボート・砂浜遊び。</div></div>
-        <div class="tl food"><div class="t">12:30</div><div class="h">船上 or 島でランチ</div><div class="d">熱帯魚とサンゴの海を満喫。ライフジャケット必須。</div></div>
-        <div class="tl"><div class="t">16:30</div><div class="h">ケアンズ帰港</div><div class="d">乾季はスティンガー（クラゲ）の心配はほぼなし。</div></div>
-        <div class="tl food"><div class="t">18:30</div><div class="h">ケアンズ市街で夕食</div><div class="d">ナイトマーケットを覗いてパームコーブへ。</div></div>
+        <div class="tl"><div class="t">07:30</div><div class="h">ケアンズ埠頭 集合（田邊家と）</div><div class="d">クルーズ受付。船酔い対策は早めに。<span class="pin">📍 Reef Fleet Terminal</span></div></div>
+        <div class="tl sun"><div class="t">09:00</div><div class="h">グリーン島 上陸</div><div class="d">4歳連れはグリーン島がおすすめ。遠浅の砂浜・グラスボトムボート・シュノーケル。日陰でママも休める。</div></div>
+        <div class="tl food"><div class="t">12:30</div><div class="h">島でランチ &amp; プール</div><div class="d">島内リゾートのプールで休憩も。ライフジャケット必須。</div></div>
+        <div class="tl"><div class="t">16:30</div><div class="h">ケアンズ帰港</div><div class="d">乾季はスティンガー（毒クラゲ）の心配はほぼなし。</div></div>
+        <div class="tl food"><div class="t">18:30</div><div class="h">田邊家と夕食</div><div class="d">大きなイベントの1日。娘さんは早めに就寝を。</div></div>
       </div></div></div>
     </div>
 
@@ -528,14 +533,15 @@
     <div class="day reveal">
       <div class="day-head" role="button" tabindex="0" aria-expanded="false">
         <div class="day-no"><div class="d">DAY</div><div class="n">4</div></div>
-        <div class="day-title"><div class="date">8/30 Sun</div><h3>リゾート&amp;スパ でゆったり</h3><div class="theme">🌴 何もしない贅沢な1日</div></div>
+        <div class="day-title"><div class="date">8/30 Sun</div><h3>キュランダ 熱帯雨林 🚡</h3><div class="theme">👨‍👩‍👧 田邊家と一緒に・スカイレール&amp;列車</div></div>
         <div class="chev">▼</div>
       </div>
       <div class="day-body"><div><div class="timeline">
-        <div class="tl sun"><div class="t">午前</div><div class="h">ホテルのプール・ビーチでのんびり</div><div class="d">旅の中日はあえて予定を入れず休息。</div></div>
-        <div class="tl"><div class="t">午後</div><div class="h">スパ or パームコーブ散歩</div><div class="d">大人はスパ、お子さまはプール、と分担も。</div></div>
-        <div class="tl"><div class="t">夕方</div><div class="h">ケアンズ エスプラネード ラグーン</div><div class="d">海沿いの無料人工プール。夕景がきれい。<span class="pin">📍 Cairns Esplanade</span></div></div>
-        <div class="tl food"><div class="t">夜</div><div class="h">お気に入りのレストランで夕食</div></div>
+        <div class="tl"><div class="t">09:00</div><div class="h">スカイレール乗り場へ（田邊家と）</div><div class="d">前日がリーフなので朝はゆっくりめ。<span class="pin">📍 Smithfield</span></div></div>
+        <div class="tl sun"><div class="t">10:00</div><div class="h">熱帯雨林の空中散歩 → キュランダ村</div><div class="d">コアラガーデン・蝶園・小動物園。4歳も大喜び。ベビーカーより歩きやすい靴で。</div></div>
+        <div class="tl food"><div class="t">12:30</div><div class="h">村でランチ &amp; マーケット</div><div class="d">ハンドメイド雑貨のお土産探しにも。</div></div>
+        <div class="tl"><div class="t">14:30</div><div class="h">キュランダ観光列車で下山</div><div class="d">渓谷と滝を眺めるレトロな鉄道旅。娘さんは車窓に夢中。</div></div>
+        <div class="tl food"><div class="t">18:30</div><div class="h">パームコーブで夕食</div></div>
       </div></div></div>
     </div>
 
@@ -543,14 +549,15 @@
     <div class="day reveal">
       <div class="day-head" role="button" tabindex="0" aria-expanded="false">
         <div class="day-no"><div class="d">DAY</div><div class="n">5</div></div>
-        <div class="day-title"><div class="date">8/31 Mon</div><h3>動物ふれあい &amp; ポートダグラス</h3><div class="theme">🐊 ハートリーズ &amp; 4マイルビーチ</div></div>
+        <div class="day-title"><div class="date">8/31 Mon</div><h3>リカバリー日・プール三昧 🏊</h3><div class="theme">⛳ 早朝ゴルフ可／ママはスパ・娘はプール</div></div>
         <div class="chev">▼</div>
       </div>
       <div class="day-body"><div><div class="timeline">
-        <div class="tl"><div class="t">09:00</div><div class="h">ハートリーズ クロコダイル アドベンチャー</div><div class="d">クロコダイルクルーズ、コアラ抱っこ、餌やり。子どもに大人気。<span class="pin">📍 Wangetti</span></div></div>
-        <div class="tl food"><div class="t">12:30</div><div class="h">ポートダグラスでランチ</div><div class="d">おしゃれな港町。マカロッサ通りを散策。</div></div>
-        <div class="tl sun"><div class="t">14:30</div><div class="h">フォーマイル ビーチ</div><div class="d">広々としたビーチでのんびり。</div></div>
-        <div class="tl food"><div class="t">18:30</div><div class="h">パームコーブへ戻り夕食</div></div>
+        <div class="tl golf"><div class="t">06:30</div><div class="h">パパたち 早朝ゴルフ ⛳（任意）</div><div class="d">連日の観光の合間に。行かなければ家族でゆっくり朝食。</div></div>
+        <div class="tl pool"><div class="t">午前</div><div class="h">ホテルのプールでたっぷり遊ぶ</div><div class="d">2日続いた観光のあとは、あえて何もしない日。</div></div>
+        <div class="tl"><div class="t">午後</div><div class="h">ママはスパ 💆 / 娘はプールかお昼寝</div><div class="d">大人が交代で娘さんを見ながら、ママにご褒美時間を。</div></div>
+        <div class="tl sun"><div class="t">夕方</div><div class="h">ケアンズ エスプラネード ラグーン</div><div class="d">海沿いの無料人工プール。浅くて子ども向き、夕景もきれい。<span class="pin">📍 Cairns Esplanade</span></div></div>
+        <div class="tl food"><div class="t">夜</div><div class="h">お気に入りのレストランで夕食</div></div>
       </div></div></div>
     </div>
 
@@ -558,14 +565,15 @@
     <div class="day reveal">
       <div class="day-head" role="button" tabindex="0" aria-expanded="false">
         <div class="day-no"><div class="d">DAY</div><div class="n">6</div></div>
-        <div class="day-title"><div class="date">9/1 Tue</div><h3>予備日 / お土産 &amp; ビーチ</h3><div class="theme">🛍️ 自由に・体力と相談</div></div>
+        <div class="day-title"><div class="date">9/1 Tue</div><h3>のんびり自由日 🛍️</h3><div class="theme">⛳ 早朝ゴルフ可／ポートダグラス or プール</div></div>
         <div class="chev">▼</div>
       </div>
       <div class="day-body"><div><div class="timeline">
-        <div class="tl sun"><div class="t">午前</div><div class="h">ビーチ or デインツリー方面へ（元気なら）</div><div class="d">世界最古の熱帯雨林モスマン渓谷は片道約1時間。ムリなければビーチでゆっくり。</div></div>
-        <div class="tl food"><div class="t">昼</div><div class="h">お気に入りカフェでランチ</div></div>
+        <div class="tl golf"><div class="t">06:30</div><div class="h">パパたち 早朝ゴルフ ⛳（任意）</div></div>
+        <div class="tl sun"><div class="t">午前</div><div class="h">ポートダグラスへ小旅行（元気なら）</div><div class="d">おしゃれな港町＆フォーマイルビーチ。パームコーブから車で約40分。疲れていればプールでのんびりに変更OK。<span class="pin">📍 Port Douglas</span></div></div>
+        <div class="tl food"><div class="t">昼</div><div class="h">港町でランチ</div></div>
         <div class="tl"><div class="t">午後</div><div class="h">ケアンズ市街でお土産</div><div class="d">DFO・スーパー（Woolworths等）でばらまき土産。</div></div>
-        <div class="tl food"><div class="t">夜</div><div class="h">田邊家と合流ディナー（最後の夜前）</div></div>
+        <div class="tl food"><div class="t">夜</div><div class="h">田邊家と合流ディナー</div></div>
       </div></div></div>
     </div>
 
@@ -573,14 +581,15 @@
     <div class="day reveal">
       <div class="day-head" role="button" tabindex="0" aria-expanded="false">
         <div class="day-no"><div class="d">DAY</div><div class="n">7</div></div>
-        <div class="day-title"><div class="date">9/2 Wed</div><h3>リゾート最終日</h3><div class="theme">🌅 名残を惜しんで・荷造り</div></div>
+        <div class="day-title"><div class="date">9/2 Wed</div><h3>リゾート最終日 🌅</h3><div class="theme">🏊 最後のプール・荷造り・お別れ会</div></div>
         <div class="chev">▼</div>
       </div>
       <div class="day-body"><div><div class="timeline">
-        <div class="tl sun"><div class="t">午前</div><div class="h">最後のビーチ &amp; プール</div><div class="d">お気に入りの場所をもう一度。</div></div>
-        <div class="tl"><div class="t">午後</div><div class="h">荷造り・お土産の仕分け</div><div class="d">液体物・機内持込を整理。</div></div>
+        <div class="tl golf"><div class="t">06:30</div><div class="h">パパたち 早朝ゴルフ ⛳（任意・最後の1ラウンド）</div></div>
+        <div class="tl pool"><div class="t">午前</div><div class="h">最後のプール &amp; ビーチ 🏊</div><div class="d">娘さんのお気に入りの場所でもう一度。</div></div>
+        <div class="tl"><div class="t">午後</div><div class="h">荷造り・お土産の仕分け</div><div class="d">液体物・機内持込を整理。翌朝はバタバタしないように。</div></div>
         <div class="tl"><div class="t">夕方</div><div class="h">レンタカー給油（返却前）</div><div class="d">満タン返しの条件を確認。</div></div>
-        <div class="tl food"><div class="t">夜</div><div class="h">お別れディナー</div><div class="d">思い出を振り返りながら。</div></div>
+        <div class="tl food"><div class="t">夜</div><div class="h">田邊家とお別れディナー</div><div class="d">思い出を振り返りながら。</div></div>
       </div></div></div>
     </div>
 
@@ -623,6 +632,8 @@
       <div class="fact reveal"><div class="ft">💧 水・チップ</div><div class="fv">水道水は<b>飲用可</b>。チップは基本<b>不要</b>。</div></div>
       <div class="fact reveal"><div class="ft">🪼 海の安全</div><div class="fv">スティンガー（毒クラゲ）は主に11〜5月。<b>乾季の8〜9月はほぼ問題なし</b>。</div></div>
       <div class="fact reveal"><div class="ft">☀️ 紫外線</div><div class="fv">南半球は非常に強い。<b>日焼け止め・帽子</b>をこまめに。</div></div>
+      <div class="fact reveal"><div class="ft">⛳ 早朝ゴルフ（近隣コース）</div><div class="fv"><b>Paradise Palms</b>（Kewarra Beach・車約10分）／<b>Half Moon Bay G.C.</b>（Yorkeys Knob・約15分）。乾季は早朝が快適。要事前予約。</div></div>
+      <div class="fact reveal"><div class="ft">🏊 4歳とプール</div><div class="fv">水遊び用おむつ・アームリング持参。日差しが強いので<b>午前と夕方中心</b>、日中はパラソル下で休憩を。</div></div>
     </div>
   </section>
 
