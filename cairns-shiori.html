@@ -9,37 +9,16 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
 <style>
+  /* Bright, white-based tropical palette — this page commits to a light look */
   :root{
-    --sand:#FBF7F1; --sand-2:#F3EBDD; --card:#FFFFFF;
-    --ink:#1C3A38; --ink-soft:#48605D; --muted:#7C8B88;
-    --line:#E8DDCB; --line-soft:#F0E7D8;
-    --coral:#E9633B; --coral-deep:#C24A28;
-    --teal:#0E9AA7; --teal-deep:#0A7C87;
-    --gold:#E5A32F;
-    --shadow:rgba(28,58,56,.10); --shadow-lg:rgba(28,58,56,.16);
-    --hero-1:#F7C97D; --hero-2:#EE8A56; --hero-3:#159AA6;
-  }
-  :root:not([data-theme="light"]){
-    @media (prefers-color-scheme: dark){
-      --sand:#0C1E23; --sand-2:#102A30; --card:#142A31;
-      --ink:#EAF3F1; --ink-soft:#B6C8C4; --muted:#7E938F;
-      --line:#26424A; --line-soft:#1B353C;
-      --coral:#FF7C4F; --coral-deep:#FF9068;
-      --teal:#39C4D0; --teal-deep:#54D3DD;
-      --gold:#F0C15C;
-      --shadow:rgba(0,0,0,.35); --shadow-lg:rgba(0,0,0,.45);
-      --hero-1:#2A4A44; --hero-2:#8A4530; --hero-3:#0C5A63;
-    }
-  }
-  :root[data-theme="dark"]{
-    --sand:#0C1E23; --sand-2:#102A30; --card:#142A31;
-    --ink:#EAF3F1; --ink-soft:#B6C8C4; --muted:#7E938F;
-    --line:#26424A; --line-soft:#1B353C;
-    --coral:#FF7C4F; --coral-deep:#FF9068;
-    --teal:#39C4D0; --teal-deep:#54D3DD;
-    --gold:#F0C15C;
-    --shadow:rgba(0,0,0,.35); --shadow-lg:rgba(0,0,0,.45);
-    --hero-1:#2A4A44; --hero-2:#8A4530; --hero-3:#0C5A63;
+    --sand:#FFF7FA; --sand-2:#FFEDF3; --card:#FFFFFF;
+    --ink:#3E2A38; --ink-soft:#6E5763; --muted:#AC909C;
+    --line:#F8E3EC; --line-soft:#FCEEF4;
+    --coral:#FF5C87; --coral-deep:#E23B6E;
+    --teal:#12BFC9; --teal-deep:#0A9AA6;
+    --gold:#FFB13B;
+    --shadow:rgba(226,120,150,.14); --shadow-lg:rgba(226,120,150,.22);
+    --hero-1:#FF86AE; --hero-2:#FF6E9C; --hero-3:#23C4CE;
   }
 
   *{box-sizing:border-box;margin:0;padding:0}
@@ -90,7 +69,6 @@
       radial-gradient(120% 90% at 50% -10%, var(--hero-1) 0%, var(--hero-2) 42%, var(--hero-3) 100%);
     color:#fff;
   }
-  :root[data-theme="dark"] .hero, :root:not([data-theme="light"]) .hero{color:#F4EFE7}
   .hero .sun{
     position:absolute;top:-70px;left:50%;transform:translateX(-50%);
     width:220px;height:220px;border-radius:50%;
@@ -100,14 +78,15 @@
   .waves{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:46px;display:block}
   .hero-eyebrow{
     font-family:"Fraunces",serif;font-style:italic;font-weight:500;
-    letter-spacing:.06em;font-size:15px;opacity:.95;margin-bottom:10px;
+    letter-spacing:.06em;font-size:15px;opacity:.98;margin-bottom:10px;
+    text-shadow:0 1px 8px rgba(150,30,70,.35);
   }
   .hero h1{
     font-family:"Zen Maru Gothic",sans-serif;font-weight:900;
     font-size:clamp(30px,8vw,50px);line-height:1.18;text-wrap:balance;
     text-shadow:0 2px 18px rgba(0,0,0,.18);
   }
-  .hero .sub{margin-top:16px;font-weight:500;font-size:15px;opacity:.96}
+  .hero .sub{margin-top:16px;font-weight:500;font-size:15px;opacity:.98;text-shadow:0 1px 8px rgba(150,30,70,.3)}
   .hero .dates{
     margin-top:22px;display:inline-flex;align-items:center;gap:14px;
     font-family:"Fraunces",serif;font-weight:600;font-size:clamp(17px,4.4vw,22px);
@@ -129,7 +108,7 @@
   section{padding:44px 0 8px}
   .eyebrow{
     font-family:"Fraunces",serif;font-style:italic;font-weight:500;
-    color:var(--coral);font-size:14px;letter-spacing:.05em;
+    color:var(--coral-deep);font-size:14px;letter-spacing:.05em;
     display:flex;align-items:center;gap:10px;margin-bottom:6px;
   }
   .eyebrow::before{content:"";width:26px;height:2px;background:var(--coral);border-radius:2px;display:inline-block}
@@ -348,7 +327,6 @@
       <a href="#live">移住</a>
       <a href="#sos">緊急</a>
     </nav>
-    <button class="theme-btn" id="themeBtn" aria-label="ダークモード切替" title="テーマ切替">◐</button>
   </div>
 </header>
 
@@ -940,17 +918,6 @@
 
 <script>
 (function(){
-  // ---- theme toggle ----
-  var root=document.documentElement, btn=document.getElementById('themeBtn');
-  try{var saved=localStorage.getItem('cns-theme'); if(saved) root.setAttribute('data-theme',saved);}catch(e){}
-  btn.addEventListener('click',function(){
-    var cur=root.getAttribute('data-theme');
-    var isDark = cur ? cur==='dark' : matchMedia('(prefers-color-scheme: dark)').matches;
-    var next=isDark?'light':'dark';
-    root.setAttribute('data-theme',next);
-    try{localStorage.setItem('cns-theme',next);}catch(e){}
-  });
-
   // ---- countdown ----
   try{
     var dep=new Date('2026-08-26T20:05:00+09:00');
