@@ -297,6 +297,32 @@
   .dream .real{margin-top:18px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.32);border-radius:13px;padding:13px 16px;font-size:12.5px;line-height:1.7}
   .dream .real b{color:#fff}
 
+  /* ---- playful illustrations & motion ---- */
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+  @keyframes bouncy{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-7px) rotate(2deg)}}
+  @keyframes sway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+  .dog-svg{width:118px;height:auto;display:block;filter:drop-shadow(0 8px 12px rgba(0,0,0,.16));animation:bouncy 2.8s ease-in-out infinite;transform-origin:center bottom}
+  .bluey-wrap{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+  .bluey-ill{flex:none;display:flex;flex-direction:column;align-items:center;gap:8px}
+  .bluey-ill .paws{display:flex;gap:7px;color:var(--teal);opacity:.55}
+  .bluey-ill .paws svg{width:16px;height:16px}
+  .bluey-txt{flex:1;min-width:210px}
+  .hero-palm{position:absolute;left:2px;bottom:8px;width:60px;height:auto;transform-origin:bottom center;animation:sway 6s ease-in-out infinite;opacity:.95;pointer-events:none;z-index:1}
+  .hero-palm.r{left:auto;right:2px;transform:scaleX(-1);animation-delay:-3s}
+  .hero-fish{position:absolute;right:22px;bottom:50px;width:40px;pointer-events:none;animation:floaty 4.5s ease-in-out infinite;z-index:1}
+  .hero-fish.f2{right:auto;left:26px;bottom:64px;width:30px;animation-delay:-2.2s;transform:scaleX(-1)}
+  .paw-row{display:flex;justify-content:center;gap:16px;color:var(--gold);margin-top:20px;opacity:.55}
+  .paw-row svg{width:22px;height:22px;transform:rotate(-15deg)}
+  .paw-row svg:nth-child(even){transform:rotate(15deg) translateY(7px)}
+  .rtag{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;margin-bottom:7px}
+  .rtag.fam{background:color-mix(in srgb,var(--teal) 20%,var(--card));color:var(--teal-deep)}
+  .rtag.fine{background:color-mix(in srgb,var(--coral) 18%,var(--card));color:var(--coral-deep)}
+  .rtag.cafe{background:color-mix(in srgb,var(--gold) 24%,var(--card));color:#96690f}
+  :root:not([data-theme="light"]) .rtag.cafe{color:var(--gold)}
+  :root[data-theme="dark"] .rtag.cafe{color:var(--gold)}
+  .fact .rname{font-weight:700}
+  @media (prefers-reduced-motion: reduce){.dog-svg,.hero-palm,.hero-fish{animation:none!important}}
+
   footer{text-align:center;padding:48px 20px 40px;color:var(--muted);font-size:12.5px}
   footer .fr{font-family:"Fraunces",serif;font-style:italic;font-size:15px;color:var(--ink-soft);margin-bottom:8px}
 
@@ -328,6 +354,40 @@
 
 <div class="hero">
   <div class="sun"></div>
+  <svg class="hero-palm" viewBox="0 0 120 150" aria-hidden="true">
+    <path d="M56 150 C52 110 50 84 62 58 L68 60 C60 86 62 112 66 150 Z" fill="#7c5136"/>
+    <g fill="#0E9A86">
+      <path d="M62 56 C40 40 20 42 6 52 C24 44 46 46 62 60 Z"/>
+      <path d="M62 56 C44 34 24 26 6 26 C28 30 48 40 62 60 Z"/>
+      <path d="M62 56 C56 32 58 14 70 2 C64 22 66 40 66 60 Z"/>
+      <path d="M62 56 C80 34 100 26 118 26 C96 30 76 40 62 60 Z"/>
+      <path d="M62 56 C84 40 104 42 118 52 C100 44 78 46 62 60 Z"/>
+    </g>
+    <g fill="#F2B441"><circle cx="60" cy="60" r="3"/><circle cx="67" cy="58" r="3"/><circle cx="63" cy="64" r="3"/></g>
+  </svg>
+  <svg class="hero-palm r" viewBox="0 0 120 150" aria-hidden="true">
+    <path d="M56 150 C52 110 50 84 62 58 L68 60 C60 86 62 112 66 150 Z" fill="#7c5136"/>
+    <g fill="#0E9A86">
+      <path d="M62 56 C40 40 20 42 6 52 C24 44 46 46 62 60 Z"/>
+      <path d="M62 56 C44 34 24 26 6 26 C28 30 48 40 62 60 Z"/>
+      <path d="M62 56 C56 32 58 14 70 2 C64 22 66 40 66 60 Z"/>
+      <path d="M62 56 C80 34 100 26 118 26 C96 30 76 40 62 60 Z"/>
+      <path d="M62 56 C84 40 104 42 118 52 C100 44 78 46 62 60 Z"/>
+    </g>
+    <g fill="#F2B441"><circle cx="60" cy="60" r="3"/><circle cx="67" cy="58" r="3"/><circle cx="63" cy="64" r="3"/></g>
+  </svg>
+  <svg class="hero-fish" viewBox="0 0 60 40" aria-hidden="true">
+    <path d="M4 20 Q20 3 50 6 Q60 12 58 20 Q60 28 50 34 Q20 37 4 20 Z" fill="#F5822A"/>
+    <path d="M2 20 L15 12 L15 28 Z" fill="#F5822A"/>
+    <path d="M26 7 Q22 20 26 33 L34 31 Q30 20 34 9 Z" fill="#fff"/>
+    <path d="M45 9 Q43 20 45 31 L51 27 Q49 20 51 13 Z" fill="#fff"/>
+    <circle cx="50" cy="16" r="2.4" fill="#233"/>
+  </svg>
+  <svg class="hero-fish f2" viewBox="0 0 60 40" aria-hidden="true">
+    <path d="M4 20 Q20 3 50 6 Q60 12 58 20 Q60 28 50 34 Q20 37 4 20 Z" fill="#FFD15C"/>
+    <path d="M2 20 L15 12 L15 28 Z" fill="#FFD15C"/>
+    <circle cx="50" cy="16" r="2.2" fill="#233"/>
+  </svg>
   <div class="hero-eyebrow">Palm Cove &amp; Cairns · Tropical North Queensland</div>
   <h1>ケアンズ<br>家族旅行のしおり</h1>
   <div class="sub">大人2名 ＋ 娘4歳 ／ 田邊ご一家と一緒に</div>
@@ -408,14 +468,54 @@
     </div>
 
     <div class="kids blue reveal">
-      <h3>🐶 だいすきな「ブルーイ」も オーストラリア生まれ！</h3>
+      <h3>🐶 だいすきな あのアニメの わんちゃんも オーストラリア生まれ！</h3>
       <p class="k-lead">ユイちゃんへ</p>
-      <ul>
-        <li><span class="emo">📺</span>ブルーイは <b>オーストラリアの クイーンズランドしゅう</b>で うまれた アニメだよ。</li>
-        <li><span class="emo">📍</span>いく <b>ケアンズも おなじ クイーンズランドしゅう</b>！ ブルーイと おなじ ところに いくんだね。</li>
-        <li><span class="emo">🐕</span>ブルーイは「<b>ブルーヒーラー</b>」っていう オーストラリアの わんちゃん。にてる ワンちゃんに あえるかも。</li>
-        <li><span class="emo">🗣️</span>「<b>G'day!（グダイ）</b>」って いってみよう。ブルーイたちも つかう ごあいさつだよ。</li>
-      </ul>
+      <div class="bluey-wrap">
+        <div class="bluey-ill">
+          <svg class="dog-svg" viewBox="0 0 150 160" role="img" aria-label="ブルーヒーラーのわんちゃんのイラスト">
+            <path d="M112 96 Q142 92 138 62 Q134 84 112 82 Z" fill="#46627B"/>
+            <ellipse cx="75" cy="118" rx="42" ry="34" fill="#5E7E9A"/>
+            <path d="M75 92 Q55 98 55 126 Q55 146 75 148 Q95 146 95 126 Q95 98 75 92 Z" fill="#EAF1F4"/>
+            <rect x="55" y="128" width="15" height="26" rx="7.5" fill="#EAF1F4"/>
+            <rect x="80" y="128" width="15" height="26" rx="7.5" fill="#EAF1F4"/>
+            <ellipse cx="62.5" cy="153" rx="9" ry="5" fill="#D6DEE2"/>
+            <ellipse cx="87.5" cy="153" rx="9" ry="5" fill="#D6DEE2"/>
+            <path d="M40 40 Q26 16 40 6 Q52 18 54 40 Z" fill="#46627B"/>
+            <path d="M110 40 Q124 16 110 6 Q98 18 96 40 Z" fill="#46627B"/>
+            <circle cx="75" cy="62" r="40" fill="#5E7E9A"/>
+            <path d="M75 30 Q45 34 42 66 Q42 84 60 90 L75 62 Z" fill="#D79A69"/>
+            <path d="M75 30 Q105 34 108 66 Q108 84 90 90 L75 62 Z" fill="#CE9163"/>
+            <ellipse cx="75" cy="76" rx="24" ry="19" fill="#F1F6F7"/>
+            <circle cx="60" cy="58" r="6.5" fill="#26333F"/>
+            <circle cx="90" cy="58" r="6.5" fill="#26333F"/>
+            <circle cx="62" cy="55.5" r="2" fill="#fff"/>
+            <circle cx="92" cy="55.5" r="2" fill="#fff"/>
+            <ellipse cx="75" cy="70" rx="7.5" ry="5.5" fill="#26333F"/>
+            <path d="M75 76 Q66 86 58 80 M75 76 Q84 86 92 80" stroke="#26333F" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+            <path d="M69 82 Q75 96 81 82 Z" fill="#EF7C9B"/>
+          </svg>
+          <div class="paws" aria-hidden="true">
+            <svg viewBox="0 0 40 40"><g fill="currentColor"><ellipse cx="20" cy="27" rx="9" ry="7.5"/><circle cx="9" cy="18" r="3.4"/><circle cx="16" cy="12" r="3.6"/><circle cx="24" cy="12" r="3.6"/><circle cx="31" cy="18" r="3.4"/></g></svg>
+            <svg viewBox="0 0 40 40"><g fill="currentColor"><ellipse cx="20" cy="27" rx="9" ry="7.5"/><circle cx="9" cy="18" r="3.4"/><circle cx="16" cy="12" r="3.6"/><circle cx="24" cy="12" r="3.6"/><circle cx="31" cy="18" r="3.4"/></g></svg>
+            <svg viewBox="0 0 40 40"><g fill="currentColor"><ellipse cx="20" cy="27" rx="9" ry="7.5"/><circle cx="9" cy="18" r="3.4"/><circle cx="16" cy="12" r="3.6"/><circle cx="24" cy="12" r="3.6"/><circle cx="31" cy="18" r="3.4"/></g></svg>
+          </div>
+        </div>
+        <div class="bluey-txt">
+          <ul>
+            <li><span class="emo">📺</span>ユイちゃんの すきな あの <b>あおい わんちゃんの アニメ</b>は、<b>オーストラリアの クイーンズランドしゅう</b>で うまれたんだよ。</li>
+            <li><span class="emo">📍</span>いく <b>ケアンズも おなじ クイーンズランドしゅう</b>！ おなじ ふるさとに いくんだね。</li>
+            <li><span class="emo">🐕</span>あの わんちゃんは「<b>ブルーヒーラー</b>」という オーストラリアの いぬ。<b>にてる ワンちゃん</b>に あえるかも！</li>
+            <li><span class="emo">🗣️</span>「<b>G'day!（グダイ）</b>」って いってみよう。オーストラリアの ごあいさつだよ。</li>
+          </ul>
+        </div>
+      </div>
+      <div class="paw-row" aria-hidden="true">
+        <svg viewBox="0 0 40 40"><g fill="currentColor"><ellipse cx="20" cy="27" rx="9" ry="7.5"/><circle cx="9" cy="18" r="3.4"/><circle cx="16" cy="12" r="3.6"/><circle cx="24" cy="12" r="3.6"/><circle cx="31" cy="18" r="3.4"/></g></svg>
+        <svg viewBox="0 0 40 40"><g fill="currentColor"><ellipse cx="20" cy="27" rx="9" ry="7.5"/><circle cx="9" cy="18" r="3.4"/><circle cx="16" cy="12" r="3.6"/><circle cx="24" cy="12" r="3.6"/><circle cx="31" cy="18" r="3.4"/></g></svg>
+        <svg viewBox="0 0 40 40"><g fill="currentColor"><ellipse cx="20" cy="27" rx="9" ry="7.5"/><circle cx="9" cy="18" r="3.4"/><circle cx="16" cy="12" r="3.6"/><circle cx="24" cy="12" r="3.6"/><circle cx="31" cy="18" r="3.4"/></g></svg>
+        <svg viewBox="0 0 40 40"><g fill="currentColor"><ellipse cx="20" cy="27" rx="9" ry="7.5"/><circle cx="9" cy="18" r="3.4"/><circle cx="16" cy="12" r="3.6"/><circle cx="24" cy="12" r="3.6"/><circle cx="31" cy="18" r="3.4"/></g></svg>
+      </div>
+      <p class="chk-note" style="margin-top:8px;text-align:center">※イラストはオリジナルです（実在アニメのキャラクター画像は使っていません）</p>
     </div>
   </section>
 
@@ -435,6 +535,25 @@
       <div class="fact reveal"><div class="ft">☕ フラットホワイト</div><div class="fv"><b>オーストラリア発祥のカフェ</b>文化。ミートパイも国民食。</div></div>
     </div>
     <div class="note-box reveal">🦘 ちょっと冒険したい人は<b>カンガルー肉</b>（ヘルシーな赤身）も名物。娘さんは<b>パンケーキ・フルーツ・ジェラート</b>が安心で喜びます。</div>
+
+    <div class="subhead reveal"><span class="fl">🍴</span>おすすめのお店 ①パームコーブ（歩いて行ける）</div>
+    <div class="facts">
+      <div class="fact reveal"><span class="rtag fam">家族向け</span><div class="fv"><span class="rname">Surf Club Palm Cove</span><br>ビーチ正面のビストロ。眺め◎で子連れに人気、気軽に入れる定番。</div></div>
+      <div class="fact reveal"><span class="rtag fam">家族向け</span><div class="fv"><span class="rname">Vivo Palm Cove</span><br>白い開放的なコロニアル建物。朝〜夜まで幅広メニューの人気店。</div></div>
+      <div class="fact reveal"><span class="rtag fine">特別な日に</span><div class="fv"><span class="rname">Nu Nu</span><br>豪州屈指のビーチフロント名店。記念日ディナーに（要予約）。</div></div>
+      <div class="fact reveal"><span class="rtag cafe">カフェ・朝食</span><div class="fv"><span class="rname">Chill Cafe &amp; Bar</span><br>気軽なカフェ。朝食・コーヒー・軽いランチに便利。</div></div>
+      <div class="fact reveal"><span class="rtag fine">シーフード</span><div class="fv"><span class="rname">Beach Almond</span><br>ビーチ小屋の創作アジアン・シーフード。雰囲気抜群。</div></div>
+    </div>
+
+    <div class="subhead reveal"><span class="fl">🏙️</span>おすすめのお店 ②ケアンズ市街（お出かけの日に）</div>
+    <div class="facts">
+      <div class="fact reveal"><span class="rtag fam">家族向け</span><div class="fv"><span class="rname">Dundee's</span><br>名物シーフード。カンガルー/クロコの盛合せも楽しめる。子連れOK。</div></div>
+      <div class="fact reveal"><span class="rtag fam">家族向け</span><div class="fv"><span class="rname">Salt House</span><br>マリーナ横の開放的な人気店。ピザ・眺め◎で家族に◎。</div></div>
+      <div class="fact reveal"><span class="rtag fine">シーフード</span><div class="fv"><span class="rname">Prawn Star</span><br>停泊した漁船の上で食べる名物エビ。カジュアルで大人気（並ぶ日も）。</div></div>
+      <div class="fact reveal"><span class="rtag fine">特別な日に</span><div class="fv"><span class="rname">Ochre Restaurant</span><br>native食材（カンガルー・クロコ）の本格モダン豪州料理。</div></div>
+      <div class="fact reveal"><span class="rtag cafe">ジェラート</span><div class="fv"><span class="rname">Gelocchio</span><br>ケアンズで人気のジェラート屋さん。娘さんのご褒美に。</div></div>
+    </div>
+    <div class="note-box reveal">📝 人気店・ビーチフロントは<b>夜は要予約</b>（特に Nu Nu）。営業日時は変わることがあるので、<b>当日Googleマップで最新の営業時間を確認</b>を。田邊家との合流ディナーは早めの予約が安心です。</div>
 
     <div class="subhead reveal"><span class="fl">🗣️</span>親子でつかえる かんたん英語</div>
     <div class="card reveal" style="margin-top:8px">
