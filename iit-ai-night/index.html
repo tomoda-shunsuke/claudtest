@@ -366,6 +366,7 @@
     font-size: .85rem; color: var(--ink-2);
   }
   .banner .grow { flex: 1 1 14rem; }
+  .banner.alert { border-style: solid; border-color: var(--alert); background: var(--alert-sf); color: var(--alert); }
 
   .tablewrap {
     overflow-x: auto;
@@ -657,6 +658,8 @@
     </div>
   </div>
 
+  <div class="banner" id="mode-banner" hidden></div>
+
   <div class="stats" id="stats"></div>
 
   <div class="banner" id="sample-banner" hidden>
@@ -678,8 +681,11 @@
       <option value="検討中">検討中</option>
       <option value="聞くだけ">聞くだけ</option>
     </select>
+    <button type="button" class="btn ghost small" id="reload">再読み込み</button>
     <button type="button" class="btn ghost small" id="csv">CSVで書き出す</button>
   </div>
+
+  <div class="banner alert" id="admin-error" hidden></div>
 
   <div class="tablewrap">
     <table>
@@ -697,11 +703,11 @@
       </thead>
       <tbody id="rows"></tbody>
     </table>
-    <p class="empty" id="empty" hidden>該当する申込はまだありません。</p>
+    <p class="empty" id="empty" hidden>読み込み中…</p>
   </div>
 
   <footer>
-    <p>データはこのブラウザ内にのみ保存されています（他の端末とは共有されません）。実運用に切り替える際は、スクリプト内の <code>Store</code> をサーバー保存に差し替えてください。</p>
+    <p id="store-mode"></p>
     <p><button type="button" class="linkbtn" id="to-form2">申込フォームを表示</button></p>
   </footer>
 </div>
@@ -709,51 +715,55 @@
 <script>
 /* =======================================================================
    受付設定
+   -----------------------------------------------------------------------
+   API_URL に Google Apps Script のウェブアプリURLを設定すると、
+   申込データはスプレッドシートに保存され、どの端末からでも
+   管理画面で確認できるようになります（設定方法は README.md）。
+   空のままにすると、この端末のブラウザ内だけに保存するデモ動作になります。
    ----------------------------------------------------------------------- */
 var CONFIG = {
-  ADMIN_PASSWORD: "iit-ai-night",   // 管理画面のパスワード
-  CAPACITY: 25,                     // 定員（名）
-  PRE_BOOKED: 0,                    // このフォーム以外で既に受付済みの人数
-  FEE: 1000                         // お一人あたりの参加費（円）
+  API_URL: "",                     // 例）https://script.google.com/macros/s/XXXXXXXX/exec
+  DEMO_PASSWORD: "iit-ai-night",   // デモ動作のときの管理画面パスワード
+  CAPACITY: 25,                    // 定員（名）※Code.gs の CAPACITY と揃えてください
+  PRE_BOOKED: 0,                   // このフォーム以外で既に受付済みの人数
+  FEE: 1000                        // お一人あたりの参加費（円）
 };
 
 /* =======================================================================
-   保存先 — 実運用に切り替えるときは、この Store の中身だけを
-   サーバー（Google Apps Script / Supabase など）への通信に差し替えます。
-   画面側は Store.list() / add() / update() / remove() しか呼びません。
+   共通ユーティリティ
    ----------------------------------------------------------------------- */
-var Store = {
-  KEY: "iit-ai-night/entries/v1",
-  _read: function () {
-    try {
-      var raw = localStorage.getItem(this.KEY);
-      return raw ? JSON.parse(raw) : null;
-    } catch (e) { return null; }
-  },
-  _write: function (arr) {
-    try { localStorage.setItem(this.KEY, JSON.stringify(arr)); return true; }
-    catch (e) { return false; }
-  },
-  list: function () {
-    var a = this._read();
-    if (a === null) { a = SAMPLES.slice(); this._write(a); }
-    return a;
-  },
-  add: function (rec) { var a = this.list(); a.push(rec); return this._write(a); },
-  update: function (id, patch) {
-    var a = this.list();
-    for (var i = 0; i < a.length; i++) {
-      if (a[i].id === id) { for (var k in patch) a[i][k] = patch[k]; break; }
-    }
-    return this._write(a);
-  },
-  remove: function (pred) {
-    var a = this.list().filter(function (r) { return !pred(r); });
-    return this._write(a);
-  }
-};
+var $ = function (id) { return document.getElementById(id); };
+function val(id) { return ($(id).value || "").trim(); }
+function radio(name) {
+  var r = document.querySelector('input[name="' + name + '"]:checked');
+  return r ? r.value : "";
+}
+function headcount(r) { return 1 + (Number(r.guests) || 0); }
+function active(list) { return list.filter(function (r) { return r.status !== "キャンセル"; }); }
+function totalPeople(list) {
+  return active(list).reduce(function (n, r) { return n + headcount(r); }, 0);
+}
+function leftFrom(list) { return CONFIG.CAPACITY - CONFIG.PRE_BOOKED - totalPeople(list); }
+function fmtDate(iso) {
+  var d = new Date(iso);
+  if (isNaN(d)) return "";
+  var p = function (n) { return ("0" + n).slice(-2); };
+  return (d.getMonth() + 1) + "/" + d.getDate() + " " + p(d.getHours()) + ":" + p(d.getMinutes());
+}
+function yen(n) { return "¥" + n.toLocaleString("ja-JP"); }
+function esc(s) {
+  return String(s == null ? "" : s)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
 
-/* 初回表示用のサンプル（管理画面から削除できます） */
+/* =======================================================================
+   保存先
+   -----------------------------------------------------------------------
+   Local  … この端末のブラウザ内（デモ）
+   Remote … Google Apps Script 経由でスプレッドシートに保存
+   どちらも seats / add / login / list / update / remove の6つを持ち、
+   画面側はその6つしか呼びません。
+   ----------------------------------------------------------------------- */
 var SAMPLES = [
   { id: "sample-1", sample: true, createdAt: "2026-08-26T10:12:00.000Z", status: "確認済",
     name: "田中 健一", kana: "たなか けんいち", company: "サンプル情報システム株式会社", title: "開発部 部長",
@@ -773,42 +783,89 @@ var SAMPLES = [
     allergy: "", memo: "AI活用をこれから始める段階です。" }
 ];
 
+var Local = {
+  KEY: "iit-ai-night/entries/v1",
+  _read: function () {
+    try { var raw = localStorage.getItem(this.KEY); return raw ? JSON.parse(raw) : null; }
+    catch (e) { return null; }
+  },
+  _write: function (arr) {
+    try { localStorage.setItem(this.KEY, JSON.stringify(arr)); return true; } catch (e) { return false; }
+  },
+  _all: function () {
+    var a = this._read();
+    if (a === null) { a = SAMPLES.slice(); this._write(a); }
+    return a;
+  },
+  seats: function () {
+    var l = this._all();
+    return Promise.resolve({ ok: true, people: totalPeople(l), left: leftFrom(l) });
+  },
+  add: function (rec) {
+    var l = this._all();
+    var left = leftFrom(l);
+    if (headcount(rec) > left) return Promise.resolve({ ok: false, reason: "full", left: left });
+    l.push(rec);
+    return Promise.resolve(this._write(l)
+      ? { ok: true, id: rec.id, left: left - headcount(rec) }
+      : { ok: false, reason: "storage" });
+  },
+  login: function (pw) { return Promise.resolve({ ok: pw === CONFIG.DEMO_PASSWORD }); },
+  list: function () { return Promise.resolve({ ok: true, entries: this._all() }); },
+  update: function (id, patch) {
+    var l = this._all();
+    l.forEach(function (r) { if (r.id === id) { for (var k in patch) r[k] = patch[k]; } });
+    return Promise.resolve({ ok: this._write(l) });
+  },
+  remove: function (ids) {
+    var l = this._all().filter(function (r) { return ids.indexOf(r.id) < 0; });
+    return Promise.resolve({ ok: this._write(l) });
+  }
+};
+
+var Remote = {
+  _post: function (payload) {
+    return fetch(CONFIG.API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payload)
+    }).then(function (r) { return r.json(); });
+  },
+  seats: function () {
+    return fetch(CONFIG.API_URL + "?action=count").then(function (r) { return r.json(); });
+  },
+  add: function (rec) { return this._post({ action: "add", entry: rec }); },
+  login: function (pw) { return this._post({ action: "login", pw: pw }); },
+  list: function () { return this._post({ action: "list", pw: savedPw() }); },
+  update: function (id, patch) { return this._post({ action: "update", pw: savedPw(), id: id, patch: patch }); },
+  remove: function (ids) {
+    var self = this;
+    return ids.reduce(function (p, id) {
+      return p.then(function () { return self._post({ action: "delete", pw: savedPw(), id: id }); });
+    }, Promise.resolve()).then(function () { return { ok: true }; });
+  }
+};
+
+var ONLINE = !!CONFIG.API_URL;
+var Store = ONLINE ? Remote : Local;
+var MODE_TEXT = ONLINE
+  ? "保存先：Googleスプレッドシート。どの端末から申し込まれてもこの画面に表示されます。"
+  : "保存先：このブラウザの中だけ（デモ動作）。ほかの端末からの申込は表示されません。";
+
 /* =======================================================================
-   共通ユーティリティ
+   ログイン状態
    ----------------------------------------------------------------------- */
-var $ = function (id) { return document.getElementById(id); };
-function val(id) { return ($(id).value || "").trim(); }
-function radio(name) {
-  var r = document.querySelector('input[name="' + name + '"]:checked');
-  return r ? r.value : "";
+var SESSION_KEY = "iit-ai-night/session";
+function savedPw() { try { return sessionStorage.getItem(SESSION_KEY) || ""; } catch (e) { return ""; } }
+function setPw(v) {
+  try { v ? sessionStorage.setItem(SESSION_KEY, v) : sessionStorage.removeItem(SESSION_KEY); }
+  catch (e) { /* 保存できない環境ではこの表示中のみ有効 */ }
 }
-function headcount(r) { return 1 + (Number(r.guests) || 0); }
-function active(list) { return list.filter(function (r) { return r.status !== "キャンセル"; }); }
-function totalPeople(list) {
-  return active(list).reduce(function (n, r) { return n + headcount(r); }, 0);
-}
-function remaining(list) {
-  return CONFIG.CAPACITY - CONFIG.PRE_BOOKED - totalPeople(list);
-}
-function fmtDate(iso) {
-  var d = new Date(iso);
-  if (isNaN(d)) return "";
-  var p = function (n) { return ("0" + n).slice(-2); };
-  return (d.getMonth() + 1) + "/" + d.getDate() + " " + p(d.getHours()) + ":" + p(d.getMinutes());
-}
-function yen(n) { return "¥" + n.toLocaleString("ja-JP"); }
+function loggedIn() { return !!savedPw(); }
 
 /* =======================================================================
    画面切り替え
    ----------------------------------------------------------------------- */
-var SESSION_KEY = "iit-ai-night/session";
-function loggedIn() {
-  try { return sessionStorage.getItem(SESSION_KEY) === "1"; } catch (e) { return false; }
-}
-function setLoggedIn(on) {
-  try { on ? sessionStorage.setItem(SESSION_KEY, "1") : sessionStorage.removeItem(SESSION_KEY); }
-  catch (e) { /* 保存できない環境ではこの表示中のみ有効 */ }
-}
 function show(view) {
   $("view-form").hidden = view !== "form";
   $("view-login").hidden = view !== "login";
@@ -817,11 +874,11 @@ function show(view) {
 }
 function route() {
   if (location.hash === "#/admin") {
-    if (loggedIn()) { renderAdmin(); show("admin"); }
+    if (loggedIn()) { show("admin"); refreshAdmin(); }
     else { show("login"); setTimeout(function () { $("pw").focus(); }, 0); }
   } else {
-    renderSeats();
     show("form");
+    renderSeats();
   }
 }
 window.addEventListener("hashchange", route);
@@ -830,24 +887,35 @@ $("to-form").addEventListener("click", function () { location.hash = "#/"; });
 $("to-form2").addEventListener("click", function () { location.hash = "#/"; });
 
 /* =======================================================================
-   ログイン（この画面のみの簡易認証。サーバー保存に切り替える際は
-   サーバー側での検証に置き換えてください）
+   ログイン
    ----------------------------------------------------------------------- */
+function setLoginError(msg) {
+  var e = $("err-pw");
+  e.textContent = msg;
+  e.classList.toggle("on", !!msg);
+  $("pw").setAttribute("aria-invalid", msg ? "true" : "false");
+}
 $("loginform").addEventListener("submit", function (ev) {
   ev.preventDefault();
-  if (val("pw") === CONFIG.ADMIN_PASSWORD) {
-    $("err-pw").classList.remove("on");
-    $("pw").value = "";
-    setLoggedIn(true);
-    renderAdmin();
-    show("admin");
-  } else {
-    $("err-pw").classList.add("on");
-    $("pw").setAttribute("aria-invalid", "true");
-  }
+  var pw = val("pw");
+  var btn = $("loginform").querySelector("button");
+  btn.disabled = true;
+  setLoginError("");
+  Store.login(pw).then(function (res) {
+    if (res && res.ok) {
+      $("pw").value = "";
+      setPw(pw);
+      show("admin");
+      refreshAdmin();
+    } else {
+      setLoginError("パスワードが違います。");
+    }
+  }).catch(function () {
+    setLoginError("サーバーに接続できませんでした。通信環境をご確認ください。");
+  }).then(function () { btn.disabled = false; });
 });
 $("logout").addEventListener("click", function () {
-  setLoggedIn(false);
+  setPw("");
   location.hash = "#/";
 });
 
@@ -917,17 +985,33 @@ function validate() {
   ok = setErr("agree", !$("agree").checked) && ok;
   return ok;
 }
+function formError(msg) {
+  var e = $("formerr");
+  if (!msg) { e.classList.remove("on"); return; }
+  e.textContent = msg;
+  e.classList.add("on");
+}
 
-function renderSeats() {
-  var left = remaining(Store.list());
+function paintSeats(left) {
   var chip = $("seats-chip");
+  if (left === null) {
+    chip.classList.remove("full");
+    $("seats-text").textContent = "定員25名程度／定員に達し次第、受付を終了します";
+    $("submit-btn").disabled = false;
+    return;
+  }
   var open = left > 0;
   chip.classList.toggle("full", !open);
   $("seats-text").innerHTML = open
     ? '残席 <b>' + left + '</b> 名 ／ 定員に達し次第、受付を終了します'
     : '満席になりました ／ キャンセル待ちは主催者までご連絡ください';
   $("submit-btn").disabled = !open;
-  if (!open) $("submit-btn").textContent = "受付を終了しました";
+  $("submit-btn").textContent = open ? "この内容で申し込む" : "受付を終了しました";
+}
+function renderSeats() {
+  return Store.seats()
+    .then(function (res) { paintSeats(res && res.ok ? res.left : null); })
+    .catch(function () { paintSeats(null); });
 }
 
 function summaryText(r) {
@@ -952,26 +1036,12 @@ form.addEventListener("change", saveDraft);
 form.addEventListener("submit", function (ev) {
   ev.preventDefault();
   if (!validate()) {
-    $("formerr").textContent = "未入力の項目があります。赤字の項目をご確認ください。";
-    $("formerr").classList.add("on");
+    formError("未入力の項目があります。赤字の項目をご確認ください。");
     var first = form.querySelector('[aria-invalid="true"]');
     if (first) first.scrollIntoView({ block: "center", behavior: "smooth" });
     return;
   }
-
-  var entries = Store.list();
-  var want = 1 + Number($("guests").value);
-  var left = remaining(entries);
-  if (want > left) {
-    $("formerr").textContent = left > 0
-      ? "残席は" + left + "名です。人数をご調整いただくか、主催者までご相談ください。"
-      : "定員に達したため、受付を終了しました。キャンセル待ちは主催者までご連絡ください。";
-    $("formerr").classList.add("on");
-    $("formerr").scrollIntoView({ block: "center", behavior: "smooth" });
-    renderSeats();
-    return;
-  }
-  $("formerr").classList.remove("on");
+  formError("");
 
   var rec = {
     id: "e" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
@@ -985,19 +1055,40 @@ form.addEventListener("submit", function (ev) {
     allergy: val("allergy"), memo: val("memo")
   };
 
-  if (!Store.add(rec)) {
-    $("formerr").textContent = "この端末に保存できませんでした。ブラウザのプライベートモードを解除してお試しください。";
-    $("formerr").classList.add("on");
-    return;
-  }
+  var btn = $("submit-btn");
+  var label = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = "送信中…";
 
-  clearDraft();
-  $("receipt").textContent = "受付番号 " + rec.id.toUpperCase();
-  $("summary").textContent = summaryText(rec);
-  form.hidden = true;
-  $("done").hidden = false;
-  renderSeats();
-  $("done").scrollIntoView({ block: "start", behavior: "smooth" });
+  Store.add(rec).then(function (res) {
+    if (res && res.ok) {
+      clearDraft();
+      $("receipt").textContent = "受付番号 " + rec.id.toUpperCase();
+      $("summary").textContent = summaryText(rec);
+      form.hidden = true;
+      $("done").hidden = false;
+      paintSeats(typeof res.left === "number" ? res.left : null);
+      $("done").scrollIntoView({ block: "start", behavior: "smooth" });
+      return;
+    }
+    if (res && res.reason === "full") {
+      formError(res.left > 0
+        ? "残席は" + res.left + "名です。人数をご調整いただくか、主催者までご相談ください。"
+        : "定員に達したため、受付を終了しました。キャンセル待ちは主催者までご連絡ください。");
+      paintSeats(res.left);
+    } else if (res && res.reason === "storage") {
+      formError("この端末に保存できませんでした。ブラウザのプライベートモードを解除してお試しください。");
+    } else {
+      formError("送信できませんでした。時間をおいて、もう一度お試しください。");
+    }
+    $("formerr").scrollIntoView({ block: "center", behavior: "smooth" });
+  }).catch(function () {
+    formError("送信できませんでした。通信環境をご確認のうえ、もう一度お試しください。入力内容は残っています。");
+    $("formerr").scrollIntoView({ block: "center", behavior: "smooth" });
+  }).then(function () {
+    btn.disabled = false;
+    if (btn.textContent === "送信中…") btn.textContent = label;
+  });
 });
 
 $("again").addEventListener("click", function () {
@@ -1007,18 +1098,58 @@ $("again").addEventListener("click", function () {
   toggleCase(); toggleGuests();
   $("done").hidden = true;
   form.hidden = false;
+  renderSeats();
   form.scrollIntoView({ block: "start", behavior: "smooth" });
 });
 
 /* =======================================================================
    管理画面
    ----------------------------------------------------------------------- */
+var entries = [];
 var openRows = {};
 
-function renderStats(list) {
-  var act = active(list);
-  var people = totalPeople(list);
-  var left = remaining(list);
+function setAdminError(msg) {
+  var e = $("admin-error");
+  e.textContent = msg || "";
+  e.hidden = !msg;
+}
+
+function refreshAdmin() {
+  setAdminError("");
+  $("empty").textContent = "読み込み中…";
+  $("empty").hidden = false;
+  $("mode-banner").textContent = MODE_TEXT;
+  $("mode-banner").hidden = false;
+  $("store-mode").textContent = MODE_TEXT;
+
+  return Store.list().then(function (res) {
+    if (!res || !res.ok) {
+      if (res && res.reason === "auth") {
+        setPw("");
+        show("login");
+        setLoginError("パスワードが違います。もう一度ログインしてください。");
+        return;
+      }
+      throw new Error("list_failed");
+    }
+    entries = res.entries || [];
+    $("empty").textContent = "該当する申込はまだありません。";
+    renderStats();
+    renderRows();
+    $("sample-banner").hidden = !entries.some(function (r) { return r.sample; });
+  }).catch(function () {
+    entries = [];
+    renderStats();
+    renderRows();
+    $("empty").textContent = "読み込めませんでした。";
+    setAdminError("データを読み込めませんでした。通信環境をご確認のうえ「再読み込み」をお試しください。");
+  });
+}
+
+function renderStats() {
+  var act = active(entries);
+  var people = totalPeople(entries);
+  var left = leftFrom(entries);
   var shares = act.filter(function (r) { return r.share === "共有できる"; }).length;
   var party = act.filter(function (r) { return r.konshin === "参加する"; })
                  .reduce(function (n, r) { return n + headcount(r); }, 0);
@@ -1036,16 +1167,11 @@ function renderStats(list) {
   }).join("");
 }
 
-function esc(s) {
-  return String(s == null ? "" : s)
-    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-}
-
-function filtered(list) {
+function filtered() {
   var q = val("q").toLowerCase();
   var st = $("filter-status").value;
   var sh = $("filter-share").value;
-  return list.filter(function (r) {
+  return entries.filter(function (r) {
     if (st && r.status !== st) return false;
     if (sh && r.share !== sh) return false;
     if (!q) return true;
@@ -1054,8 +1180,8 @@ function filtered(list) {
   });
 }
 
-function renderRows(list) {
-  var rows = filtered(list).slice().sort(function (a, b) {
+function renderRows() {
+  var rows = filtered().slice().sort(function (a, b) {
     return a.createdAt < b.createdAt ? 1 : -1;
   });
   $("empty").hidden = rows.length > 0;
@@ -1076,8 +1202,8 @@ function renderRows(list) {
         '<td class="num">' + headcount(r) + '名</td>' +
         '<td class="keep">' +
           '<select class="statussel" data-s="' + esc(r.status) + '" data-id="' + esc(r.id) + '">' +
-            ["受付済", "確認済", "キャンセル"].map(function (s) {
-              return '<option value="' + s + '"' + (s === r.status ? " selected" : "") + '>' + s + '</option>';
+            ["受付済", "確認済", "キャンセル"].map(function (st) {
+              return '<option value="' + st + '"' + (st === r.status ? " selected" : "") + '>' + st + '</option>';
             }).join("") +
           '</select></td>' +
         '<td class="keep"><button type="button" class="linkbtn" data-detail="' + esc(r.id) + '">' +
@@ -1103,42 +1229,48 @@ function renderRows(list) {
   }).join("");
 }
 
-function renderAdmin() {
-  var list = Store.list();
-  renderStats(list);
-  renderRows(list);
-  $("sample-banner").hidden = !list.some(function (r) { return r.sample; });
-}
-
 $("rows").addEventListener("change", function (ev) {
   var sel = ev.target.closest(".statussel");
   if (!sel) return;
-  Store.update(sel.dataset.id, { status: sel.value });
-  renderAdmin();
+  var id = sel.dataset.id, status = sel.value;
+  sel.disabled = true;
+  Store.update(id, { status: status }).then(function (res) {
+    if (!res || !res.ok) throw new Error("update_failed");
+    return refreshAdmin();
+  }).catch(function () {
+    setAdminError("ステータスを更新できませんでした。「再読み込み」で最新の状態をご確認ください。");
+    sel.disabled = false;
+  });
 });
 $("rows").addEventListener("click", function (ev) {
   var det = ev.target.closest("[data-detail]");
   if (det) {
     var id = det.dataset.detail;
     openRows[id] = !openRows[id];
-    renderRows(Store.list());
+    renderRows();
     return;
   }
   var del = ev.target.closest("[data-del]");
   if (del) {
     if (!confirm("この申込を削除します。よろしいですか？")) return;
-    var target = del.dataset.del;
-    Store.remove(function (r) { return r.id === target; });
-    renderAdmin();
+    del.disabled = true;
+    Store.remove([del.dataset.del]).then(function (res) {
+      if (!res || !res.ok) throw new Error("delete_failed");
+      return refreshAdmin();
+    }).catch(function () {
+      setAdminError("削除できませんでした。「再読み込み」で最新の状態をご確認ください。");
+      del.disabled = false;
+    });
   }
 });
-$("q").addEventListener("input", function () { renderRows(Store.list()); });
-$("filter-status").addEventListener("change", function () { renderRows(Store.list()); });
-$("filter-share").addEventListener("change", function () { renderRows(Store.list()); });
+$("q").addEventListener("input", renderRows);
+$("filter-status").addEventListener("change", renderRows);
+$("filter-share").addEventListener("change", renderRows);
+$("reload").addEventListener("click", refreshAdmin);
 $("del-samples").addEventListener("click", function () {
   if (!confirm("サンプルデータをすべて削除します。よろしいですか？")) return;
-  Store.remove(function (r) { return r.sample; });
-  renderAdmin();
+  var ids = entries.filter(function (r) { return r.sample; }).map(function (r) { return r.id; });
+  Store.remove(ids).then(refreshAdmin);
 });
 
 /* --- CSV 書き出し（Excelで開けるようUTF-8 BOM付き） --- */
@@ -1172,10 +1304,10 @@ function buildCsv(list) {
   return "﻿" + lines.join("\r\n");
 }
 $("csv").addEventListener("click", function () {
-  var csv = buildCsv(filtered(Store.list()));
+  var csv = buildCsv(filtered());
   var filename = "iit-ai-night-entries.csv";
   var btn = $("csv");
-  var reset = function (msg) {
+  var flash = function (msg) {
     btn.textContent = msg;
     setTimeout(function () { btn.textContent = "CSVで書き出す"; }, 2500);
   };
@@ -1184,8 +1316,8 @@ $("csv").addEventListener("click", function () {
   use.then(function (downloads) {
     if (downloads) {
       return downloads.save({ filename: filename, data: csv })
-        .then(function () { reset("書き出しました"); })
-        .catch(function (e) { if (e && e.code !== "declined") reset("書き出せませんでした"); });
+        .then(function () { flash("書き出しました"); })
+        .catch(function (e) { if (e && e.code !== "declined") flash("書き出せませんでした"); });
     }
     var blob = new Blob([csv], { type: "text/csv" });
     var url = URL.createObjectURL(blob);
@@ -1193,7 +1325,7 @@ $("csv").addEventListener("click", function () {
     a.href = url; a.download = filename;
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
-  }).catch(function () { reset("書き出せませんでした"); });
+  }).catch(function () { flash("書き出せませんでした"); });
 });
 
 /* =======================================================================
