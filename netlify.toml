@@ -1,0 +1,11 @@
+# IIT AIナイト 参加受付ページの公開設定
+# 公開するのは iit-ai-night/public のみ。
+# バックエンド(Code.gs)と手順書(README.md)は公開されません。
+[build]
+  publish = "iit-ai-night/public"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
