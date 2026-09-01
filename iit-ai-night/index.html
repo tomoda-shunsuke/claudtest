@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="IIT AIナイト（事例共有＋ピザ）参加受付フォーム — 東京都情報産業協会 技術部会">
+<title>IIT AIナイト 参加受付</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@400;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --bg:        #F4F1F4;
+    --surface:   #FFFFFF;
+    --surface-2: #FAF7F3;
+    --ink:       #1D1A26;
+    --ink-2:     #423C50;
+    --muted:     #6E6878;
+    --line:      #E1DBE4;
+    --line-2:    #CFC7D4;
+    --accent:    #B26A0F;
+    --accent-ink:#FFFFFF;
+    --accent-sf: #FBF0DE;
+    --plum:      #3D2E52;
+    --ok:        #1F6B4D;
+    --alert:     #A5341F;
+    --shadow:    0 1px 2px rgba(29,26,38,.06), 0 12px 32px -18px rgba(29,26,38,.35);
+    --radius:    10px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg:        #141019;
+      --surface:   #1D1826;
+      --surface-2: #241E2F;
+      --ink:       #EFEAF2;
+      --ink-2:     #C9C2D3;
+      --muted:     #9C93AA;
+      --line:      #302A3D;
+      --line-2:    #443C54;
+      --accent:    #F0A93F;
+      --accent-ink:#1D1200;
+      --accent-sf: #2C2214;
+      --plum:      #C6B2E0;
+      --ok:        #6DC79E;
+      --alert:     #F0907A;
+      --shadow:    0 1px 2px rgba(0,0,0,.5), 0 18px 40px -24px rgba(0,0,0,.9);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg:        #141019;
+    --surface:   #1D1826;
+    --surface-2: #241E2F;
+    --ink:       #EFEAF2;
+    --ink-2:     #C9C2D3;
+    --muted:     #9C93AA;
+    --line:      #302A3D;
+    --line-2:    #443C54;
+    --accent:    #F0A93F;
+    --accent-ink:#1D1200;
+    --accent-sf: #2C2214;
+    --plum:      #C6B2E0;
+    --ok:        #6DC79E;
+    --alert:     #F0907A;
+    --shadow:    0 1px 2px rgba(0,0,0,.5), 0 18px 40px -24px rgba(0,0,0,.9);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page { max-width: 46rem; margin: 0 auto; padding: 0 1.25rem 4rem; }
+
+  /* ---------- masthead ---------- */
+  .masthead {
+    position: relative;
+    padding: 3rem 0 2rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .eyebrow {
+    margin: 0 0 1rem;
+    font-family: "Roboto Mono", ui-monospace, monospace;
+    font-size: .72rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .eyebrow .ja { font-family: "Zen Kaku Gothic New", sans-serif; letter-spacing: .12em; }
+  h1 {
+    margin: 0;
+    font-family: "Zen Old Mincho", "Yu Mincho", serif;
+    font-weight: 700;
+    font-size: clamp(2.4rem, 9vw, 3.6rem);
+    line-height: 1.15;
+    letter-spacing: .01em;
+    text-wrap: balance;
+  }
+  h1 .night { color: var(--accent); }
+  .lede {
+    margin: 1rem 0 0;
+    max-width: 32em;
+    font-size: 1.02rem;
+    color: var(--ink-2);
+  }
+  .seats {
+    display: inline-flex;
+    align-items: center;
+    gap: .55rem;
+    margin: 1.5rem 0 0;
+    padding: .35rem .85rem .35rem .7rem;
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    background: var(--accent-sf);
+    color: var(--ink);
+    font-size: .85rem;
+    line-height: 1.5;
+  }
+  .seats b { font-family: "Roboto Mono", monospace; font-weight: 500; }
+  .pulse {
+    width: .5rem; height: .5rem; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent);
+  }
+
+  /* ---------- facts ---------- */
+  .facts {
+    margin: 2rem 0 0;
+    display: grid;
+    grid-template-columns: 5.5rem 1fr;
+    row-gap: .55rem;
+    column-gap: 1rem;
+    border-top: 1px solid var(--line);
+    padding-top: 1.5rem;
+  }
+  .facts dt {
+    font-family: "Roboto Mono", monospace;
+    font-size: .74rem;
+    letter-spacing: .1em;
+    color: var(--muted);
+    padding-top: .35rem;
+  }
+  .facts dd { margin: 0; }
+  .facts .big {
+    font-family: "Zen Old Mincho", serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+  .facts .sub { display: block; font-size: .85rem; color: var(--muted); }
+  .facts a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: .2em; }
+
+  /* ---------- sections ---------- */
+  section { margin-top: 3rem; }
+  h2 {
+    margin: 0 0 1rem;
+    font-family: "Zen Old Mincho", serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: .02em;
+  }
+  h2 .num {
+    font-family: "Roboto Mono", monospace;
+    font-size: .72rem;
+    font-weight: 400;
+    color: var(--accent);
+    letter-spacing: .12em;
+    margin-right: .7rem;
+    vertical-align: .22em;
+  }
+  .program { margin: 0; padding: 0; list-style: none; display: grid; gap: .1rem; }
+  .program li {
+    display: flex; gap: .8rem; align-items: baseline;
+    padding: .55rem 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .program li::before {
+    content: "";
+    flex: 0 0 auto;
+    width: .4rem; height: .4rem;
+    margin-top: .1rem;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .note {
+    margin-top: 1.4rem;
+    padding: 1.1rem 1.25rem;
+    background: var(--surface-2);
+    border-left: 3px solid var(--plum);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    font-size: .93rem;
+    color: var(--ink-2);
+  }
+  .note p { margin: 0 0 .6rem; }
+  .note p:last-child { margin-bottom: 0; }
+
+  /* ---------- form ---------- */
+  form { margin-top: 1.25rem; display: grid; gap: 1.75rem; }
+  fieldset {
+    margin: 0;
+    padding: 1.4rem 1.5rem 1.6rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+  }
+  legend {
+    padding: 0 .5rem;
+    margin-left: -.5rem;
+    font-family: "Roboto Mono", monospace;
+    font-size: .74rem;
+    letter-spacing: .14em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .field { display: grid; gap: .4rem; align-content: start; margin-top: 1.15rem; }
+  fieldset > div:first-of-type { margin-top: .4rem; }
+  .field > label, .group > .grouplabel {
+    font-size: .92rem;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .req, .opt {
+    font-family: "Roboto Mono", monospace;
+    font-size: .66rem;
+    letter-spacing: .08em;
+    margin-left: .5rem;
+    padding: .1rem .4rem;
+    border-radius: 3px;
+    vertical-align: .1em;
+  }
+  .req { background: var(--accent); color: var(--accent-ink); }
+  .opt { border: 1px solid var(--line-2); color: var(--muted); }
+  .hint { font-size: .82rem; color: var(--muted); line-height: 1.6; }
+
+  input[type="text"], input[type="email"], input[type="tel"], textarea, select {
+    width: 100%;
+    padding: .65rem .8rem;
+    font: inherit;
+    font-size: .95rem;
+    color: var(--ink);
+    background: var(--surface-2);
+    border: 1px solid var(--line-2);
+    border-radius: 8px;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  textarea { min-height: 5.5rem; resize: vertical; line-height: 1.7; }
+  select {
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+    background-position: calc(100% - 1.1rem) 1.25rem, calc(100% - .75rem) 1.25rem;
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
+    padding-right: 2.4rem;
+  }
+  input:focus-visible, textarea:focus-visible, select:focus-visible {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
+  }
+  [aria-invalid="true"] { border-color: var(--alert); }
+  .two { display: grid; grid-template-columns: 1fr 1fr; align-items: start; gap: 1.15rem; margin-top: 1.15rem; }
+  .two > .field { margin-top: 0; }
+  @media (max-width: 34rem) { .two { grid-template-columns: 1fr; } }
+
+  .group { margin-top: 1.15rem; display: grid; gap: .5rem; }
+  .choices { display: grid; gap: .5rem; }
+  .choice {
+    display: flex;
+    gap: .7rem;
+    align-items: flex-start;
+    padding: .7rem .85rem;
+    border: 1px solid var(--line-2);
+    border-radius: 8px;
+    background: var(--surface-2);
+    cursor: pointer;
+    transition: border-color .15s, background .15s;
+  }
+  .choice:hover { border-color: var(--accent); }
+  .choice input { margin: .38rem 0 0; accent-color: var(--accent); flex: 0 0 auto; width: 1rem; height: 1rem; }
+  .choice:has(input:checked) { border-color: var(--accent); background: var(--accent-sf); }
+  .choice:has(input:focus-visible) { box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent); }
+  .choice .ctext { font-size: .93rem; line-height: 1.6; }
+  .choice .cnote { display: block; font-size: .8rem; color: var(--muted); }
+
+  .conditional { display: none; }
+  .conditional.on { display: grid; }
+
+  .err {
+    display: none;
+    font-size: .82rem;
+    color: var(--alert);
+  }
+  .err.on { display: block; }
+
+  /* ---------- submit ---------- */
+  .actions {
+    display: grid;
+    gap: .9rem;
+    justify-items: start;
+  }
+  .btn {
+    font: inherit;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: .85rem 2rem;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    background: var(--accent);
+    color: var(--accent-ink);
+    cursor: pointer;
+    transition: transform .12s, filter .15s;
+  }
+  .btn:hover { filter: brightness(1.06); }
+  .btn:active { transform: translateY(1px); }
+  .btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .btn.ghost {
+    background: transparent;
+    color: var(--ink);
+    border-color: var(--line-2);
+    font-weight: 500;
+    font-size: .9rem;
+    padding: .6rem 1.2rem;
+  }
+  .formerr {
+    display: none;
+    padding: .8rem 1rem;
+    border: 1px solid var(--alert);
+    border-radius: 8px;
+    color: var(--alert);
+    font-size: .9rem;
+    background: color-mix(in srgb, var(--alert) 8%, transparent);
+  }
+  .formerr.on { display: block; }
+
+  /* ---------- done ---------- */
+  #done {
+    padding: 1.8rem 1.6rem;
+    border: 1px solid var(--accent);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+  }
+  #done h2 { margin-top: 0; }
+  #summary {
+    margin: 1.2rem 0;
+    padding: 1rem 1.1rem;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    font-family: "Roboto Mono", ui-monospace, monospace;
+    font-size: .82rem;
+    line-height: 1.85;
+    white-space: pre-wrap;
+    max-height: 22rem;
+    overflow: auto;
+  }
+  .donerow { display: flex; flex-wrap: wrap; gap: .7rem; align-items: center; }
+  #copied { font-size: .85rem; color: var(--ok); }
+
+  footer {
+    margin-top: 3.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+    font-size: .84rem;
+    color: var(--muted);
+  }
+  footer a { color: var(--accent); }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <header class="masthead">
+    <p class="eyebrow">東京都情報産業協会 <span class="ja">技術部会</span></p>
+    <h1>IIT AI<span class="night">ナイト</span></h1>
+    <p class="lede">各社で実際に使っている生成AIの活用事例を持ち寄って、ピザとビール片手にラフに話す会です。堅い勉強会ではありません。</p>
+    <p class="seats"><span class="pulse" aria-hidden="true"></span>残席 <b id="seats-left">約10</b> 名 ／ 定員に達し次第、受付を終了します</p>
+
+    <dl class="facts">
+      <dt>DATE</dt>
+      <dd><span class="big">9月16日（水）17:00〜20:00</span></dd>
+      <dt>PLACE</dt>
+      <dd>
+        <span class="big">株式会社チームテック 事務所（会議室）</span>
+        <span class="sub">〒153-0064 東京都目黒区下目黒1-8-1 ARCO TOWER 6階 ・ <a href="https://www.google.com/maps/search/?api=1&amp;query=%E6%9D%B1%E4%BA%AC%E9%83%BD%E7%9B%AE%E9%BB%92%E5%8C%BA%E4%B8%8B%E7%9B%AE%E9%BB%921-8-1+ARCO+TOWER" target="_blank" rel="noopener">地図</a></span>
+      </dd>
+      <dt>FEE</dt>
+      <dd><span class="big">1,000円</span><span class="sub">軽食代として当日会場でお支払いください</span></dd>
+      <dt>SEATS</dt>
+      <dd><span class="big">25名程度</span><span class="sub">会議室の都合により少人数開催です</span></dd>
+    </dl>
+  </header>
+
+  <section>
+    <h2><span class="num">01</span>当日の内容</h2>
+    <ul class="program">
+      <li>各社のAI活用事例の共有</li>
+      <li>生成AIの活用アイデア交換</li>
+      <li>懇親（ピザ＆ビール）</li>
+    </ul>
+    <div class="note">
+      <p>今回は<strong>参加者一人ひとりが簡単なAI活用事例を共有する形式</strong>を予定しています。「こんな使い方をしている」「ここが難しい」といった現場のリアルな話を歓迎します。</p>
+      <p>共有が難しい方は、また次回ぜひご参加ください。AIに興味のある社員の方をお連れいただくのも大歓迎です（オブザーバー参加も可）。</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">02</span>参加申込</h2>
+    <p class="hint">お一人ずつご入力ください。<span class="req">必須</span>の項目はすべてご記入をお願いします。</p>
+
+    <form id="signup" novalidate>
+      <fieldset>
+        <legend>ご参加者について</legend>
+
+        <div class="two">
+          <div class="field">
+            <label for="name">お名前<span class="req">必須</span></label>
+            <input type="text" id="name" name="お名前" autocomplete="name" placeholder="例：山田 太郎">
+            <p class="err" id="err-name">お名前をご入力ください。</p>
+          </div>
+          <div class="field">
+            <label for="kana">ふりがな<span class="req">必須</span></label>
+            <input type="text" id="kana" name="ふりがな" placeholder="例：やまだ たろう">
+            <p class="err" id="err-kana">ふりがなをご入力ください。</p>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="company">会社名・団体名<span class="req">必須</span></label>
+          <input type="text" id="company" name="会社名" autocomplete="organization" placeholder="例：株式会社〇〇">
+          <p class="err" id="err-company">会社名・団体名をご入力ください。</p>
+        </div>
+
+        <div class="field">
+          <label for="title">部署・役職<span class="opt">任意</span></label>
+          <input type="text" id="title" name="部署・役職" autocomplete="organization-title">
+        </div>
+
+        <div class="two">
+          <div class="field">
+            <label for="email">メールアドレス<span class="req">必須</span></label>
+            <input type="email" id="email" name="メールアドレス" autocomplete="email" placeholder="taro@example.co.jp">
+            <p class="hint">受付確認と当日のご案内をお送りします。</p>
+            <p class="err" id="err-email">メールアドレスの形式をご確認ください。</p>
+          </div>
+          <div class="field">
+            <label for="tel">電話番号<span class="opt">任意</span></label>
+            <input type="tel" id="tel" name="電話番号" autocomplete="tel" placeholder="当日の緊急連絡用">
+          </div>
+        </div>
+
+        <div class="group">
+          <span class="grouplabel">ご所属の区分<span class="req">必須</span></span>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="区分" value="IIT会員企業"><span class="ctext">IIT会員企業</span></label>
+            <label class="choice"><input type="radio" name="区分" value="オブザーバー（会員企業以外）"><span class="ctext">オブザーバー（会員企業以外）<span class="cnote">オブザーバーのご参加も大歓迎です</span></span></label>
+          </div>
+          <p class="err" id="err-kubun">いずれかをお選びください。</p>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>AI活用事例の共有</legend>
+
+        <div class="group" style="margin-top:.4rem">
+          <span class="grouplabel">当日の事例共有について<span class="req">必須</span></span>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="事例共有" value="事例を共有できます"><span class="ctext">事例を共有できます<span class="cnote">下の欄に概要をご記入ください</span></span></label>
+            <label class="choice"><input type="radio" name="事例共有" value="共有できるか検討中"><span class="ctext">共有できるか検討中<span class="cnote">当日までにご相談させてください</span></span></label>
+            <label class="choice"><input type="radio" name="事例共有" value="今回は聞くだけ希望"><span class="ctext">今回は聞くだけ希望</span></label>
+          </div>
+          <p class="err" id="err-share">いずれかをお選びください。</p>
+        </div>
+
+        <div class="field conditional" id="case-wrap">
+          <label for="case">共有する事例のタイトル・概要<span class="req">必須</span></label>
+          <textarea id="case" name="事例の内容" placeholder="例：議事録の要約と社内ナレッジ検索にClaudeを利用。定着した点と、社内展開で詰まった点を話します。"></textarea>
+          <p class="hint">完成度は問いません。「うまくいかなかった話」も大歓迎です。</p>
+          <p class="err" id="err-case">共有いただく事例の概要をご記入ください。</p>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>懇親会・お連れ様</legend>
+
+        <div class="group" style="margin-top:.4rem">
+          <span class="grouplabel">懇親（ピザ＆ビール）<span class="req">必須</span></span>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="懇親" value="参加する"><span class="ctext">参加する</span></label>
+            <label class="choice"><input type="radio" name="懇親" value="事例共有のみ参加"><span class="ctext">事例共有のみ参加（懇親は欠席）</span></label>
+          </div>
+          <p class="err" id="err-konshin">いずれかをお選びください。</p>
+        </div>
+
+        <div class="two">
+          <div class="field">
+            <label for="drink">お飲み物のご希望<span class="opt">任意</span></label>
+            <select id="drink" name="飲み物">
+              <option value="どちらでも">どちらでも</option>
+              <option value="ビール">ビール</option>
+              <option value="ソフトドリンク">ソフトドリンク</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="guests">お連れ様の人数<span class="opt">任意</span></label>
+            <select id="guests" name="同伴者人数">
+              <option value="0">0名（ご本人のみ）</option>
+              <option value="1">1名</option>
+              <option value="2">2名</option>
+              <option value="3">3名</option>
+            </select>
+            <p class="hint">お連れ様も1名につき1,000円です。</p>
+          </div>
+        </div>
+
+        <div class="field conditional" id="guest-wrap">
+          <label for="guestnames">お連れ様のお名前・会社名<span class="req">必須</span></label>
+          <textarea id="guestnames" name="同伴者" placeholder="例：鈴木 花子（株式会社〇〇）"></textarea>
+          <p class="err" id="err-guests">お連れ様のお名前をご記入ください。</p>
+        </div>
+
+        <div class="field">
+          <label for="allergy">食物アレルギー・苦手な食材<span class="opt">任意</span></label>
+          <input type="text" id="allergy" name="アレルギー" placeholder="例：乳製品NG／ベジタリアン対応希望">
+        </div>
+
+        <div class="field">
+          <label for="memo">ご質問・ご要望<span class="opt">任意</span></label>
+          <textarea id="memo" name="備考"></textarea>
+        </div>
+
+        <div class="group">
+          <div class="choices">
+            <label class="choice"><input type="checkbox" id="agree" name="参加費"><span class="ctext">参加費1,000円（お連れ様がいる場合は人数分）を当日会場でお支払いします<span class="cnote">軽食代として頂戴します</span></span></label>
+          </div>
+          <p class="err" id="err-agree">ご確認のうえチェックをお願いします。</p>
+        </div>
+      </fieldset>
+
+      <div class="actions">
+        <p class="formerr" id="formerr">未入力の項目があります。赤字の項目をご確認ください。</p>
+        <button type="submit" class="btn">この内容で申し込む</button>
+        <p class="hint">送信ボタンを押すと、申込内容を記載したメールの作成画面が開きます。メールソフトが開かない場合は、次の画面から内容をコピーしてお送りください。</p>
+      </div>
+    </form>
+  </section>
+
+  <section id="done" hidden>
+    <h2><span class="num">03</span>申込内容</h2>
+    <p id="done-msg">メールソフトの作成画面を開きました。<strong>そのまま送信</strong>していただくと受付完了です。開かなかった場合は、下の内容をコピーして <a id="mail-link" href="#">主催者宛のメール</a> に貼り付けてお送りください。</p>
+    <div id="summary"></div>
+    <div class="donerow">
+      <button type="button" class="btn" id="copy">申込内容をコピー</button>
+      <button type="button" class="btn ghost" id="reopen">メール作成画面をもう一度開く</button>
+      <button type="button" class="btn ghost" id="back">入力内容を修正する</button>
+      <span id="copied" hidden>コピーしました</span>
+    </div>
+  </section>
+
+  <footer>
+    <p>主催：東京都情報産業協会 技術部会　／　会場提供：株式会社チームテック<br>
+    お問い合わせ：<a id="contact-link" href="#">主催者までメールでご連絡ください</a></p>
+    <p>※会議室の都合上、少人数開催（25名程度）です。定員に達した場合はお断りする可能性がございます。あらかじめご了承ください。</p>
+  </footer>
+</div>
+
+<script>
+  /* =====================================================================
+     受付設定 — ここだけ書き換えれば運用できます
+     ---------------------------------------------------------------------
+     ORGANIZER_EMAIL : 申込メールの宛先（主催者・幹事のアドレス）
+     SEATS_LEFT      : 画面上に表示する残席の目安
+     POST_ENDPOINT   : Googleフォーム / GAS / Formspree などのURLを設定すると、
+                       メールではなくそのURLへ自動送信します（空ならメール方式）
+     ===================================================================== */
+  var CONFIG = {
+    ORGANIZER_EMAIL: "iit-ai-night@example.com",
+    SEATS_LEFT: "約10",
+    POST_ENDPOINT: ""
+  };
+
+  var form = document.getElementById("signup");
+  var doneEl = document.getElementById("done");
+  var summaryEl = document.getElementById("summary");
+  var formErr = document.getElementById("formerr");
+  var DRAFT_KEY = "iit-ai-night-draft";
+  var lastMailto = "";
+
+  document.getElementById("seats-left").textContent = CONFIG.SEATS_LEFT;
+  document.getElementById("contact-link").href = "mailto:" + CONFIG.ORGANIZER_EMAIL;
+  document.getElementById("contact-link").textContent = CONFIG.ORGANIZER_EMAIL;
+
+  /* --- 条件付き表示 --- */
+  function toggleCase() {
+    var v = form.querySelector('input[name="事例共有"]:checked');
+    var on = !!v && v.value === "事例を共有できます";
+    document.getElementById("case-wrap").classList.toggle("on", on);
+    if (!on) clearErr("case");
+  }
+  function toggleGuests() {
+    var on = document.getElementById("guests").value !== "0";
+    document.getElementById("guest-wrap").classList.toggle("on", on);
+    if (!on) clearErr("guests");
+  }
+  form.querySelectorAll('input[name="事例共有"]').forEach(function (el) {
+    el.addEventListener("change", toggleCase);
+  });
+  document.getElementById("guests").addEventListener("change", toggleGuests);
+
+  /* --- 入力内容の一時保存（この端末のブラウザ内のみ） --- */
+  function saveDraft() {
+    try {
+      var d = {};
+      form.querySelectorAll("input, textarea, select").forEach(function (el) {
+        if (el.type === "radio") { if (el.checked) d[el.name] = el.value; }
+        else if (el.type === "checkbox") { d[el.id] = el.checked; }
+        else { d[el.id] = el.value; }
+      });
+      localStorage.setItem(DRAFT_KEY, JSON.stringify(d));
+    } catch (e) { /* プライベートモード等では保存しない */ }
+  }
+  function loadDraft() {
+    try {
+      var raw = localStorage.getItem(DRAFT_KEY);
+      if (!raw) return;
+      var d = JSON.parse(raw);
+      form.querySelectorAll("input, textarea, select").forEach(function (el) {
+        if (el.type === "radio") { if (d[el.name] === el.value) el.checked = true; }
+        else if (el.type === "checkbox") { if (d[el.id]) el.checked = true; }
+        else if (typeof d[el.id] === "string") { el.value = d[el.id]; }
+      });
+    } catch (e) { /* 読めなければ空のまま表示する */ }
+  }
+  loadDraft();
+  toggleCase();
+  toggleGuests();
+  form.addEventListener("input", saveDraft);
+  form.addEventListener("change", saveDraft);
+
+  /* --- 検証 --- */
+  function setErr(key, on, field) {
+    var e = document.getElementById("err-" + key);
+    if (e) e.classList.toggle("on", on);
+    if (field) field.setAttribute("aria-invalid", on ? "true" : "false");
+    return !on;
+  }
+  function clearErr(key) { setErr(key, false, document.getElementById(key)); }
+  function val(id) { return (document.getElementById(id).value || "").trim(); }
+  function radio(name) {
+    var r = form.querySelector('input[name="' + name + '"]:checked');
+    return r ? r.value : "";
+  }
+
+  function validate() {
+    var ok = true;
+    ok = setErr("name", !val("name"), document.getElementById("name")) && ok;
+    ok = setErr("kana", !val("kana"), document.getElementById("kana")) && ok;
+    ok = setErr("company", !val("company"), document.getElementById("company")) && ok;
+    ok = setErr("email", !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val("email")), document.getElementById("email")) && ok;
+    ok = setErr("kubun", !radio("区分")) && ok;
+    ok = setErr("share", !radio("事例共有")) && ok;
+    if (radio("事例共有") === "事例を共有できます") {
+      ok = setErr("case", !val("case"), document.getElementById("case")) && ok;
+    }
+    ok = setErr("konshin", !radio("懇親")) && ok;
+    if (document.getElementById("guests").value !== "0") {
+      ok = setErr("guests", !val("guestnames"), document.getElementById("guestnames")) && ok;
+    }
+    ok = setErr("agree", !document.getElementById("agree").checked) && ok;
+    return ok;
+  }
+
+  /* --- 申込内容の組み立て --- */
+  function buildRecord() {
+    var guests = document.getElementById("guests").value;
+    var total = 1 + parseInt(guests, 10);
+    return [
+      ["お名前", val("name")],
+      ["ふりがな", val("kana")],
+      ["会社名・団体名", val("company")],
+      ["部署・役職", val("title")],
+      ["メールアドレス", val("email")],
+      ["電話番号", val("tel")],
+      ["区分", radio("区分")],
+      ["事例共有", radio("事例共有")],
+      ["事例の内容", val("case")],
+      ["懇親（ピザ＆ビール）", radio("懇親")],
+      ["お飲み物", document.getElementById("drink").value],
+      ["お連れ様", guests + "名"],
+      ["お連れ様のお名前", val("guestnames")],
+      ["アレルギー等", val("allergy")],
+      ["ご質問・ご要望", val("memo")],
+      ["ご参加人数（合計）", total + "名"],
+      ["参加費", (total * 1000).toLocaleString("ja-JP") + "円（当日会場でお支払い）"]
+    ];
+  }
+  function toText(rec) {
+    var lines = [
+      "IIT AIナイト（事例共有＋ピザ）参加申込",
+      "9月16日（水）17:00〜20:00 ／ 株式会社チームテック 会議室",
+      "----------------------------------------"
+    ];
+    rec.forEach(function (r) {
+      if (r[1]) lines.push(r[0] + "：" + r[1]);
+    });
+    lines.push("----------------------------------------");
+    return lines.join("\n");
+  }
+
+  /* --- 送信 --- */
+  form.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    if (!validate()) {
+      formErr.classList.add("on");
+      var first = form.querySelector('[aria-invalid="true"], .err.on');
+      if (first) first.scrollIntoView({ block: "center", behavior: "smooth" });
+      return;
+    }
+    formErr.classList.remove("on");
+
+    var rec = buildRecord();
+    var text = toText(rec);
+    summaryEl.textContent = text;
+
+    if (CONFIG.POST_ENDPOINT) {
+      var payload = {};
+      rec.forEach(function (r) { payload[r[0]] = r[1]; });
+      fetch(CONFIG.POST_ENDPOINT, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      }).catch(function () { /* 送信できない場合はメール方式の案内を残す */ });
+      document.getElementById("done-msg").innerHTML =
+        "お申し込みを受け付けました。主催者から折り返しご連絡します。念のため、下記が送信内容です。";
+    }
+
+    var subject = "【IIT AIナイト】参加申込：" + val("company") + " " + val("name");
+    lastMailto = "mailto:" + CONFIG.ORGANIZER_EMAIL +
+      "?subject=" + encodeURIComponent(subject) +
+      "&body=" + encodeURIComponent(text);
+    document.getElementById("mail-link").href = lastMailto;
+
+    if (!CONFIG.POST_ENDPOINT) window.location.href = lastMailto;
+
+    form.hidden = true;
+    doneEl.hidden = false;
+    doneEl.scrollIntoView({ block: "start", behavior: "smooth" });
+  });
+
+  document.getElementById("copy").addEventListener("click", function () {
+    var done = function () {
+      var c = document.getElementById("copied");
+      c.hidden = false;
+      setTimeout(function () { c.hidden = true; }, 2500);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(summaryEl.textContent).then(done, selectText);
+    } else { selectText(); }
+  });
+  function selectText() {
+    var r = document.createRange();
+    r.selectNodeContents(summaryEl);
+    var s = window.getSelection();
+    s.removeAllRanges();
+    s.addRange(r);
+  }
+  document.getElementById("reopen").addEventListener("click", function () {
+    if (lastMailto) window.location.href = lastMailto;
+  });
+  document.getElementById("back").addEventListener("click", function () {
+    doneEl.hidden = true;
+    form.hidden = false;
+    form.scrollIntoView({ block: "start", behavior: "smooth" });
+  });
+</script>
+</body>
+</html>
