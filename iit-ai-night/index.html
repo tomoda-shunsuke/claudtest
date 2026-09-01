@@ -296,6 +296,12 @@
     max-height: 22rem; overflow: auto;
   }
   .donerow { display: flex; flex-wrap: wrap; gap: .7rem; align-items: center; }
+  #copied { font-size: .85rem; color: var(--ok); }
+  .sendto {
+    display: inline-block; margin-top: .2rem;
+    font-family: "Roboto Mono", monospace; font-size: .9rem;
+    color: var(--accent);
+  }
 
   /* ---------- login ---------- */
   .login-wrap { max-width: 25rem; margin: 5rem auto 0; }
@@ -603,23 +609,29 @@
       <div class="actions">
         <p class="formerr" id="formerr">未入力の項目があります。赤字の項目をご確認ください。</p>
         <button type="submit" class="btn" id="submit-btn">この内容で申し込む</button>
-        <p class="hint">送信すると受付が完了し、主催者の管理画面に登録されます。</p>
+        <p class="hint">ボタンを押すと、申込内容を記載したメールの作成画面が開きます。そのまま送信してください。</p>
       </div>
     </form>
   </section>
 
   <section id="done" hidden>
-    <h2><span class="num">03</span>お申し込みを受け付けました</h2>
-    <p>ご登録ありがとうございます。当日の詳細は主催者よりメールでご連絡します。</p>
+    <h2><span class="num">03</span>あと1ステップで完了です</h2>
+    <p>メールの作成画面を開きました。<strong>内容を確認してそのまま送信</strong>すると、お申し込みが完了します。</p>
+    <p class="hint">画面が開かなかった場合は、下の「申込内容をコピー」を押して、次のアドレス宛にメールでお送りください。</p>
+    <span class="sendto" id="sendto"></span>
     <span class="receipt" id="receipt"></span>
     <div id="summary"></div>
     <div class="donerow">
+      <button type="button" class="btn" id="reopen">メール作成画面をもう一度開く</button>
+      <button type="button" class="btn ghost" id="copy">申込内容をコピー</button>
       <button type="button" class="btn ghost" id="again">続けてもう一人申し込む</button>
+      <span id="copied" hidden>コピーしました</span>
     </div>
   </section>
 
   <footer>
-    <p>主催：東京都情報産業協会 技術部会　／　会場提供：株式会社チームテック</p>
+    <p>主催：東京都情報産業協会 技術部会　／　会場提供：株式会社チームテック<br>
+    お問い合わせ：<a id="contact-link" href="#"></a></p>
     <p>※会議室の都合上、少人数開催（25名程度）です。定員に達した場合はお断りする可能性がございます。あらかじめご了承ください。</p>
     <p><button type="button" class="linkbtn" id="to-admin">主催者ログイン</button></p>
   </footer>
@@ -722,8 +734,10 @@
    空のままにすると、この端末のブラウザ内だけに保存するデモ動作になります。
    ----------------------------------------------------------------------- */
 var CONFIG = {
+  MAIL_TO: "info@webedge.jp",      // 申込メールの宛先
+  SEATS_NOTE: "残席 約10名",        // API_URL 未設定のときに表示する残席の目安（手動で更新）
   API_URL: "",                     // 例）https://script.google.com/macros/s/XXXXXXXX/exec
-  DEMO_PASSWORD: "iit-ai-night",   // デモ動作のときの管理画面パスワード
+  DEMO_PASSWORD: "iit-ai-night",   // 管理画面パスワード（API_URL 未設定のとき）
   CAPACITY: 25,                    // 定員（名）※Code.gs の CAPACITY と揃えてください
   PRE_BOOKED: 0,                   // このフォーム以外で既に受付済みの人数
   FEE: 1000                        // お一人あたりの参加費（円）
@@ -996,8 +1010,9 @@ function paintSeats(left) {
   var chip = $("seats-chip");
   if (left === null) {
     chip.classList.remove("full");
-    $("seats-text").textContent = "定員25名程度／定員に達し次第、受付を終了します";
+    $("seats-text").textContent = CONFIG.SEATS_NOTE + " ／ 定員に達し次第、受付を終了します";
     $("submit-btn").disabled = false;
+    $("submit-btn").textContent = "この内容で申し込む";
     return;
   }
   var open = left > 0;
@@ -1009,9 +1024,27 @@ function paintSeats(left) {
   $("submit-btn").textContent = open ? "この内容で申し込む" : "受付を終了しました";
 }
 function renderSeats() {
+  /* 残席の自動計算はサーバー保存のときだけ。手元のブラウザの記録では
+     ほかの申込を把握できないため、未設定時は CONFIG.SEATS_NOTE を表示します。 */
+  if (!ONLINE) { paintSeats(null); return Promise.resolve(); }
   return Store.seats()
     .then(function (res) { paintSeats(res && res.ok ? res.left : null); })
     .catch(function () { paintSeats(null); });
+}
+
+/* --- 申込内容をメール本文に組み立てる --- */
+var lastMailto = "";
+function buildMailto(r) {
+  var subject = "【IIT AIナイト】参加申込：" + r.company + " " + r.name;
+  var body =
+    "IIT AIナイト（事例共有＋ピザ）の参加を申し込みます。\n" +
+    "9月16日（水）17:00〜20:00 ／ 株式会社チームテック 会議室\n" +
+    "----------------------------------------\n" +
+    summaryText(r) + "\n" +
+    "----------------------------------------\n";
+  return "mailto:" + CONFIG.MAIL_TO +
+    "?subject=" + encodeURIComponent(subject) +
+    "&body=" + encodeURIComponent(body);
 }
 
 function summaryText(r) {
@@ -1065,10 +1098,13 @@ form.addEventListener("submit", function (ev) {
       clearDraft();
       $("receipt").textContent = "受付番号 " + rec.id.toUpperCase();
       $("summary").textContent = summaryText(rec);
+      $("sendto").textContent = CONFIG.MAIL_TO;
+      lastMailto = buildMailto(rec);
       form.hidden = true;
       $("done").hidden = false;
-      paintSeats(typeof res.left === "number" ? res.left : null);
+      if (ONLINE) paintSeats(typeof res.left === "number" ? res.left : null);
       $("done").scrollIntoView({ block: "start", behavior: "smooth" });
+      window.location.href = lastMailto;
       return;
     }
     if (res && res.reason === "full") {
@@ -1089,6 +1125,26 @@ form.addEventListener("submit", function (ev) {
     btn.disabled = false;
     if (btn.textContent === "送信中…") btn.textContent = label;
   });
+});
+
+$("reopen").addEventListener("click", function () {
+  if (lastMailto) window.location.href = lastMailto;
+});
+function selectSummary() {
+  var r = document.createRange();
+  r.selectNodeContents($("summary"));
+  var sel = window.getSelection();
+  sel.removeAllRanges();
+  sel.addRange(r);
+}
+$("copy").addEventListener("click", function () {
+  var flash = function () {
+    $("copied").hidden = false;
+    setTimeout(function () { $("copied").hidden = true; }, 2500);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText($("summary").textContent).then(flash, selectSummary);
+  } else { selectSummary(); }
 });
 
 $("again").addEventListener("click", function () {
@@ -1331,6 +1387,8 @@ $("csv").addEventListener("click", function () {
 /* =======================================================================
    起動
    ----------------------------------------------------------------------- */
+$("contact-link").href = "mailto:" + CONFIG.MAIL_TO;
+$("contact-link").textContent = CONFIG.MAIL_TO;
 loadDraft();
 toggleCase();
 toggleGuests();
