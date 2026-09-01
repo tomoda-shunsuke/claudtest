@@ -23,7 +23,9 @@
     --accent-sf: #FBF0DE;
     --plum:      #3D2E52;
     --ok:        #1F6B4D;
+    --ok-sf:     #E4F1EA;
     --alert:     #A5341F;
+    --alert-sf:  #FBE7E2;
     --shadow:    0 1px 2px rgba(29,26,38,.06), 0 12px 32px -18px rgba(29,26,38,.35);
     --radius:    10px;
   }
@@ -42,7 +44,9 @@
       --accent-sf: #2C2214;
       --plum:      #C6B2E0;
       --ok:        #6DC79E;
+      --ok-sf:     #17301F;
       --alert:     #F0907A;
+      --alert-sf:  #33191A;
       --shadow:    0 1px 2px rgba(0,0,0,.5), 0 18px 40px -24px rgba(0,0,0,.9);
     }
   }
@@ -60,11 +64,14 @@
     --accent-sf: #2C2214;
     --plum:      #C6B2E0;
     --ok:        #6DC79E;
+    --ok-sf:     #17301F;
     --alert:     #F0907A;
+    --alert-sf:  #33191A;
     --shadow:    0 1px 2px rgba(0,0,0,.5), 0 18px 40px -24px rgba(0,0,0,.9);
   }
 
   * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
   body {
     margin: 0;
     background: var(--bg);
@@ -75,10 +82,10 @@
     -webkit-font-smoothing: antialiased;
   }
   .page { max-width: 46rem; margin: 0 auto; padding: 0 1.25rem 4rem; }
+  .page.wide { max-width: 68rem; }
 
   /* ---------- masthead ---------- */
   .masthead {
-    position: relative;
     padding: 3rem 0 2rem;
     border-bottom: 1px solid var(--line);
   }
@@ -101,99 +108,71 @@
     text-wrap: balance;
   }
   h1 .night { color: var(--accent); }
-  .lede {
-    margin: 1rem 0 0;
-    max-width: 32em;
-    font-size: 1.02rem;
-    color: var(--ink-2);
-  }
+  .lede { margin: 1rem 0 0; max-width: 32em; font-size: 1.02rem; color: var(--ink-2); }
   .seats {
-    display: inline-flex;
-    align-items: center;
-    gap: .55rem;
+    display: inline-flex; align-items: center; gap: .55rem;
     margin: 1.5rem 0 0;
     padding: .35rem .85rem .35rem .7rem;
     border: 1px solid var(--accent);
     border-radius: 999px;
     background: var(--accent-sf);
-    color: var(--ink);
-    font-size: .85rem;
-    line-height: 1.5;
+    font-size: .85rem; line-height: 1.5;
   }
-  .seats b { font-family: "Roboto Mono", monospace; font-weight: 500; }
+  .seats b { font-family: "Roboto Mono", monospace; font-weight: 500; font-size: 1rem; }
+  .seats.full { border-color: var(--alert); background: var(--alert-sf); color: var(--alert); }
   .pulse {
     width: .5rem; height: .5rem; border-radius: 50%;
     background: var(--accent);
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent);
   }
+  .seats.full .pulse { background: var(--alert); box-shadow: 0 0 0 3px color-mix(in srgb, var(--alert) 25%, transparent); }
 
   /* ---------- facts ---------- */
   .facts {
     margin: 2rem 0 0;
-    display: grid;
-    grid-template-columns: 5.5rem 1fr;
-    row-gap: .55rem;
-    column-gap: 1rem;
+    display: grid; grid-template-columns: 5.5rem 1fr;
+    row-gap: .55rem; column-gap: 1rem;
     border-top: 1px solid var(--line);
     padding-top: 1.5rem;
   }
   .facts dt {
     font-family: "Roboto Mono", monospace;
-    font-size: .74rem;
-    letter-spacing: .1em;
-    color: var(--muted);
-    padding-top: .35rem;
+    font-size: .74rem; letter-spacing: .1em;
+    color: var(--muted); padding-top: .35rem;
   }
   .facts dd { margin: 0; }
-  .facts .big {
-    font-family: "Zen Old Mincho", serif;
-    font-size: 1.25rem;
-    font-weight: 600;
-    line-height: 1.5;
-  }
+  .facts .big { font-family: "Zen Old Mincho", serif; font-size: 1.25rem; font-weight: 600; line-height: 1.5; }
   .facts .sub { display: block; font-size: .85rem; color: var(--muted); }
-  .facts a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: .2em; }
+  .facts a { color: var(--accent); text-underline-offset: .2em; }
 
   /* ---------- sections ---------- */
   section { margin-top: 3rem; }
   h2 {
     margin: 0 0 1rem;
     font-family: "Zen Old Mincho", serif;
-    font-size: 1.3rem;
-    font-weight: 600;
-    letter-spacing: .02em;
+    font-size: 1.3rem; font-weight: 600; letter-spacing: .02em;
   }
   h2 .num {
     font-family: "Roboto Mono", monospace;
-    font-size: .72rem;
-    font-weight: 400;
-    color: var(--accent);
-    letter-spacing: .12em;
-    margin-right: .7rem;
-    vertical-align: .22em;
+    font-size: .72rem; font-weight: 400; color: var(--accent);
+    letter-spacing: .12em; margin-right: .7rem; vertical-align: .22em;
   }
   .program { margin: 0; padding: 0; list-style: none; display: grid; gap: .1rem; }
   .program li {
     display: flex; gap: .8rem; align-items: baseline;
-    padding: .55rem 0;
-    border-bottom: 1px dashed var(--line);
+    padding: .55rem 0; border-bottom: 1px dashed var(--line);
   }
   .program li::before {
-    content: "";
-    flex: 0 0 auto;
-    width: .4rem; height: .4rem;
-    margin-top: .1rem;
-    border-radius: 50%;
-    background: var(--accent);
+    content: ""; flex: 0 0 auto;
+    width: .4rem; height: .4rem; margin-top: .1rem;
+    border-radius: 50%; background: var(--accent);
   }
   .note {
-    margin-top: 1.4rem;
-    padding: 1.1rem 1.25rem;
+    margin-top: 1.4rem; padding: 1.1rem 1.25rem;
     background: var(--surface-2);
     border-left: 3px solid var(--plum);
     border-radius: 0 var(--radius) var(--radius) 0;
-    font-size: .93rem;
-    color: var(--ink-2);
+    font-size: .93rem; color: var(--ink-2);
   }
   .note p { margin: 0 0 .6rem; }
   .note p:last-child { margin-bottom: 0; }
@@ -201,51 +180,34 @@
   /* ---------- form ---------- */
   form { margin-top: 1.25rem; display: grid; gap: 1.75rem; }
   fieldset {
-    margin: 0;
-    padding: 1.4rem 1.5rem 1.6rem;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    background: var(--surface);
-    box-shadow: var(--shadow);
+    margin: 0; padding: 1.4rem 1.5rem 1.6rem;
+    border: 1px solid var(--line); border-radius: var(--radius);
+    background: var(--surface); box-shadow: var(--shadow);
   }
   legend {
-    padding: 0 .5rem;
-    margin-left: -.5rem;
+    padding: 0 .5rem; margin-left: -.5rem;
     font-family: "Roboto Mono", monospace;
-    font-size: .74rem;
-    letter-spacing: .14em;
-    color: var(--muted);
-    text-transform: uppercase;
+    font-size: .74rem; letter-spacing: .14em;
+    color: var(--muted); text-transform: uppercase;
   }
   .field { display: grid; gap: .4rem; align-content: start; margin-top: 1.15rem; }
   fieldset > div:first-of-type { margin-top: .4rem; }
-  .field > label, .group > .grouplabel {
-    font-size: .92rem;
-    font-weight: 500;
-    color: var(--ink);
-  }
+  .field > label, .group > .grouplabel { font-size: .92rem; font-weight: 500; color: var(--ink); }
   .req, .opt {
     font-family: "Roboto Mono", monospace;
-    font-size: .66rem;
-    letter-spacing: .08em;
-    margin-left: .5rem;
-    padding: .1rem .4rem;
-    border-radius: 3px;
-    vertical-align: .1em;
+    font-size: .66rem; letter-spacing: .08em;
+    margin-left: .5rem; padding: .1rem .4rem;
+    border-radius: 3px; vertical-align: .1em;
   }
   .req { background: var(--accent); color: var(--accent-ink); }
   .opt { border: 1px solid var(--line-2); color: var(--muted); }
   .hint { font-size: .82rem; color: var(--muted); line-height: 1.6; }
 
-  input[type="text"], input[type="email"], input[type="tel"], textarea, select {
-    width: 100%;
-    padding: .65rem .8rem;
-    font: inherit;
-    font-size: .95rem;
-    color: var(--ink);
-    background: var(--surface-2);
-    border: 1px solid var(--line-2);
-    border-radius: 8px;
+  input[type="text"], input[type="email"], input[type="tel"], input[type="password"], input[type="search"], textarea, select {
+    width: 100%; padding: .65rem .8rem;
+    font: inherit; font-size: .95rem;
+    color: var(--ink); background: var(--surface-2);
+    border: 1px solid var(--line-2); border-radius: 8px;
     transition: border-color .15s, box-shadow .15s;
   }
   textarea { min-height: 5.5rem; resize: vertical; line-height: 1.7; }
@@ -253,13 +215,11 @@
     appearance: none;
     background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%);
     background-position: calc(100% - 1.1rem) 1.25rem, calc(100% - .75rem) 1.25rem;
-    background-size: 6px 6px, 6px 6px;
-    background-repeat: no-repeat;
+    background-size: 6px 6px, 6px 6px; background-repeat: no-repeat;
     padding-right: 2.4rem;
   }
   input:focus-visible, textarea:focus-visible, select:focus-visible {
-    outline: none;
-    border-color: var(--accent);
+    outline: none; border-color: var(--accent);
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
   }
   [aria-invalid="true"] { border-color: var(--alert); }
@@ -270,14 +230,10 @@
   .group { margin-top: 1.15rem; display: grid; gap: .5rem; }
   .choices { display: grid; gap: .5rem; }
   .choice {
-    display: flex;
-    gap: .7rem;
-    align-items: flex-start;
+    display: flex; gap: .7rem; align-items: flex-start;
     padding: .7rem .85rem;
-    border: 1px solid var(--line-2);
-    border-radius: 8px;
-    background: var(--surface-2);
-    cursor: pointer;
+    border: 1px solid var(--line-2); border-radius: 8px;
+    background: var(--surface-2); cursor: pointer;
     transition: border-color .15s, background .15s;
   }
   .choice:hover { border-color: var(--accent); }
@@ -289,102 +245,198 @@
 
   .conditional { display: none; }
   .conditional.on { display: grid; }
-
-  .err {
-    display: none;
-    font-size: .82rem;
-    color: var(--alert);
-  }
+  .err { display: none; font-size: .82rem; color: var(--alert); }
   .err.on { display: block; }
 
-  /* ---------- submit ---------- */
-  .actions {
-    display: grid;
-    gap: .9rem;
-    justify-items: start;
-  }
+  .actions { display: grid; gap: .9rem; justify-items: start; }
   .btn {
-    font: inherit;
-    font-weight: 700;
-    font-size: 1rem;
-    padding: .85rem 2rem;
-    border-radius: 8px;
+    font: inherit; font-weight: 700; font-size: 1rem;
+    padding: .85rem 2rem; border-radius: 8px;
     border: 1px solid transparent;
-    background: var(--accent);
-    color: var(--accent-ink);
-    cursor: pointer;
-    transition: transform .12s, filter .15s;
+    background: var(--accent); color: var(--accent-ink);
+    cursor: pointer; transition: transform .12s, filter .15s;
   }
   .btn:hover { filter: brightness(1.06); }
   .btn:active { transform: translateY(1px); }
   .btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .btn:disabled { opacity: .45; cursor: not-allowed; }
   .btn.ghost {
-    background: transparent;
-    color: var(--ink);
-    border-color: var(--line-2);
-    font-weight: 500;
-    font-size: .9rem;
-    padding: .6rem 1.2rem;
+    background: transparent; color: var(--ink);
+    border-color: var(--line-2); font-weight: 500;
+    font-size: .9rem; padding: .6rem 1.2rem;
   }
+  .btn.small { font-size: .82rem; padding: .45rem .9rem; font-weight: 500; }
+  .btn.danger { background: transparent; color: var(--alert); border-color: var(--alert); font-weight: 500; }
   .formerr {
-    display: none;
-    padding: .8rem 1rem;
-    border: 1px solid var(--alert);
-    border-radius: 8px;
-    color: var(--alert);
-    font-size: .9rem;
-    background: color-mix(in srgb, var(--alert) 8%, transparent);
+    display: none; padding: .8rem 1rem;
+    border: 1px solid var(--alert); border-radius: 8px;
+    color: var(--alert); font-size: .9rem;
+    background: var(--alert-sf);
   }
   .formerr.on { display: block; }
 
   /* ---------- done ---------- */
   #done {
     padding: 1.8rem 1.6rem;
-    border: 1px solid var(--accent);
+    border: 1px solid var(--accent); border-radius: var(--radius);
+    background: var(--surface); box-shadow: var(--shadow);
+  }
+  #done h2 { margin-top: 0; }
+  .receipt {
+    display: inline-block; margin: .2rem 0 1rem;
+    font-family: "Roboto Mono", monospace; font-size: .8rem;
+    letter-spacing: .08em; color: var(--muted);
+  }
+  #summary {
+    margin: 1.2rem 0; padding: 1rem 1.1rem;
+    background: var(--surface-2); border: 1px solid var(--line);
+    border-radius: 8px;
+    font-family: "Roboto Mono", ui-monospace, monospace;
+    font-size: .82rem; line-height: 1.85; white-space: pre-wrap;
+    max-height: 22rem; overflow: auto;
+  }
+  .donerow { display: flex; flex-wrap: wrap; gap: .7rem; align-items: center; }
+
+  /* ---------- login ---------- */
+  .login-wrap { max-width: 25rem; margin: 5rem auto 0; }
+  .login-card {
+    padding: 2rem 1.8rem 2.2rem;
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius); box-shadow: var(--shadow);
+  }
+  .login-card h2 { margin-bottom: .3rem; }
+  .login-card .hint { margin: 0 0 1.5rem; }
+  .backlink {
+    display: inline-block; margin-top: 1.5rem;
+    font-size: .85rem; color: var(--muted);
+    background: none; border: none; padding: 0;
+    cursor: pointer; text-decoration: underline; font-family: inherit;
+  }
+  .backlink:hover { color: var(--accent); }
+
+  /* ---------- admin ---------- */
+  .adminbar {
+    display: flex; flex-wrap: wrap; gap: 1rem;
+    align-items: baseline; justify-content: space-between;
+    padding: 2.5rem 0 1.25rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .adminbar h1 { font-size: 1.7rem; }
+  .adminbar .who { font-size: .85rem; color: var(--muted); }
+  .stats {
+    display: grid; gap: 1px;
+    grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+    margin: 1.75rem 0 0;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .stat { background: var(--surface); padding: 1rem 1.1rem; }
+  .stat .k {
+    display: block;
+    font-family: "Roboto Mono", monospace;
+    font-size: .68rem; letter-spacing: .1em;
+    color: var(--muted); text-transform: uppercase;
+  }
+  .stat .v {
+    display: block; margin-top: .2rem;
+    font-family: "Roboto Mono", monospace;
+    font-size: 1.6rem; font-weight: 500; line-height: 1.3;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat .u { font-size: .8rem; color: var(--muted); margin-left: .15rem; font-family: "Zen Kaku Gothic New", sans-serif; }
+  .stat.hot .v { color: var(--accent); }
+  .stat.over .v { color: var(--alert); }
+
+  .toolbar {
+    display: flex; flex-wrap: wrap; gap: .7rem;
+    align-items: center; margin: 1.5rem 0 1rem;
+  }
+  .toolbar .grow { flex: 1 1 12rem; }
+  .toolbar select, .toolbar input { width: auto; }
+  .toolbar .grow input { width: 100%; }
+  .toolbar select { background-position: calc(100% - 1.1rem) 1.15rem, calc(100% - .75rem) 1.15rem; padding-block: .55rem; }
+
+  .banner {
+    display: flex; flex-wrap: wrap; gap: .8rem; align-items: center;
+    margin: 1.25rem 0 0; padding: .8rem 1rem;
+    border: 1px dashed var(--line-2); border-radius: 8px;
+    background: var(--surface-2);
+    font-size: .85rem; color: var(--ink-2);
+  }
+  .banner .grow { flex: 1 1 14rem; }
+
+  .tablewrap {
+    overflow-x: auto;
+    border: 1px solid var(--line);
     border-radius: var(--radius);
     background: var(--surface);
     box-shadow: var(--shadow);
   }
-  #done h2 { margin-top: 0; }
-  #summary {
-    margin: 1.2rem 0;
-    padding: 1rem 1.1rem;
+  table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+  thead th {
+    position: sticky; top: 0;
     background: var(--surface-2);
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    font-family: "Roboto Mono", ui-monospace, monospace;
-    font-size: .82rem;
-    line-height: 1.85;
-    white-space: pre-wrap;
-    max-height: 22rem;
-    overflow: auto;
+    text-align: left; font-weight: 500;
+    font-family: "Roboto Mono", monospace;
+    font-size: .7rem; letter-spacing: .08em; color: var(--muted);
+    text-transform: uppercase; white-space: nowrap;
+    padding: .7rem .85rem; border-bottom: 1px solid var(--line);
   }
-  .donerow { display: flex; flex-wrap: wrap; gap: .7rem; align-items: center; }
-  #copied { font-size: .85rem; color: var(--ok); }
+  tbody td { padding: .7rem .85rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr.cancelled td:not(.keep) { color: var(--muted); text-decoration: line-through; }
+  td.num { font-family: "Roboto Mono", monospace; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  td.when { font-family: "Roboto Mono", monospace; font-size: .78rem; color: var(--muted); white-space: nowrap; }
+  td.who b { font-weight: 700; }
+  td.who .kana { display: block; font-size: .76rem; color: var(--muted); }
+  .tag {
+    display: inline-block; padding: .1rem .5rem;
+    border-radius: 999px; font-size: .72rem; line-height: 1.7;
+    border: 1px solid var(--line-2); color: var(--muted); white-space: nowrap;
+  }
+  .tag.share { border-color: var(--accent); color: var(--accent); background: var(--accent-sf); }
+  .tag.sample { border-color: var(--plum); color: var(--plum); }
+  .statussel {
+    padding: .3rem 1.7rem .3rem .6rem;
+    font-size: .78rem; border-radius: 999px;
+    background-position: calc(100% - .85rem) .85rem, calc(100% - .6rem) .85rem;
+  }
+  .statussel[data-s="受付済"] { border-color: var(--accent); color: var(--accent); background-color: var(--accent-sf); }
+  .statussel[data-s="確認済"] { border-color: var(--ok); color: var(--ok); background-color: var(--ok-sf); }
+  .statussel[data-s="キャンセル"] { border-color: var(--line-2); color: var(--muted); }
+  .linkbtn {
+    background: none; border: none; padding: 0;
+    color: var(--accent); font: inherit; font-size: .82rem;
+    cursor: pointer; text-decoration: underline; white-space: nowrap;
+  }
+  tr.detail td { background: var(--surface-2); }
+  .dl { display: grid; grid-template-columns: 7.5rem 1fr; gap: .3rem 1rem; margin: 0; font-size: .85rem; }
+  .dl dt { color: var(--muted); font-size: .78rem; padding-top: .15rem; }
+  .dl dd { margin: 0; white-space: pre-wrap; }
+  .empty { padding: 3rem 1rem; text-align: center; color: var(--muted); font-size: .9rem; }
 
   footer {
-    margin-top: 3.5rem;
-    padding-top: 1.5rem;
+    margin-top: 3.5rem; padding-top: 1.5rem;
     border-top: 1px solid var(--line);
-    font-size: .84rem;
-    color: var(--muted);
+    font-size: .84rem; color: var(--muted);
   }
-  footer a { color: var(--accent); }
+  footer a, footer .linkbtn { color: var(--accent); font-size: .84rem; }
 
-  @media (prefers-reduced-motion: reduce) {
-    * { transition: none !important; animation: none !important; }
-  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 </style>
 </head>
 <body>
 
-<div class="page">
+<!-- ==================== 申込フォーム ==================== -->
+<div class="page" id="view-form">
 
   <header class="masthead">
     <p class="eyebrow">東京都情報産業協会 <span class="ja">技術部会</span></p>
     <h1>IIT AI<span class="night">ナイト</span></h1>
     <p class="lede">各社で実際に使っている生成AIの活用事例を持ち寄って、ピザとビール片手にラフに話す会です。堅い勉強会ではありません。</p>
-    <p class="seats"><span class="pulse" aria-hidden="true"></span>残席 <b id="seats-left">約10</b> 名 ／ 定員に達し次第、受付を終了します</p>
+    <p class="seats" id="seats-chip"><span class="pulse" aria-hidden="true"></span><span id="seats-text">残席を確認中…</span></p>
 
     <dl class="facts">
       <dt>DATE</dt>
@@ -425,37 +477,37 @@
         <div class="two">
           <div class="field">
             <label for="name">お名前<span class="req">必須</span></label>
-            <input type="text" id="name" name="お名前" autocomplete="name" placeholder="例：山田 太郎">
+            <input type="text" id="name" autocomplete="name" placeholder="例：山田 太郎">
             <p class="err" id="err-name">お名前をご入力ください。</p>
           </div>
           <div class="field">
             <label for="kana">ふりがな<span class="req">必須</span></label>
-            <input type="text" id="kana" name="ふりがな" placeholder="例：やまだ たろう">
+            <input type="text" id="kana" placeholder="例：やまだ たろう">
             <p class="err" id="err-kana">ふりがなをご入力ください。</p>
           </div>
         </div>
 
         <div class="field">
           <label for="company">会社名・団体名<span class="req">必須</span></label>
-          <input type="text" id="company" name="会社名" autocomplete="organization" placeholder="例：株式会社〇〇">
+          <input type="text" id="company" autocomplete="organization" placeholder="例：株式会社〇〇">
           <p class="err" id="err-company">会社名・団体名をご入力ください。</p>
         </div>
 
         <div class="field">
           <label for="title">部署・役職<span class="opt">任意</span></label>
-          <input type="text" id="title" name="部署・役職" autocomplete="organization-title">
+          <input type="text" id="title" autocomplete="organization-title">
         </div>
 
         <div class="two">
           <div class="field">
             <label for="email">メールアドレス<span class="req">必須</span></label>
-            <input type="email" id="email" name="メールアドレス" autocomplete="email" placeholder="taro@example.co.jp">
+            <input type="email" id="email" autocomplete="email" placeholder="taro@example.co.jp">
             <p class="hint">受付確認と当日のご案内をお送りします。</p>
             <p class="err" id="err-email">メールアドレスの形式をご確認ください。</p>
           </div>
           <div class="field">
             <label for="tel">電話番号<span class="opt">任意</span></label>
-            <input type="tel" id="tel" name="電話番号" autocomplete="tel" placeholder="当日の緊急連絡用">
+            <input type="tel" id="tel" autocomplete="tel" placeholder="当日の緊急連絡用">
           </div>
         </div>
 
@@ -463,7 +515,7 @@
           <span class="grouplabel">ご所属の区分<span class="req">必須</span></span>
           <div class="choices">
             <label class="choice"><input type="radio" name="区分" value="IIT会員企業"><span class="ctext">IIT会員企業</span></label>
-            <label class="choice"><input type="radio" name="区分" value="オブザーバー（会員企業以外）"><span class="ctext">オブザーバー（会員企業以外）<span class="cnote">オブザーバーのご参加も大歓迎です</span></span></label>
+            <label class="choice"><input type="radio" name="区分" value="オブザーバー"><span class="ctext">オブザーバー（会員企業以外）<span class="cnote">オブザーバーのご参加も大歓迎です</span></span></label>
           </div>
           <p class="err" id="err-kubun">いずれかをお選びください。</p>
         </div>
@@ -472,19 +524,19 @@
       <fieldset>
         <legend>AI活用事例の共有</legend>
 
-        <div class="group" style="margin-top:.4rem">
+        <div class="group">
           <span class="grouplabel">当日の事例共有について<span class="req">必須</span></span>
           <div class="choices">
-            <label class="choice"><input type="radio" name="事例共有" value="事例を共有できます"><span class="ctext">事例を共有できます<span class="cnote">下の欄に概要をご記入ください</span></span></label>
-            <label class="choice"><input type="radio" name="事例共有" value="共有できるか検討中"><span class="ctext">共有できるか検討中<span class="cnote">当日までにご相談させてください</span></span></label>
-            <label class="choice"><input type="radio" name="事例共有" value="今回は聞くだけ希望"><span class="ctext">今回は聞くだけ希望</span></label>
+            <label class="choice"><input type="radio" name="事例共有" value="共有できる"><span class="ctext">事例を共有できます<span class="cnote">下の欄に概要をご記入ください</span></span></label>
+            <label class="choice"><input type="radio" name="事例共有" value="検討中"><span class="ctext">共有できるか検討中<span class="cnote">当日までにご相談させてください</span></span></label>
+            <label class="choice"><input type="radio" name="事例共有" value="聞くだけ"><span class="ctext">今回は聞くだけ希望</span></label>
           </div>
           <p class="err" id="err-share">いずれかをお選びください。</p>
         </div>
 
         <div class="field conditional" id="case-wrap">
           <label for="case">共有する事例のタイトル・概要<span class="req">必須</span></label>
-          <textarea id="case" name="事例の内容" placeholder="例：議事録の要約と社内ナレッジ検索にClaudeを利用。定着した点と、社内展開で詰まった点を話します。"></textarea>
+          <textarea id="case" placeholder="例：議事録の要約と社内ナレッジ検索にClaudeを利用。定着した点と、社内展開で詰まった点を話します。"></textarea>
           <p class="hint">完成度は問いません。「うまくいかなかった話」も大歓迎です。</p>
           <p class="err" id="err-case">共有いただく事例の概要をご記入ください。</p>
         </div>
@@ -493,11 +545,11 @@
       <fieldset>
         <legend>懇親会・お連れ様</legend>
 
-        <div class="group" style="margin-top:.4rem">
+        <div class="group">
           <span class="grouplabel">懇親（ピザ＆ビール）<span class="req">必須</span></span>
           <div class="choices">
             <label class="choice"><input type="radio" name="懇親" value="参加する"><span class="ctext">参加する</span></label>
-            <label class="choice"><input type="radio" name="懇親" value="事例共有のみ参加"><span class="ctext">事例共有のみ参加（懇親は欠席）</span></label>
+            <label class="choice"><input type="radio" name="懇親" value="事例共有のみ"><span class="ctext">事例共有のみ参加（懇親は欠席）</span></label>
           </div>
           <p class="err" id="err-konshin">いずれかをお選びください。</p>
         </div>
@@ -505,7 +557,7 @@
         <div class="two">
           <div class="field">
             <label for="drink">お飲み物のご希望<span class="opt">任意</span></label>
-            <select id="drink" name="飲み物">
+            <select id="drink">
               <option value="どちらでも">どちらでも</option>
               <option value="ビール">ビール</option>
               <option value="ソフトドリンク">ソフトドリンク</option>
@@ -513,7 +565,7 @@
           </div>
           <div class="field">
             <label for="guests">お連れ様の人数<span class="opt">任意</span></label>
-            <select id="guests" name="同伴者人数">
+            <select id="guests">
               <option value="0">0名（ご本人のみ）</option>
               <option value="1">1名</option>
               <option value="2">2名</option>
@@ -525,23 +577,23 @@
 
         <div class="field conditional" id="guest-wrap">
           <label for="guestnames">お連れ様のお名前・会社名<span class="req">必須</span></label>
-          <textarea id="guestnames" name="同伴者" placeholder="例：鈴木 花子（株式会社〇〇）"></textarea>
+          <textarea id="guestnames" placeholder="例：鈴木 花子（株式会社〇〇）"></textarea>
           <p class="err" id="err-guests">お連れ様のお名前をご記入ください。</p>
         </div>
 
         <div class="field">
           <label for="allergy">食物アレルギー・苦手な食材<span class="opt">任意</span></label>
-          <input type="text" id="allergy" name="アレルギー" placeholder="例：乳製品NG／ベジタリアン対応希望">
+          <input type="text" id="allergy" placeholder="例：乳製品NG／ベジタリアン対応希望">
         </div>
 
         <div class="field">
           <label for="memo">ご質問・ご要望<span class="opt">任意</span></label>
-          <textarea id="memo" name="備考"></textarea>
+          <textarea id="memo"></textarea>
         </div>
 
         <div class="group">
           <div class="choices">
-            <label class="choice"><input type="checkbox" id="agree" name="参加費"><span class="ctext">参加費1,000円（お連れ様がいる場合は人数分）を当日会場でお支払いします<span class="cnote">軽食代として頂戴します</span></span></label>
+            <label class="choice"><input type="checkbox" id="agree"><span class="ctext">参加費1,000円（お連れ様がいる場合は人数分）を当日会場でお支払いします<span class="cnote">軽食代として頂戴します</span></span></label>
           </div>
           <p class="err" id="err-agree">ご確認のうえチェックをお願いします。</p>
         </div>
@@ -549,240 +601,608 @@
 
       <div class="actions">
         <p class="formerr" id="formerr">未入力の項目があります。赤字の項目をご確認ください。</p>
-        <button type="submit" class="btn">この内容で申し込む</button>
-        <p class="hint">送信ボタンを押すと、申込内容を記載したメールの作成画面が開きます。メールソフトが開かない場合は、次の画面から内容をコピーしてお送りください。</p>
+        <button type="submit" class="btn" id="submit-btn">この内容で申し込む</button>
+        <p class="hint">送信すると受付が完了し、主催者の管理画面に登録されます。</p>
       </div>
     </form>
   </section>
 
   <section id="done" hidden>
-    <h2><span class="num">03</span>申込内容</h2>
-    <p id="done-msg">メールソフトの作成画面を開きました。<strong>そのまま送信</strong>していただくと受付完了です。開かなかった場合は、下の内容をコピーして <a id="mail-link" href="#">主催者宛のメール</a> に貼り付けてお送りください。</p>
+    <h2><span class="num">03</span>お申し込みを受け付けました</h2>
+    <p>ご登録ありがとうございます。当日の詳細は主催者よりメールでご連絡します。</p>
+    <span class="receipt" id="receipt"></span>
     <div id="summary"></div>
     <div class="donerow">
-      <button type="button" class="btn" id="copy">申込内容をコピー</button>
-      <button type="button" class="btn ghost" id="reopen">メール作成画面をもう一度開く</button>
-      <button type="button" class="btn ghost" id="back">入力内容を修正する</button>
-      <span id="copied" hidden>コピーしました</span>
+      <button type="button" class="btn ghost" id="again">続けてもう一人申し込む</button>
     </div>
   </section>
 
   <footer>
-    <p>主催：東京都情報産業協会 技術部会　／　会場提供：株式会社チームテック<br>
-    お問い合わせ：<a id="contact-link" href="#">主催者までメールでご連絡ください</a></p>
+    <p>主催：東京都情報産業協会 技術部会　／　会場提供：株式会社チームテック</p>
     <p>※会議室の都合上、少人数開催（25名程度）です。定員に達した場合はお断りする可能性がございます。あらかじめご了承ください。</p>
+    <p><button type="button" class="linkbtn" id="to-admin">主催者ログイン</button></p>
+  </footer>
+</div>
+
+<!-- ==================== ログイン ==================== -->
+<div class="page login-wrap" id="view-login" hidden>
+  <div class="login-card">
+    <p class="eyebrow">IIT AI NIGHT <span class="ja">参加者管理</span></p>
+    <h2>主催者ログイン</h2>
+    <p class="hint">申込状況の確認・管理を行う画面です。</p>
+    <form id="loginform">
+      <div class="field">
+        <label for="pw">パスワード</label>
+        <input type="password" id="pw" autocomplete="current-password">
+        <p class="err" id="err-pw">パスワードが違います。</p>
+      </div>
+      <div class="actions" style="margin-top:1.4rem">
+        <button type="submit" class="btn">ログイン</button>
+      </div>
+    </form>
+    <button type="button" class="backlink" id="to-form">← 申込フォームに戻る</button>
+  </div>
+</div>
+
+<!-- ==================== 管理画面 ==================== -->
+<div class="page wide" id="view-admin" hidden>
+  <div class="adminbar">
+    <div>
+      <p class="eyebrow" style="margin-bottom:.5rem">IIT AI NIGHT <span class="ja">9月16日（水）17:00〜20:00</span></p>
+      <h1>参加者管理</h1>
+    </div>
+    <div class="donerow">
+      <span class="who">主催者としてログイン中</span>
+      <button type="button" class="btn ghost small" id="logout">ログアウト</button>
+    </div>
+  </div>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="banner" id="sample-banner" hidden>
+    <span class="grow">表示確認用のサンプルデータが入っています。実際の受付を始める前に削除してください。</span>
+    <button type="button" class="btn ghost small" id="del-samples">サンプルを削除</button>
+  </div>
+
+  <div class="toolbar">
+    <div class="grow"><input type="search" id="q" placeholder="会社名・お名前・事例内容で絞り込み"></div>
+    <select id="filter-status">
+      <option value="">すべてのステータス</option>
+      <option value="受付済">受付済</option>
+      <option value="確認済">確認済</option>
+      <option value="キャンセル">キャンセル</option>
+    </select>
+    <select id="filter-share">
+      <option value="">事例共有：すべて</option>
+      <option value="共有できる">共有できる</option>
+      <option value="検討中">検討中</option>
+      <option value="聞くだけ">聞くだけ</option>
+    </select>
+    <button type="button" class="btn ghost small" id="csv">CSVで書き出す</button>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr>
+          <th>申込日時</th>
+          <th>会社・お名前</th>
+          <th>区分</th>
+          <th>事例共有</th>
+          <th>懇親</th>
+          <th>人数</th>
+          <th>ステータス</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <p class="empty" id="empty" hidden>該当する申込はまだありません。</p>
+  </div>
+
+  <footer>
+    <p>データはこのブラウザ内にのみ保存されています（他の端末とは共有されません）。実運用に切り替える際は、スクリプト内の <code>Store</code> をサーバー保存に差し替えてください。</p>
+    <p><button type="button" class="linkbtn" id="to-form2">申込フォームを表示</button></p>
   </footer>
 </div>
 
 <script>
-  /* =====================================================================
-     受付設定 — ここだけ書き換えれば運用できます
-     ---------------------------------------------------------------------
-     ORGANIZER_EMAIL : 申込メールの宛先（主催者・幹事のアドレス）
-     SEATS_LEFT      : 画面上に表示する残席の目安
-     POST_ENDPOINT   : Googleフォーム / GAS / Formspree などのURLを設定すると、
-                       メールではなくそのURLへ自動送信します（空ならメール方式）
-     ===================================================================== */
-  var CONFIG = {
-    ORGANIZER_EMAIL: "iit-ai-night@example.com",
-    SEATS_LEFT: "約10",
-    POST_ENDPOINT: ""
+/* =======================================================================
+   受付設定
+   ----------------------------------------------------------------------- */
+var CONFIG = {
+  ADMIN_PASSWORD: "iit-ai-night",   // 管理画面のパスワード
+  CAPACITY: 25,                     // 定員（名）
+  PRE_BOOKED: 0,                    // このフォーム以外で既に受付済みの人数
+  FEE: 1000                         // お一人あたりの参加費（円）
+};
+
+/* =======================================================================
+   保存先 — 実運用に切り替えるときは、この Store の中身だけを
+   サーバー（Google Apps Script / Supabase など）への通信に差し替えます。
+   画面側は Store.list() / add() / update() / remove() しか呼びません。
+   ----------------------------------------------------------------------- */
+var Store = {
+  KEY: "iit-ai-night/entries/v1",
+  _read: function () {
+    try {
+      var raw = localStorage.getItem(this.KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) { return null; }
+  },
+  _write: function (arr) {
+    try { localStorage.setItem(this.KEY, JSON.stringify(arr)); return true; }
+    catch (e) { return false; }
+  },
+  list: function () {
+    var a = this._read();
+    if (a === null) { a = SAMPLES.slice(); this._write(a); }
+    return a;
+  },
+  add: function (rec) { var a = this.list(); a.push(rec); return this._write(a); },
+  update: function (id, patch) {
+    var a = this.list();
+    for (var i = 0; i < a.length; i++) {
+      if (a[i].id === id) { for (var k in patch) a[i][k] = patch[k]; break; }
+    }
+    return this._write(a);
+  },
+  remove: function (pred) {
+    var a = this.list().filter(function (r) { return !pred(r); });
+    return this._write(a);
+  }
+};
+
+/* 初回表示用のサンプル（管理画面から削除できます） */
+var SAMPLES = [
+  { id: "sample-1", sample: true, createdAt: "2026-08-26T10:12:00.000Z", status: "確認済",
+    name: "田中 健一", kana: "たなか けんいち", company: "サンプル情報システム株式会社", title: "開発部 部長",
+    email: "tanaka@example.co.jp", tel: "03-0000-0000", kubun: "IIT会員企業", share: "共有できる",
+    caseText: "問い合わせ対応のドラフト生成に生成AIを導入。返信時間が半分になった一方、社内用語の取り違えが課題。",
+    konshin: "参加する", drink: "ビール", guests: 1, guestNames: "佐藤 みなみ（サンプル情報システム株式会社）",
+    allergy: "", memo: "" },
+  { id: "sample-2", sample: true, createdAt: "2026-08-27T02:40:00.000Z", status: "受付済",
+    name: "大原 里佳", kana: "おおはら りか", company: "サンプルテクノ株式会社", title: "経営企画",
+    email: "ohara@example.co.jp", tel: "", kubun: "IIT会員企業", share: "検討中",
+    caseText: "", konshin: "参加する", drink: "ソフトドリンク", guests: 0, guestNames: "",
+    allergy: "乳製品が苦手です", memo: "少し遅れて到着予定です。" },
+  { id: "sample-3", sample: true, createdAt: "2026-08-28T07:05:00.000Z", status: "受付済",
+    name: "村瀬 悠", kana: "むらせ ゆう", company: "サンプルデザイン合同会社", title: "",
+    email: "murase@example.jp", tel: "", kubun: "オブザーバー", share: "聞くだけ",
+    caseText: "", konshin: "参加する", drink: "どちらでも", guests: 0, guestNames: "",
+    allergy: "", memo: "AI活用をこれから始める段階です。" }
+];
+
+/* =======================================================================
+   共通ユーティリティ
+   ----------------------------------------------------------------------- */
+var $ = function (id) { return document.getElementById(id); };
+function val(id) { return ($(id).value || "").trim(); }
+function radio(name) {
+  var r = document.querySelector('input[name="' + name + '"]:checked');
+  return r ? r.value : "";
+}
+function headcount(r) { return 1 + (Number(r.guests) || 0); }
+function active(list) { return list.filter(function (r) { return r.status !== "キャンセル"; }); }
+function totalPeople(list) {
+  return active(list).reduce(function (n, r) { return n + headcount(r); }, 0);
+}
+function remaining(list) {
+  return CONFIG.CAPACITY - CONFIG.PRE_BOOKED - totalPeople(list);
+}
+function fmtDate(iso) {
+  var d = new Date(iso);
+  if (isNaN(d)) return "";
+  var p = function (n) { return ("0" + n).slice(-2); };
+  return (d.getMonth() + 1) + "/" + d.getDate() + " " + p(d.getHours()) + ":" + p(d.getMinutes());
+}
+function yen(n) { return "¥" + n.toLocaleString("ja-JP"); }
+
+/* =======================================================================
+   画面切り替え
+   ----------------------------------------------------------------------- */
+var SESSION_KEY = "iit-ai-night/session";
+function loggedIn() {
+  try { return sessionStorage.getItem(SESSION_KEY) === "1"; } catch (e) { return false; }
+}
+function setLoggedIn(on) {
+  try { on ? sessionStorage.setItem(SESSION_KEY, "1") : sessionStorage.removeItem(SESSION_KEY); }
+  catch (e) { /* 保存できない環境ではこの表示中のみ有効 */ }
+}
+function show(view) {
+  $("view-form").hidden = view !== "form";
+  $("view-login").hidden = view !== "login";
+  $("view-admin").hidden = view !== "admin";
+  window.scrollTo(0, 0);
+}
+function route() {
+  if (location.hash === "#/admin") {
+    if (loggedIn()) { renderAdmin(); show("admin"); }
+    else { show("login"); setTimeout(function () { $("pw").focus(); }, 0); }
+  } else {
+    renderSeats();
+    show("form");
+  }
+}
+window.addEventListener("hashchange", route);
+$("to-admin").addEventListener("click", function () { location.hash = "#/admin"; });
+$("to-form").addEventListener("click", function () { location.hash = "#/"; });
+$("to-form2").addEventListener("click", function () { location.hash = "#/"; });
+
+/* =======================================================================
+   ログイン（この画面のみの簡易認証。サーバー保存に切り替える際は
+   サーバー側での検証に置き換えてください）
+   ----------------------------------------------------------------------- */
+$("loginform").addEventListener("submit", function (ev) {
+  ev.preventDefault();
+  if (val("pw") === CONFIG.ADMIN_PASSWORD) {
+    $("err-pw").classList.remove("on");
+    $("pw").value = "";
+    setLoggedIn(true);
+    renderAdmin();
+    show("admin");
+  } else {
+    $("err-pw").classList.add("on");
+    $("pw").setAttribute("aria-invalid", "true");
+  }
+});
+$("logout").addEventListener("click", function () {
+  setLoggedIn(false);
+  location.hash = "#/";
+});
+
+/* =======================================================================
+   申込フォーム
+   ----------------------------------------------------------------------- */
+var form = $("signup");
+var DRAFT_KEY = "iit-ai-night/draft";
+
+function toggleCase() {
+  var on = radio("事例共有") === "共有できる";
+  $("case-wrap").classList.toggle("on", on);
+  if (!on) setErr("case", false, $("case"));
+}
+function toggleGuests() {
+  var on = $("guests").value !== "0";
+  $("guest-wrap").classList.toggle("on", on);
+  if (!on) setErr("guests", false, $("guestnames"));
+}
+form.querySelectorAll('input[name="事例共有"]').forEach(function (el) {
+  el.addEventListener("change", toggleCase);
+});
+$("guests").addEventListener("change", toggleGuests);
+
+function saveDraft() {
+  try {
+    var d = {};
+    form.querySelectorAll("input, textarea, select").forEach(function (el) {
+      if (el.type === "radio") { if (el.checked) d[el.name] = el.value; }
+      else if (el.type === "checkbox") { d[el.id] = el.checked; }
+      else { d[el.id] = el.value; }
+    });
+    localStorage.setItem(DRAFT_KEY, JSON.stringify(d));
+  } catch (e) { /* プライベートモード等では保存しない */ }
+}
+function loadDraft() {
+  try {
+    var raw = localStorage.getItem(DRAFT_KEY);
+    if (!raw) return;
+    var d = JSON.parse(raw);
+    form.querySelectorAll("input, textarea, select").forEach(function (el) {
+      if (el.type === "radio") { if (d[el.name] === el.value) el.checked = true; }
+      else if (el.type === "checkbox") { if (d[el.id]) el.checked = true; }
+      else if (typeof d[el.id] === "string") { el.value = d[el.id]; }
+    });
+  } catch (e) { /* 読めなければ空のまま表示する */ }
+}
+function clearDraft() { try { localStorage.removeItem(DRAFT_KEY); } catch (e) {} }
+
+function setErr(key, on, field) {
+  var e = $("err-" + key);
+  if (e) e.classList.toggle("on", on);
+  if (field) field.setAttribute("aria-invalid", on ? "true" : "false");
+  return !on;
+}
+function validate() {
+  var ok = true;
+  ok = setErr("name", !val("name"), $("name")) && ok;
+  ok = setErr("kana", !val("kana"), $("kana")) && ok;
+  ok = setErr("company", !val("company"), $("company")) && ok;
+  ok = setErr("email", !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val("email")), $("email")) && ok;
+  ok = setErr("kubun", !radio("区分")) && ok;
+  ok = setErr("share", !radio("事例共有")) && ok;
+  if (radio("事例共有") === "共有できる") ok = setErr("case", !val("case"), $("case")) && ok;
+  ok = setErr("konshin", !radio("懇親")) && ok;
+  if ($("guests").value !== "0") ok = setErr("guests", !val("guestnames"), $("guestnames")) && ok;
+  ok = setErr("agree", !$("agree").checked) && ok;
+  return ok;
+}
+
+function renderSeats() {
+  var left = remaining(Store.list());
+  var chip = $("seats-chip");
+  var open = left > 0;
+  chip.classList.toggle("full", !open);
+  $("seats-text").innerHTML = open
+    ? '残席 <b>' + left + '</b> 名 ／ 定員に達し次第、受付を終了します'
+    : '満席になりました ／ キャンセル待ちは主催者までご連絡ください';
+  $("submit-btn").disabled = !open;
+  if (!open) $("submit-btn").textContent = "受付を終了しました";
+}
+
+function summaryText(r) {
+  var pairs = [
+    ["お名前", r.name], ["ふりがな", r.kana], ["会社名・団体名", r.company],
+    ["部署・役職", r.title], ["メールアドレス", r.email], ["電話番号", r.tel],
+    ["区分", r.kubun], ["事例共有", r.share], ["事例の内容", r.caseText],
+    ["懇親（ピザ＆ビール）", r.konshin], ["お飲み物", r.drink],
+    ["お連れ様", r.guests + "名"], ["お連れ様のお名前", r.guestNames],
+    ["アレルギー等", r.allergy], ["ご質問・ご要望", r.memo],
+    ["ご参加人数（合計）", headcount(r) + "名"],
+    ["参加費", yen(headcount(r) * CONFIG.FEE) + "（当日会場でお支払い）"]
+  ];
+  var lines = [];
+  pairs.forEach(function (p) { if (p[1]) lines.push(p[0] + "：" + p[1]); });
+  return lines.join("\n");
+}
+
+form.addEventListener("input", saveDraft);
+form.addEventListener("change", saveDraft);
+
+form.addEventListener("submit", function (ev) {
+  ev.preventDefault();
+  if (!validate()) {
+    $("formerr").textContent = "未入力の項目があります。赤字の項目をご確認ください。";
+    $("formerr").classList.add("on");
+    var first = form.querySelector('[aria-invalid="true"]');
+    if (first) first.scrollIntoView({ block: "center", behavior: "smooth" });
+    return;
+  }
+
+  var entries = Store.list();
+  var want = 1 + Number($("guests").value);
+  var left = remaining(entries);
+  if (want > left) {
+    $("formerr").textContent = left > 0
+      ? "残席は" + left + "名です。人数をご調整いただくか、主催者までご相談ください。"
+      : "定員に達したため、受付を終了しました。キャンセル待ちは主催者までご連絡ください。";
+    $("formerr").classList.add("on");
+    $("formerr").scrollIntoView({ block: "center", behavior: "smooth" });
+    renderSeats();
+    return;
+  }
+  $("formerr").classList.remove("on");
+
+  var rec = {
+    id: "e" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+    createdAt: new Date().toISOString(),
+    status: "受付済",
+    name: val("name"), kana: val("kana"), company: val("company"), title: val("title"),
+    email: val("email"), tel: val("tel"), kubun: radio("区分"),
+    share: radio("事例共有"), caseText: val("case"),
+    konshin: radio("懇親"), drink: $("drink").value,
+    guests: Number($("guests").value), guestNames: val("guestnames"),
+    allergy: val("allergy"), memo: val("memo")
   };
 
-  var form = document.getElementById("signup");
-  var doneEl = document.getElementById("done");
-  var summaryEl = document.getElementById("summary");
-  var formErr = document.getElementById("formerr");
-  var DRAFT_KEY = "iit-ai-night-draft";
-  var lastMailto = "";
-
-  document.getElementById("seats-left").textContent = CONFIG.SEATS_LEFT;
-  document.getElementById("contact-link").href = "mailto:" + CONFIG.ORGANIZER_EMAIL;
-  document.getElementById("contact-link").textContent = CONFIG.ORGANIZER_EMAIL;
-
-  /* --- 条件付き表示 --- */
-  function toggleCase() {
-    var v = form.querySelector('input[name="事例共有"]:checked');
-    var on = !!v && v.value === "事例を共有できます";
-    document.getElementById("case-wrap").classList.toggle("on", on);
-    if (!on) clearErr("case");
+  if (!Store.add(rec)) {
+    $("formerr").textContent = "この端末に保存できませんでした。ブラウザのプライベートモードを解除してお試しください。";
+    $("formerr").classList.add("on");
+    return;
   }
-  function toggleGuests() {
-    var on = document.getElementById("guests").value !== "0";
-    document.getElementById("guest-wrap").classList.toggle("on", on);
-    if (!on) clearErr("guests");
-  }
-  form.querySelectorAll('input[name="事例共有"]').forEach(function (el) {
-    el.addEventListener("change", toggleCase);
+
+  clearDraft();
+  $("receipt").textContent = "受付番号 " + rec.id.toUpperCase();
+  $("summary").textContent = summaryText(rec);
+  form.hidden = true;
+  $("done").hidden = false;
+  renderSeats();
+  $("done").scrollIntoView({ block: "start", behavior: "smooth" });
+});
+
+$("again").addEventListener("click", function () {
+  form.reset();
+  form.querySelectorAll('[aria-invalid="true"]').forEach(function (el) { el.removeAttribute("aria-invalid"); });
+  form.querySelectorAll(".err.on").forEach(function (el) { el.classList.remove("on"); });
+  toggleCase(); toggleGuests();
+  $("done").hidden = true;
+  form.hidden = false;
+  form.scrollIntoView({ block: "start", behavior: "smooth" });
+});
+
+/* =======================================================================
+   管理画面
+   ----------------------------------------------------------------------- */
+var openRows = {};
+
+function renderStats(list) {
+  var act = active(list);
+  var people = totalPeople(list);
+  var left = remaining(list);
+  var shares = act.filter(function (r) { return r.share === "共有できる"; }).length;
+  var party = act.filter(function (r) { return r.konshin === "参加する"; })
+                 .reduce(function (n, r) { return n + headcount(r); }, 0);
+  var tiles = [
+    { k: "申込", v: act.length, u: "件", c: "" },
+    { k: "参加者合計", v: people, u: "名", c: "" },
+    { k: "残席", v: left, u: "名", c: left <= 0 ? "over" : (left <= 5 ? "hot" : "") },
+    { k: "事例共有", v: shares, u: "名", c: "" },
+    { k: "懇親参加", v: party, u: "名", c: "" },
+    { k: "参加費合計", v: yen(people * CONFIG.FEE), u: "", c: "" }
+  ];
+  $("stats").innerHTML = tiles.map(function (t) {
+    return '<div class="stat ' + t.c + '"><span class="k">' + t.k + '</span>' +
+           '<span class="v">' + t.v + (t.u ? '<span class="u">' + t.u + '</span>' : '') + '</span></div>';
+  }).join("");
+}
+
+function esc(s) {
+  return String(s == null ? "" : s)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
+function filtered(list) {
+  var q = val("q").toLowerCase();
+  var st = $("filter-status").value;
+  var sh = $("filter-share").value;
+  return list.filter(function (r) {
+    if (st && r.status !== st) return false;
+    if (sh && r.share !== sh) return false;
+    if (!q) return true;
+    return [r.company, r.name, r.kana, r.email, r.caseText, r.memo, r.guestNames]
+      .join(" ").toLowerCase().indexOf(q) >= 0;
   });
-  document.getElementById("guests").addEventListener("change", toggleGuests);
+}
 
-  /* --- 入力内容の一時保存（この端末のブラウザ内のみ） --- */
-  function saveDraft() {
-    try {
-      var d = {};
-      form.querySelectorAll("input, textarea, select").forEach(function (el) {
-        if (el.type === "radio") { if (el.checked) d[el.name] = el.value; }
-        else if (el.type === "checkbox") { d[el.id] = el.checked; }
-        else { d[el.id] = el.value; }
-      });
-      localStorage.setItem(DRAFT_KEY, JSON.stringify(d));
-    } catch (e) { /* プライベートモード等では保存しない */ }
-  }
-  function loadDraft() {
-    try {
-      var raw = localStorage.getItem(DRAFT_KEY);
-      if (!raw) return;
-      var d = JSON.parse(raw);
-      form.querySelectorAll("input, textarea, select").forEach(function (el) {
-        if (el.type === "radio") { if (d[el.name] === el.value) el.checked = true; }
-        else if (el.type === "checkbox") { if (d[el.id]) el.checked = true; }
-        else if (typeof d[el.id] === "string") { el.value = d[el.id]; }
-      });
-    } catch (e) { /* 読めなければ空のまま表示する */ }
-  }
-  loadDraft();
-  toggleCase();
-  toggleGuests();
-  form.addEventListener("input", saveDraft);
-  form.addEventListener("change", saveDraft);
+function renderRows(list) {
+  var rows = filtered(list).slice().sort(function (a, b) {
+    return a.createdAt < b.createdAt ? 1 : -1;
+  });
+  $("empty").hidden = rows.length > 0;
+  $("rows").innerHTML = rows.map(function (r) {
+    var open = !!openRows[r.id];
+    var shareTag = r.share === "共有できる"
+      ? '<span class="tag share">共有できる</span>'
+      : '<span class="tag">' + esc(r.share) + '</span>';
+    var main =
+      '<tr class="' + (r.status === "キャンセル" ? "cancelled" : "") + '">' +
+        '<td class="when">' + esc(fmtDate(r.createdAt)) + '</td>' +
+        '<td class="who">' + esc(r.company) + '<br><b>' + esc(r.name) + '</b>' +
+          '<span class="kana">' + esc(r.kana) + '</span>' +
+          (r.sample ? '<span class="tag sample">サンプル</span>' : '') + '</td>' +
+        '<td>' + esc(r.kubun) + '</td>' +
+        '<td>' + shareTag + '</td>' +
+        '<td>' + (r.konshin === "参加する" ? "参加" : "欠席") + '</td>' +
+        '<td class="num">' + headcount(r) + '名</td>' +
+        '<td class="keep">' +
+          '<select class="statussel" data-s="' + esc(r.status) + '" data-id="' + esc(r.id) + '">' +
+            ["受付済", "確認済", "キャンセル"].map(function (s) {
+              return '<option value="' + s + '"' + (s === r.status ? " selected" : "") + '>' + s + '</option>';
+            }).join("") +
+          '</select></td>' +
+        '<td class="keep"><button type="button" class="linkbtn" data-detail="' + esc(r.id) + '">' +
+          (open ? "閉じる" : "詳細") + '</button></td>' +
+      '</tr>';
+    if (!open) return main;
+    var d = [
+      ["メール", r.email], ["電話", r.tel], ["部署・役職", r.title],
+      ["事例の内容", r.caseText], ["お飲み物", r.drink],
+      ["お連れ様", r.guests ? r.guests + "名：" + r.guestNames : "なし"],
+      ["アレルギー等", r.allergy], ["ご質問・ご要望", r.memo],
+      ["参加費", yen(headcount(r) * CONFIG.FEE)]
+    ].filter(function (p) { return p[1]; });
+    return main +
+      '<tr class="detail"><td colspan="8">' +
+        '<dl class="dl">' + d.map(function (p) {
+          return '<dt>' + p[0] + '</dt><dd>' + esc(p[1]) + '</dd>';
+        }).join("") + '</dl>' +
+        '<div class="donerow" style="margin-top:1rem">' +
+          '<button type="button" class="btn danger small" data-del="' + esc(r.id) + '">この申込を削除</button>' +
+        '</div>' +
+      '</td></tr>';
+  }).join("");
+}
 
-  /* --- 検証 --- */
-  function setErr(key, on, field) {
-    var e = document.getElementById("err-" + key);
-    if (e) e.classList.toggle("on", on);
-    if (field) field.setAttribute("aria-invalid", on ? "true" : "false");
-    return !on;
-  }
-  function clearErr(key) { setErr(key, false, document.getElementById(key)); }
-  function val(id) { return (document.getElementById(id).value || "").trim(); }
-  function radio(name) {
-    var r = form.querySelector('input[name="' + name + '"]:checked');
-    return r ? r.value : "";
-  }
+function renderAdmin() {
+  var list = Store.list();
+  renderStats(list);
+  renderRows(list);
+  $("sample-banner").hidden = !list.some(function (r) { return r.sample; });
+}
 
-  function validate() {
-    var ok = true;
-    ok = setErr("name", !val("name"), document.getElementById("name")) && ok;
-    ok = setErr("kana", !val("kana"), document.getElementById("kana")) && ok;
-    ok = setErr("company", !val("company"), document.getElementById("company")) && ok;
-    ok = setErr("email", !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val("email")), document.getElementById("email")) && ok;
-    ok = setErr("kubun", !radio("区分")) && ok;
-    ok = setErr("share", !radio("事例共有")) && ok;
-    if (radio("事例共有") === "事例を共有できます") {
-      ok = setErr("case", !val("case"), document.getElementById("case")) && ok;
+$("rows").addEventListener("change", function (ev) {
+  var sel = ev.target.closest(".statussel");
+  if (!sel) return;
+  Store.update(sel.dataset.id, { status: sel.value });
+  renderAdmin();
+});
+$("rows").addEventListener("click", function (ev) {
+  var det = ev.target.closest("[data-detail]");
+  if (det) {
+    var id = det.dataset.detail;
+    openRows[id] = !openRows[id];
+    renderRows(Store.list());
+    return;
+  }
+  var del = ev.target.closest("[data-del]");
+  if (del) {
+    if (!confirm("この申込を削除します。よろしいですか？")) return;
+    var target = del.dataset.del;
+    Store.remove(function (r) { return r.id === target; });
+    renderAdmin();
+  }
+});
+$("q").addEventListener("input", function () { renderRows(Store.list()); });
+$("filter-status").addEventListener("change", function () { renderRows(Store.list()); });
+$("filter-share").addEventListener("change", function () { renderRows(Store.list()); });
+$("del-samples").addEventListener("click", function () {
+  if (!confirm("サンプルデータをすべて削除します。よろしいですか？")) return;
+  Store.remove(function (r) { return r.sample; });
+  renderAdmin();
+});
+
+/* --- CSV 書き出し（Excelで開けるようUTF-8 BOM付き） --- */
+var CSV_COLS = [
+  ["申込日時", function (r) { return r.createdAt; }],
+  ["ステータス", function (r) { return r.status; }],
+  ["会社名", function (r) { return r.company; }],
+  ["お名前", function (r) { return r.name; }],
+  ["ふりがな", function (r) { return r.kana; }],
+  ["部署・役職", function (r) { return r.title; }],
+  ["メール", function (r) { return r.email; }],
+  ["電話", function (r) { return r.tel; }],
+  ["区分", function (r) { return r.kubun; }],
+  ["事例共有", function (r) { return r.share; }],
+  ["事例の内容", function (r) { return r.caseText; }],
+  ["懇親", function (r) { return r.konshin; }],
+  ["飲み物", function (r) { return r.drink; }],
+  ["お連れ様人数", function (r) { return r.guests; }],
+  ["お連れ様", function (r) { return r.guestNames; }],
+  ["アレルギー等", function (r) { return r.allergy; }],
+  ["備考", function (r) { return r.memo; }],
+  ["合計人数", function (r) { return headcount(r); }],
+  ["参加費", function (r) { return headcount(r) * CONFIG.FEE; }]
+];
+function buildCsv(list) {
+  var q = function (v) { return '"' + String(v == null ? "" : v).replace(/"/g, '""') + '"'; };
+  var lines = [CSV_COLS.map(function (c) { return q(c[0]); }).join(",")];
+  list.forEach(function (r) {
+    lines.push(CSV_COLS.map(function (c) { return q(c[1](r)); }).join(","));
+  });
+  return "﻿" + lines.join("\r\n");
+}
+$("csv").addEventListener("click", function () {
+  var csv = buildCsv(filtered(Store.list()));
+  var filename = "iit-ai-night-entries.csv";
+  var btn = $("csv");
+  var reset = function (msg) {
+    btn.textContent = msg;
+    setTimeout(function () { btn.textContent = "CSVで書き出す"; }, 2500);
+  };
+  var use = (window.claude && typeof window.claude.use === "function")
+    ? window.claude.use("downloads") : Promise.resolve(null);
+  use.then(function (downloads) {
+    if (downloads) {
+      return downloads.save({ filename: filename, data: csv })
+        .then(function () { reset("書き出しました"); })
+        .catch(function (e) { if (e && e.code !== "declined") reset("書き出せませんでした"); });
     }
-    ok = setErr("konshin", !radio("懇親")) && ok;
-    if (document.getElementById("guests").value !== "0") {
-      ok = setErr("guests", !val("guestnames"), document.getElementById("guestnames")) && ok;
-    }
-    ok = setErr("agree", !document.getElementById("agree").checked) && ok;
-    return ok;
-  }
+    var blob = new Blob([csv], { type: "text/csv" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+  }).catch(function () { reset("書き出せませんでした"); });
+});
 
-  /* --- 申込内容の組み立て --- */
-  function buildRecord() {
-    var guests = document.getElementById("guests").value;
-    var total = 1 + parseInt(guests, 10);
-    return [
-      ["お名前", val("name")],
-      ["ふりがな", val("kana")],
-      ["会社名・団体名", val("company")],
-      ["部署・役職", val("title")],
-      ["メールアドレス", val("email")],
-      ["電話番号", val("tel")],
-      ["区分", radio("区分")],
-      ["事例共有", radio("事例共有")],
-      ["事例の内容", val("case")],
-      ["懇親（ピザ＆ビール）", radio("懇親")],
-      ["お飲み物", document.getElementById("drink").value],
-      ["お連れ様", guests + "名"],
-      ["お連れ様のお名前", val("guestnames")],
-      ["アレルギー等", val("allergy")],
-      ["ご質問・ご要望", val("memo")],
-      ["ご参加人数（合計）", total + "名"],
-      ["参加費", (total * 1000).toLocaleString("ja-JP") + "円（当日会場でお支払い）"]
-    ];
-  }
-  function toText(rec) {
-    var lines = [
-      "IIT AIナイト（事例共有＋ピザ）参加申込",
-      "9月16日（水）17:00〜20:00 ／ 株式会社チームテック 会議室",
-      "----------------------------------------"
-    ];
-    rec.forEach(function (r) {
-      if (r[1]) lines.push(r[0] + "：" + r[1]);
-    });
-    lines.push("----------------------------------------");
-    return lines.join("\n");
-  }
-
-  /* --- 送信 --- */
-  form.addEventListener("submit", function (ev) {
-    ev.preventDefault();
-    if (!validate()) {
-      formErr.classList.add("on");
-      var first = form.querySelector('[aria-invalid="true"], .err.on');
-      if (first) first.scrollIntoView({ block: "center", behavior: "smooth" });
-      return;
-    }
-    formErr.classList.remove("on");
-
-    var rec = buildRecord();
-    var text = toText(rec);
-    summaryEl.textContent = text;
-
-    if (CONFIG.POST_ENDPOINT) {
-      var payload = {};
-      rec.forEach(function (r) { payload[r[0]] = r[1]; });
-      fetch(CONFIG.POST_ENDPOINT, {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      }).catch(function () { /* 送信できない場合はメール方式の案内を残す */ });
-      document.getElementById("done-msg").innerHTML =
-        "お申し込みを受け付けました。主催者から折り返しご連絡します。念のため、下記が送信内容です。";
-    }
-
-    var subject = "【IIT AIナイト】参加申込：" + val("company") + " " + val("name");
-    lastMailto = "mailto:" + CONFIG.ORGANIZER_EMAIL +
-      "?subject=" + encodeURIComponent(subject) +
-      "&body=" + encodeURIComponent(text);
-    document.getElementById("mail-link").href = lastMailto;
-
-    if (!CONFIG.POST_ENDPOINT) window.location.href = lastMailto;
-
-    form.hidden = true;
-    doneEl.hidden = false;
-    doneEl.scrollIntoView({ block: "start", behavior: "smooth" });
-  });
-
-  document.getElementById("copy").addEventListener("click", function () {
-    var done = function () {
-      var c = document.getElementById("copied");
-      c.hidden = false;
-      setTimeout(function () { c.hidden = true; }, 2500);
-    };
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(summaryEl.textContent).then(done, selectText);
-    } else { selectText(); }
-  });
-  function selectText() {
-    var r = document.createRange();
-    r.selectNodeContents(summaryEl);
-    var s = window.getSelection();
-    s.removeAllRanges();
-    s.addRange(r);
-  }
-  document.getElementById("reopen").addEventListener("click", function () {
-    if (lastMailto) window.location.href = lastMailto;
-  });
-  document.getElementById("back").addEventListener("click", function () {
-    doneEl.hidden = true;
-    form.hidden = false;
-    form.scrollIntoView({ block: "start", behavior: "smooth" });
-  });
+/* =======================================================================
+   起動
+   ----------------------------------------------------------------------- */
+loadDraft();
+toggleCase();
+toggleGuests();
+route();
 </script>
 </body>
 </html>
